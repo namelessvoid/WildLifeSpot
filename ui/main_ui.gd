@@ -35,5 +35,5 @@ func _on_file_menu_id_pressed(p_id: int):
 		1: _spot_bulk_file_dialog.popup_centered_ratio(0.9)
 
 func _on_spot_bulk_directory_selected(dir: String) -> void:
-	_bulk_spot_window.directory = dir
 	_bulk_spot_window.popup_centered_ratio(0.9)
+	_bulk_spot_window.directory = dir

@@ -53,12 +53,20 @@ func _on_directory_changed() -> void:
 		_camera_options_button.add_item(camera.name, camera._id)
 
 	var file_names := Array(DirAccess.get_files_at(directory))\
-		.filter(func(file_name: String) -> bool:
-			var extension = file_name.to_lower().get_extension()
-			return extension == 'jpg' ||  extension == '.png'
+	.filter(func(file_name: String) -> bool:
+		var extension = file_name.to_lower().get_extension()
+		return extension == 'jpg' ||  extension == '.png'
 	).map(func(file_name: String) -> String:
 		return directory + "/" + file_name
+	).filter(func(file_path: String) -> bool:
+		var hash = file_hasher.get_file_hash(file_path)
+		return !spot_repository.file_hash_exists(hash)
 	)
+
+	if file_names.is_empty():
+		hide()
+		return
+
 	_paths = PackedStringArray(file_names)
 	_next_image = -1
 	_show_next_image()
@@ -83,7 +91,7 @@ func _save_and_show_next_image() -> void:
 
 func _show_next_image():
 	_next_image += 1
-	if _next_image == _paths.size():
+	if _next_image >= _paths.size():
 		hide()
 		return
 

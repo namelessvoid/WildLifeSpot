@@ -9,7 +9,7 @@ func save(p_spot: FSSpot) -> void:
 
 func file_hash_exists(p_hash: String) -> bool:
 	return _find_all().any(func(s: FSSpot) -> bool:
-		return s.hash == p_hash
+		return s.file_hash == p_hash
 	)
 
 func _save_all(p_spots: Array[FSSpot]) -> void:
