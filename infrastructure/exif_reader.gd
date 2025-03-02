@@ -23,10 +23,10 @@ func _get_exif_linux(p_file_path: String) -> ExifInfo:
 			exif_info.camera_make = line.split(" : ")[1].strip_edges()
 		elif lower_line.begins_with("image timestamp"):
 			var date_time: PackedStringArray = line.split(" : ")[1].strip_edges().split(" ")
-			var date = date_time[0].replace(":", "-")
-			var time = date_time[1]
-			exif_info.date_time = "%sT%s" % [date, time]
-	print(exif_info.camera_make)
+			if date_time.size() == 2:
+				var date = date_time[0].replace(":", "-")
+				var time = date_time[1]
+				exif_info.date_time = "%sT%s" % [date, time]
 	return exif_info
 
 func _log_unavailable():
