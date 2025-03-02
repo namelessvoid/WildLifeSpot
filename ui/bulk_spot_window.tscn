@@ -1,0 +1,118 @@
+[gd_scene load_steps=3 format=3 uid="uid://dwlxt0iprcf8c"]
+
+[ext_resource type="Script" path="res://ui/bulk_spot_window.gd" id="1_qcqfl"]
+[ext_resource type="Texture2D" uid="uid://bah2g2geyw2ks" path="res://icon.svg" id="2_8jjfe"]
+
+[node name="BulkSpotWindow" type="Window"]
+title = "Bulk spot insert"
+initial_position = 1
+size = Vector2i(1000, 500)
+script = ExtResource("1_qcqfl")
+
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offset = 1200
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HSplitContainer"]
+layout_mode = 2
+
+[node name="ImageRect" type="TextureRect" parent="HSplitContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_8jjfe")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="ProgressBar" type="ProgressBar" parent="HSplitContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer"]
+layout_mode = 2
+text = "General"
+horizontal_alignment = 1
+
+[node name="GeneralInfoContainer" type="GridContainer" parent="HSplitContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="HSplitContainer/VBoxContainer/GeneralInfoContainer"]
+layout_mode = 2
+text = "Date:"
+
+[node name="DateTimeEdit" type="LineEdit" parent="HSplitContainer/VBoxContainer/GeneralInfoContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "01-24-2025 14:00:50"
+
+[node name="Label2" type="Label" parent="HSplitContainer/VBoxContainer/GeneralInfoContainer"]
+layout_mode = 2
+text = "Temperature:"
+
+[node name="TemperatureEdit" type="LineEdit" parent="HSplitContainer/VBoxContainer/GeneralInfoContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "24"
+
+[node name="Label3" type="Label" parent="HSplitContainer/VBoxContainer/GeneralInfoContainer"]
+layout_mode = 2
+text = "Camera:"
+
+[node name="CameraOptionsButton" type="OptionButton" parent="HSplitContainer/VBoxContainer/GeneralInfoContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="HSplitContainer/VBoxContainer"]
+layout_mode = 2
+text = "Animals:"
+horizontal_alignment = 1
+
+[node name="AnimalContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="AnimalBox" type="HBoxContainer" parent="HSplitContainer/VBoxContainer/AnimalContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="HSplitContainer/VBoxContainer/AnimalContainer/AnimalBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Animal"
+
+[node name="LineEdit2" type="LineEdit" parent="HSplitContainer/VBoxContainer/AnimalContainer/AnimalBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "3"
+
+[node name="Button" type="Button" parent="HSplitContainer/VBoxContainer/AnimalContainer/AnimalBox"]
+layout_mode = 2
+text = "x"
+
+[node name="AddNewAnimalButton" type="Button" parent="HSplitContainer/VBoxContainer/AnimalContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add new animal"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HSplitContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="SkipButton" type="Button" parent="HSplitContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Skip"
+
+[node name="SaveAndNextButton" type="Button" parent="HSplitContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Save & Next"
