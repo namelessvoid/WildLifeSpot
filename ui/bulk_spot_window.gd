@@ -106,7 +106,7 @@ func _show_next_image():
 		_date_time_edit.text = ""
 	
 	_temperature_edit.value = 0
-	#_camera_options_button.select(0)
+	_camera_options_button.select(0)
 
 	for animal_box in _animal_box_container.get_children():
 		_animal_box_container.remove_child(animal_box)
