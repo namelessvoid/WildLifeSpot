@@ -31,8 +31,8 @@ func _ready():
 
 func _on_file_menu_id_pressed(p_id: int):
 	match p_id:
-		0: get_tree().quit()
 		1: _spot_bulk_file_dialog.popup_centered_ratio(0.9)
+		2: get_tree().quit()
 
 func _on_spot_bulk_directory_selected(dir: String) -> void:
 	_bulk_spot_window.popup_centered_ratio(0.9)
