@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwlxt0iprcf8c"]
+[gd_scene load_steps=4 format=3 uid="uid://dwlxt0iprcf8c"]
 
 [ext_resource type="Script" path="res://ui/bulk_spot_window.gd" id="1_qcqfl"]
 [ext_resource type="Texture2D" uid="uid://bah2g2geyw2ks" path="res://icon.svg" id="2_8jjfe"]
 [ext_resource type="PackedScene" uid="uid://1igx7b8aya" path="res://ui/animal_box.tscn" id="3_1mdiq"]
-[ext_resource type="Script" path="res://ui/animal_box.gd" id="4_clkre"]
 
 [node name="BulkSpotWindow" type="Window"]
 title = "Bulk spot insert"
@@ -60,10 +59,11 @@ placeholder_text = "01-24-2025 14:00:50"
 layout_mode = 2
 text = "Temperature:"
 
-[node name="TemperatureEdit" type="LineEdit" parent="HSplitContainer/VBoxContainer/GeneralInfoContainer"]
+[node name="TemperatureEdit" type="SpinBox" parent="HSplitContainer/VBoxContainer/GeneralInfoContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-placeholder_text = "24"
+min_value = -100.0
+suffix = "°C"
 
 [node name="Label3" type="Label" parent="HSplitContainer/VBoxContainer/GeneralInfoContainer"]
 layout_mode = 2
@@ -88,7 +88,6 @@ layout_mode = 2
 
 [node name="AnimalBox" parent="HSplitContainer/VBoxContainer/AnimalControlContainer/AnimalBoxContainer" instance=ExtResource("3_1mdiq")]
 layout_mode = 2
-script = ExtResource("4_clkre")
 
 [node name="AddNewAnimalButton" type="Button" parent="HSplitContainer/VBoxContainer/AnimalControlContainer"]
 unique_name_in_owner = true

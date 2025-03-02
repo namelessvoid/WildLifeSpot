@@ -2,6 +2,8 @@ extends Window
 
 const AnimalBoxScene := preload("res://ui/animal_box.tscn")
 
+var camera_repository: FSCameraRepository
+var spot_repository: FSSpotRepository
 var exif_reader: ExifReader
 
 var directory: String:
@@ -13,7 +15,7 @@ var directory: String:
 @onready var _image_rect: TextureRect = %ImageRect
 @onready var _progress_bar: ProgressBar = %ProgressBar
 @onready var _date_time_edit: LineEdit = %DateTimeEdit
-@onready var _temperature_edit: LineEdit = %TemperatureEdit
+@onready var _temperature_edit: SpinBox = %TemperatureEdit
 @onready var _camera_options_button: OptionButton = %CameraOptionsButton
 @onready var _animal_box_container: VBoxContainer = %AnimalBoxContainer
 @onready var _add_new_animal_button: Button = %AddNewAnimalButton
@@ -41,6 +43,12 @@ func _ready() -> void:
 
 func _on_directory_changed() -> void:
 	assert(exif_reader)
+	assert(spot_repository)
+	assert(camera_repository)
+
+	_camera_options_button.clear()
+	for camera in camera_repository.find_all():
+		_camera_options_button.add_item(camera.name, camera._id)
 
 	var file_names := Array(DirAccess.get_files_at(directory))\
 		.filter(func(file_name: String) -> bool:
@@ -50,14 +58,26 @@ func _on_directory_changed() -> void:
 		return directory + "/" + file_name
 	)
 	_paths = PackedStringArray(file_names)
-	_next_image = 0
+	_next_image = -1
 	_show_next_image()
 
 func _save_and_show_next_image() -> void:
-	# save
+	var spot := FSSpot.new()
+	spot.type = "image"
+	spot.file_path = _paths[_next_image]
+	spot.date = _date_time_edit.text
+	spot.temperature = _temperature_edit.value
+	spot.animals = {}
+	for node in _animal_box_container.get_children():
+		var animal_box := node as AnimalBox
+		spot.animals[animal_box.get_animal_name()] = animal_box.get_animal_count()
+
+	spot_repository.save(spot)
+
 	_show_next_image()
 
 func _show_next_image():
+	_next_image += 1
 	if _next_image == _paths.size():
 		hide()
 		return
@@ -72,15 +92,13 @@ func _show_next_image():
 	else:
 		_date_time_edit.text = ""
 	
-	_temperature_edit.text = ""
+	_temperature_edit.value = 0
 	#_camera_options_button.select(0)
 
 	for animal_box in _animal_box_container.get_children():
 		_animal_box_container.remove_child(animal_box)
 		animal_box.queue_free()
 	_add_animal_box()
-
-	_next_image += 1
 
 func _add_animal_box() -> void:
 	_animal_box_container.add_child(AnimalBoxScene.instantiate())

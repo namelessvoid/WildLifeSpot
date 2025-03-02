@@ -1,19 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfrjddjae20jo"]
+[gd_scene load_steps=5 format=3 uid="uid://bfrjddjae20jo"]
 
 [ext_resource type="PackedScene" uid="uid://ds4u6yauu4ssm" path="res://ui/main_ui.tscn" id="1_x4b18"]
 [ext_resource type="Script" path="res://infrastructure/filesystem_fs_camera_repository.gd" id="2_lrqg0"]
 [ext_resource type="Script" path="res://infrastructure/exif_reader.gd" id="3_frasl"]
+[ext_resource type="Script" path="res://infrastructure/filesystem_fs_spot_repository.gd" id="3_locc3"]
 
 [node name="MainScene" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="MainUi" parent="CanvasLayer" node_paths=PackedStringArray("camera_repository", "exif_reader") instance=ExtResource("1_x4b18")]
+[node name="MainUi" parent="CanvasLayer" node_paths=PackedStringArray("camera_repository", "spot_repository", "exif_reader") instance=ExtResource("1_x4b18")]
 camera_repository = NodePath("../../FSCameraRepository")
+spot_repository = NodePath("../../FSSpotRepository")
 exif_reader = NodePath("../../ExifReader")
 
 [node name="FSCameraRepository" type="Node" parent="."]
 script = ExtResource("2_lrqg0")
+
+[node name="FSSpotRepository" type="Node" parent="."]
+script = ExtResource("3_locc3")
 
 [node name="ExifReader" type="Node" parent="."]
 script = ExtResource("3_frasl")
