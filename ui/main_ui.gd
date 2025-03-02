@@ -1,6 +1,7 @@
 extends Control
 
 @export var camera_repository: FSCameraRepository
+@export var exif_reader: ExifReader
 
 @onready var _file_menu := %File as PopupMenu
 @onready var _cameras_tab := %Cameras
@@ -8,6 +9,9 @@ extends Control
 @onready var _bulk_spot_window := %BulkSpotWindow
 
 func _ready():
+	assert(camera_repository)
+	assert(exif_reader)
+
 	assert(_file_menu)
 	assert(_cameras_tab)
 	assert(_spot_bulk_file_dialog)
@@ -16,6 +20,7 @@ func _ready():
 	_spot_bulk_file_dialog.dir_selected.connect(_on_spot_bulk_directory_selected)
 
 	_cameras_tab.camera_repository = camera_repository
+	_bulk_spot_window.exif_reader = exif_reader
 
 func _on_file_menu_id_pressed(p_id: int):
 	match p_id:

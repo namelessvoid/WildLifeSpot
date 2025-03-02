@@ -1,5 +1,7 @@
 extends Window
 
+var exif_reader: ExifReader
+
 var directory: String:
 	get: return directory
 	set(value):
@@ -24,10 +26,12 @@ func _ready() -> void:
 	_save_and_next_button.pressed.connect(_save_and_show_next_image)
 
 func _on_directory_changed() -> void:
+	assert(exif_reader)
+
 	var file_names := Array(DirAccess.get_files_at(directory))\
 		.filter(func(file_name: String) -> bool:
-			var lowercase_name = file_name.to_lower()
-			return lowercase_name.ends_with('.jpg') || lowercase_name.ends_with('.png')
+			var extension = file_name.to_lower().get_extension()
+			return extension == 'jpg' ||  extension == '.png'
 	).map(func(file_name: String) -> String:
 		return directory + "/" + file_name
 	)
@@ -47,5 +51,7 @@ func _show_next_image():
 	var file_path := _paths[_next_image]
 	var image := Image.load_from_file(file_path)
 	_image_rect.texture = ImageTexture.create_from_image(image)
-	
+
+	print(exif_reader.get_exif_info(file_path))
+
 	_next_image += 1
