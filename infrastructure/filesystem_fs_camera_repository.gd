@@ -2,7 +2,7 @@ extends FSCameraRepository
 
 var _file_path := &"user://Cameras.json"
 
-func findAll() -> Array[FSCamera]:
+func find_all() -> Array[FSCamera]:
 	var json = FileAccess.get_file_as_string(_file_path)
 	if FileAccess.get_open_error() != OK:
 		print(FileAccess.get_open_error())
@@ -20,7 +20,7 @@ func findAll() -> Array[FSCamera]:
 	return cameras
 
 func save(p_camera: FSCamera) -> void:
-	var cameras = findAll()
+	var cameras = find_all()
 	if p_camera._id == -1:
 		var highest_id := 0
 		for c in cameras:
@@ -36,18 +36,14 @@ func save(p_camera: FSCamera) -> void:
 	_save_all(cameras)
 
 func delete(p_camera: FSCamera) -> void:
-	var cameras = findAll()
+	var cameras = find_all()
 	cameras = cameras.filter(func(c) -> bool:
 		return c._id != p_camera._id
 	)
 	_save_all(cameras)
 
 func _save_all(p_cameras: Array[FSCamera]):
-	var serialized = []
-	for camera in p_cameras:
-		serialized.push_back(
-			_serialize(camera)
-		)
+	var serialized = p_cameras.map(_serialize)
 	var json = JSON.stringify(serialized)
 
 	var file = FileAccess.open(_file_path, FileAccess.WRITE)

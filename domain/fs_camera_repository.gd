@@ -1,7 +1,7 @@
 class_name FSCameraRepository
 extends Node
 
-func findAll() -> Array[FSCamera]:
+func find_all() -> Array[FSCamera]:
 	assert(false, "Not implemented")
 	return []
 

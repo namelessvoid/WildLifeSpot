@@ -33,7 +33,7 @@ func _ready() -> void:
 	_initialize.call_deferred()
 	
 func _initialize() -> void:
-	_cameras = camera_repository.findAll()
+	_cameras = camera_repository.find_all()
 	_update_camera_list()
 
 func _show_camera_details(p_camera: FSCamera) -> void:
