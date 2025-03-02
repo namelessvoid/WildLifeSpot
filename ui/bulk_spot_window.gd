@@ -69,6 +69,16 @@ func _on_directory_changed() -> void:
 
 	_paths = PackedStringArray(file_names)
 	_next_image = -1
+
+	# Reset UI
+	_date_time_edit.text = ""
+	_temperature_edit.value = 0
+	_camera_options_button.select(0)
+	for animal_box in _animal_box_container.get_children():
+		_animal_box_container.remove_child(animal_box)
+		animal_box.queue_free()
+	_add_animal_box()
+
 	_show_next_image()
 
 func _save_and_show_next_image() -> void:
@@ -102,16 +112,6 @@ func _show_next_image():
 	var exif_info = exif_reader.get_exif_info(file_path)
 	if exif_info != null:
 		_date_time_edit.text = exif_info.date_time
-	else:
-		_date_time_edit.text = ""
-	
-	_temperature_edit.value = 0
-	_camera_options_button.select(0)
-
-	for animal_box in _animal_box_container.get_children():
-		_animal_box_container.remove_child(animal_box)
-		animal_box.queue_free()
-	_add_animal_box()
 
 func _add_animal_box() -> void:
 	_animal_box_container.add_child(AnimalBoxScene.instantiate())
