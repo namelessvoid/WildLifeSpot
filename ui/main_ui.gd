@@ -3,6 +3,7 @@ extends Control
 @export var camera_repository: FSCameraRepository
 @export var spot_repository: FSSpotRepository
 @export var exif_reader: ExifReader
+@export var file_hasher: FileHasher
 
 @onready var _file_menu := %File as PopupMenu
 @onready var _cameras_tab := %Cameras
@@ -11,7 +12,9 @@ extends Control
 
 func _ready():
 	assert(camera_repository)
+	assert(spot_repository)
 	assert(exif_reader)
+	assert(file_hasher)
 
 	assert(_file_menu)
 	assert(_cameras_tab)
@@ -24,6 +27,7 @@ func _ready():
 	_bulk_spot_window.camera_repository = camera_repository
 	_bulk_spot_window.spot_repository = spot_repository
 	_bulk_spot_window.exif_reader = exif_reader
+	_bulk_spot_window.file_hasher = file_hasher
 
 func _on_file_menu_id_pressed(p_id: int):
 	match p_id:

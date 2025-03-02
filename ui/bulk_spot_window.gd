@@ -5,6 +5,7 @@ const AnimalBoxScene := preload("res://ui/animal_box.tscn")
 var camera_repository: FSCameraRepository
 var spot_repository: FSSpotRepository
 var exif_reader: ExifReader
+var file_hasher: FileHasher
 
 var directory: String:
 	get: return directory
@@ -45,6 +46,7 @@ func _on_directory_changed() -> void:
 	assert(exif_reader)
 	assert(spot_repository)
 	assert(camera_repository)
+	assert(file_hasher)
 
 	_camera_options_button.clear()
 	for camera in camera_repository.find_all():
@@ -62,9 +64,12 @@ func _on_directory_changed() -> void:
 	_show_next_image()
 
 func _save_and_show_next_image() -> void:
+	var file_path := _paths[_next_image]
+
 	var spot := FSSpot.new()
 	spot.type = "image"
-	spot.file_path = _paths[_next_image]
+	spot.file_path = file_path
+	spot.file_hash = file_hasher.get_file_hash(file_path)
 	spot.date = _date_time_edit.text
 	spot.temperature = _temperature_edit.value
 	spot.animals = {}
