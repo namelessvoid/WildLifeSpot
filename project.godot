@@ -12,6 +12,7 @@ config_version=5
 
 config/name="FaunaSpot"
 run/main_scene="res://ui/main_scene.tscn"
+config/use_custom_user_dir=true
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
