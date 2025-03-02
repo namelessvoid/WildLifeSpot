@@ -1,5 +1,7 @@
 extends Window
 
+const AnimalBoxScene := preload("res://ui/animal_box.tscn")
+
 var exif_reader: ExifReader
 
 var directory: String:
@@ -13,7 +15,7 @@ var directory: String:
 @onready var _date_time_edit: LineEdit = %DateTimeEdit
 @onready var _temperature_edit: LineEdit = %TemperatureEdit
 @onready var _camera_options_button: OptionButton = %CameraOptionsButton
-@onready var _animal_container: VBoxContainer = %AnimalContainer
+@onready var _animal_box_container: VBoxContainer = %AnimalBoxContainer
 @onready var _add_new_animal_button: Button = %AddNewAnimalButton
 @onready var _skip_button: Button = %SkipButton
 @onready var _save_and_next_button: Button = %SaveAndNextButton
@@ -22,8 +24,20 @@ var _paths: PackedStringArray
 var _next_image: int
 
 func _ready() -> void:
+	assert(_image_rect)
+	assert(_progress_bar)
+	assert(_date_time_edit)
+	assert(_temperature_edit)
+	assert(_camera_options_button)
+	assert(_animal_box_container)
+	assert(_add_new_animal_button)
+	assert(_skip_button)
+	assert(_save_and_next_button)
+
+	_add_new_animal_button.pressed.connect(_add_animal_box)
 	_skip_button.pressed.connect(_show_next_image)
 	_save_and_next_button.pressed.connect(_save_and_show_next_image)
+	close_requested.connect(hide)
 
 func _on_directory_changed() -> void:
 	assert(exif_reader)
@@ -52,6 +66,21 @@ func _show_next_image():
 	var image := Image.load_from_file(file_path)
 	_image_rect.texture = ImageTexture.create_from_image(image)
 
-	print(exif_reader.get_exif_info(file_path))
+	var exif_info = exif_reader.get_exif_info(file_path)
+	if exif_info != null:
+		_date_time_edit.text = exif_info.date_time
+	else:
+		_date_time_edit.text = ""
+	
+	_temperature_edit.text = ""
+	#_camera_options_button.select(0)
+
+	for animal_box in _animal_box_container.get_children():
+		_animal_box_container.remove_child(animal_box)
+		animal_box.queue_free()
+	_add_animal_box()
 
 	_next_image += 1
+
+func _add_animal_box() -> void:
+	_animal_box_container.add_child(AnimalBoxScene.instantiate())

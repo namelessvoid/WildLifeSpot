@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dwlxt0iprcf8c"]
+[gd_scene load_steps=5 format=3 uid="uid://dwlxt0iprcf8c"]
 
 [ext_resource type="Script" path="res://ui/bulk_spot_window.gd" id="1_qcqfl"]
 [ext_resource type="Texture2D" uid="uid://bah2g2geyw2ks" path="res://icon.svg" id="2_8jjfe"]
+[ext_resource type="PackedScene" uid="uid://1igx7b8aya" path="res://ui/animal_box.tscn" id="3_1mdiq"]
+[ext_resource type="Script" path="res://ui/animal_box.gd" id="4_clkre"]
 
 [node name="BulkSpotWindow" type="Window"]
 title = "Bulk spot insert"
@@ -76,29 +78,19 @@ layout_mode = 2
 text = "Animals:"
 horizontal_alignment = 1
 
-[node name="AnimalContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer"]
-unique_name_in_owner = true
+[node name="AnimalControlContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="AnimalBox" type="HBoxContainer" parent="HSplitContainer/VBoxContainer/AnimalContainer"]
+[node name="AnimalBoxContainer" type="VBoxContainer" parent="HSplitContainer/VBoxContainer/AnimalControlContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="HSplitContainer/VBoxContainer/AnimalContainer/AnimalBox"]
+[node name="AnimalBox" parent="HSplitContainer/VBoxContainer/AnimalControlContainer/AnimalBoxContainer" instance=ExtResource("3_1mdiq")]
 layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "Animal"
+script = ExtResource("4_clkre")
 
-[node name="LineEdit2" type="LineEdit" parent="HSplitContainer/VBoxContainer/AnimalContainer/AnimalBox"]
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "3"
-
-[node name="Button" type="Button" parent="HSplitContainer/VBoxContainer/AnimalContainer/AnimalBox"]
-layout_mode = 2
-text = "x"
-
-[node name="AddNewAnimalButton" type="Button" parent="HSplitContainer/VBoxContainer/AnimalContainer"]
+[node name="AddNewAnimalButton" type="Button" parent="HSplitContainer/VBoxContainer/AnimalControlContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Add new animal"

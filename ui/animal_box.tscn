@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://1igx7b8aya"]
+
+[ext_resource type="Script" path="res://ui/animal_box.gd" id="1_5fd02"]
+
+[node name="AnimalBox" type="HBoxContainer"]
+script = ExtResource("1_5fd02")
+
+[node name="NameEdit" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Animal"
+
+[node name="CountEdit" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "3"
+
+[node name="DeleteButton" type="Button" parent="."]
+layout_mode = 2
+text = "x"
