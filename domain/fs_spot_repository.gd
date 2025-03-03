@@ -8,3 +8,7 @@ func save(p_spot: FSSpot) -> void:
 func find_all() -> Array[FSSpot]:
 	assert(false, "Not implemented")
 	return []
+
+func find_all_days() -> PackedStringArray:
+	assert(false, "Not implemented")
+	return []

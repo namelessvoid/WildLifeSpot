@@ -6,6 +6,7 @@ extends Control
 @export var file_hasher: FileHasher
 
 @onready var _file_menu := %File as PopupMenu
+@onready var _spots_tab := %Spots
 @onready var _cameras_tab := %Cameras
 @onready var _spot_bulk_file_dialog := %SpotBulkFileDialog
 @onready var _bulk_spot_window := %BulkSpotWindow
@@ -24,6 +25,7 @@ func _ready():
 	_spot_bulk_file_dialog.dir_selected.connect(_on_spot_bulk_directory_selected)
 
 	_cameras_tab.camera_repository = camera_repository
+	_spots_tab.spot_repository = spot_repository
 	_bulk_spot_window.camera_repository = camera_repository
 	_bulk_spot_window.spot_repository = spot_repository
 	_bulk_spot_window.exif_reader = exif_reader

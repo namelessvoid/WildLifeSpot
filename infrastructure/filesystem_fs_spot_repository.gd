@@ -34,6 +34,13 @@ func find_all() -> Array[FSSpot]:
 
 	return spots
 
+func find_all_days() -> PackedStringArray:
+	var dict: Dictionary = {}
+	for spot in find_all():
+		var date := spot.date.get_slice("T", 0)
+		dict[date] = true
+	return dict.keys()
+
 func _serialize(p_spot: FSSpot) -> Dictionary:
 	return {
 		"type": p_spot.type,
