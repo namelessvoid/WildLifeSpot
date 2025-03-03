@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://bfrjddjae20jo"]
 
 [ext_resource type="PackedScene" uid="uid://ds4u6yauu4ssm" path="res://ui/main_ui.tscn" id="1_x4b18"]
-[ext_resource type="Script" path="res://infrastructure/filesystem_fs_camera_repository.gd" id="2_lrqg0"]
-[ext_resource type="Script" path="res://infrastructure/exif_reader.gd" id="3_frasl"]
-[ext_resource type="Script" path="res://infrastructure/filesystem_fs_spot_repository.gd" id="3_locc3"]
-[ext_resource type="Script" path="res://infrastructure/file_hasher.gd" id="5_xp5h5"]
+[ext_resource type="Script" uid="uid://cde0fv0alwhb6" path="res://infrastructure/filesystem_fs_camera_repository.gd" id="2_lrqg0"]
+[ext_resource type="Script" uid="uid://b71kxvb5gq05g" path="res://infrastructure/exif_reader.gd" id="3_frasl"]
+[ext_resource type="Script" uid="uid://co5nfrar3xelj" path="res://infrastructure/filesystem_fs_spot_repository.gd" id="3_locc3"]
+[ext_resource type="Script" uid="uid://cqrunl6k85syq" path="res://infrastructure/file_hasher.gd" id="5_xp5h5"]
 
 [node name="MainScene" type="Node2D"]
 
