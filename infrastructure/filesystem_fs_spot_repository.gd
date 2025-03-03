@@ -34,11 +34,15 @@ func find_all() -> Array[FSSpot]:
 
 	return spots
 
-func find_all_days() -> PackedStringArray:
+func find_all_by_date(date: String) -> Array[FSSpot]:
+	return find_all().filter(func(spot: FSSpot) -> bool:
+		return spot.get_date() == date
+	)
+
+func find_all_dates() -> PackedStringArray:
 	var dict: Dictionary = {}
 	for spot in find_all():
-		var date := spot.date.get_slice("T", 0)
-		dict[date] = true
+		dict[spot.get_date()] = true
 	return dict.keys()
 
 func _serialize(p_spot: FSSpot) -> Dictionary:
@@ -46,7 +50,7 @@ func _serialize(p_spot: FSSpot) -> Dictionary:
 		"type": p_spot.type,
 		"file_hash": p_spot.file_hash,
 		"file_path": p_spot.file_path,
-		"date": p_spot.date,
+		"date_time": p_spot.date_time,
 		"temperature": p_spot.temperature,
 		"animals": p_spot.animals
 	}
@@ -56,6 +60,6 @@ func _deserialize(p_dict) -> FSSpot:
 	spot.type = p_dict["type"]
 	spot.file_hash = p_dict["file_hash"]
 	spot.file_path = p_dict["file_path"]
-	spot.date = p_dict["date"]
+	spot.date_time = p_dict["date_time"]
 	spot.animals = p_dict["animals"]
 	return spot

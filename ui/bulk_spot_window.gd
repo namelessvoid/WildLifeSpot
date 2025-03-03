@@ -127,7 +127,7 @@ func _save_and_show_next_image() -> void:
 	spot.type = "image"
 	spot.file_path = file_path
 	spot.file_hash = file_hasher.get_file_hash(file_path)
-	spot.date = _date_time_edit.text
+	spot.date_time = _date_time_edit.text
 	spot.temperature = _temperature_edit.value
 	spot.animals = {}
 	for node in _animal_box_container.get_children():

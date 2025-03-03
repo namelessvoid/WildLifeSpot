@@ -9,6 +9,10 @@ func find_all() -> Array[FSSpot]:
 	assert(false, "Not implemented")
 	return []
 
-func find_all_days() -> PackedStringArray:
+func find_all_by_date(date: String) -> Array[FSSpot]:
+	assert(false, "Not implemented")
+	return []
+
+func find_all_dates() -> PackedStringArray:
 	assert(false, "Not implemented")
 	return []
