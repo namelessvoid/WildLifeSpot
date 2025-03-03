@@ -7,11 +7,6 @@ func save(p_spot: FSSpot) -> void:
 	spots.push_back(p_spot)
 	_save_all(spots)
 
-func file_hash_exists(p_hash: String) -> bool:
-	return find_all().any(func(s: FSSpot) -> bool:
-		return s.file_hash == p_hash
-	)
-
 func _save_all(p_spots: Array[FSSpot]) -> void:
 	var serialized := p_spots.map(_serialize)
 	var json := JSON.stringify(serialized)
