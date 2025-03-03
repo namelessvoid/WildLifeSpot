@@ -2,6 +2,8 @@ extends Window
 
 const AnimalBoxScene := preload("res://ui/animal_box.tscn")
 
+signal finished
+
 var camera_repository: FSCameraRepository
 var spot_repository: FSSpotRepository
 var exif_reader: ExifReader
@@ -15,7 +17,6 @@ var directory: String:
 
 @onready var _preprocessing_container: CenterContainer = %PreprocessingContainer
 @onready var _preprocessing_progress: ProgressBar = %PreprocessingProgress
-
 
 @onready var _main_container: HSplitContainer = %MainContainer
 @onready var _image_rect: TextureRect = %ImageRect
@@ -141,6 +142,7 @@ func _save_and_show_next_image() -> void:
 func _show_next_image():
 	_next_image += 1
 	if _next_image >= _paths.size():
+		finished.emit()
 		hide()
 		return
 

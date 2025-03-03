@@ -23,6 +23,7 @@ func _ready():
 
 	_file_menu.id_pressed.connect(_on_file_menu_id_pressed)
 	_spot_bulk_file_dialog.dir_selected.connect(_on_spot_bulk_directory_selected)
+	_bulk_spot_window.finished.connect(_spots_tab.refresh_date_list)
 
 	_cameras_tab.camera_repository = camera_repository
 	_spots_tab.spot_repository = spot_repository
