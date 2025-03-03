@@ -1,7 +1,7 @@
 class_name FileHasher
 extends Node
 
-const CHUNK_SIZE = 1024
+const CHUNK_SIZE = 4048
 
 ## Implementation stolen from: https://docs.godotengine.org/en/stable/classes/class_hashingcontext.html
 func get_file_hash(p_file_path: String) -> String:
@@ -9,7 +9,7 @@ func get_file_hash(p_file_path: String) -> String:
 		return ''
 
 	var ctx = HashingContext.new()
-	ctx.start(HashingContext.HASH_SHA256)
+	ctx.start(HashingContext.HASH_MD5)
 
 	var file = FileAccess.open(p_file_path, FileAccess.READ)
 	while file.get_position() < file.get_length():

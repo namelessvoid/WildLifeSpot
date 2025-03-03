@@ -3,12 +3,12 @@ extends FSSpotRepository
 var _file_path := &"user://Spots.json"
 
 func save(p_spot: FSSpot) -> void:
-	var spots := _find_all()
+	var spots := find_all()
 	spots.push_back(p_spot)
 	_save_all(spots)
 
 func file_hash_exists(p_hash: String) -> bool:
-	return _find_all().any(func(s: FSSpot) -> bool:
+	return find_all().any(func(s: FSSpot) -> bool:
 		return s.file_hash == p_hash
 	)
 
@@ -23,7 +23,7 @@ func _save_all(p_spots: Array[FSSpot]) -> void:
 
 	file.store_string(json)
 
-func _find_all() -> Array[FSSpot]:
+func find_all() -> Array[FSSpot]:
 	var json = FileAccess.get_file_as_string(_file_path)
 	if FileAccess.get_open_error() != OK:
 		print(FileAccess.get_open_error())

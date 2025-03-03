@@ -13,6 +13,11 @@ var directory: String:
 		directory = value
 		_on_directory_changed()
 
+@onready var _preprocessing_container: CenterContainer = %PreprocessingContainer
+@onready var _preprocessing_progress: ProgressBar = %PreprocessingProgress
+
+
+@onready var _main_container: HSplitContainer = %MainContainer
 @onready var _image_rect: TextureRect = %ImageRect
 @onready var _progress_bar: ProgressBar = %ProgressBar
 @onready var _date_time_edit: LineEdit = %DateTimeEdit
@@ -27,6 +32,7 @@ var _paths: PackedStringArray
 var _next_image: int
 
 func _ready() -> void:
+	assert(_main_container)
 	assert(_image_rect)
 	assert(_progress_bar)
 	assert(_date_time_edit)
@@ -48,26 +54,59 @@ func _on_directory_changed() -> void:
 	assert(camera_repository)
 	assert(file_hasher)
 
+	_main_container.visible = false
+	_preprocessing_container.visible = true
+
+	var existing_hashes: Array = spot_repository.find_all()\
+		.map(func(spot: FSSpot) -> String: return spot.file_hash)
+
+	var files := Array(DirAccess.get_files_at(directory))\
+	.filter(func(file_name: String) -> bool:
+		var extension = file_name.to_lower().get_extension()
+		return extension == 'jpg' ||  extension == '.png'
+	).map(func(file_name: String) -> Dictionary[String, Variant]:
+		return { "path": directory + "/" + file_name, "already_persisted": false }
+	)
+
+	var group_id := WorkerThreadPool.add_group_task(func(index: int) -> void:
+		var path: String= files[index]["path"]
+		var hash = file_hasher.get_file_hash(path)
+		files[index]["already_persisted"] = existing_hashes.has(hash)
+	, files.size())
+
+	_preprocessing_progress.value = 0
+	if files.size() > 100:
+		while !WorkerThreadPool.is_group_task_completed(group_id):
+			var processed = WorkerThreadPool.get_group_processed_element_count(group_id)
+			_preprocessing_progress.value = (processed / float(files.size())) * 100.0
+			if processed < files.size():
+				await get_tree().create_timer(1).timeout
+
+	WorkerThreadPool.wait_for_group_task_completion(group_id)
+
+	files = files.filter(func(f: Dictionary) -> bool:
+		return !f["already_persisted"]
+	)
+	
+	var file_paths = PackedStringArray(
+		files.map(func(f) -> String: return f["path"])
+	)
+	
+	_pre_processing_finished(file_paths)
+
+func _pre_processing_finished(file_paths: PackedStringArray) -> void:
+	if file_paths.is_empty():
+		hide()
+		return
+
+	_main_container.visible = true
+	_preprocessing_container.visible = false
+
 	_camera_options_button.clear()
 	for camera in camera_repository.find_all():
 		_camera_options_button.add_item(camera.name, camera._id)
 
-	var file_names := Array(DirAccess.get_files_at(directory))\
-	.filter(func(file_name: String) -> bool:
-		var extension = file_name.to_lower().get_extension()
-		return extension == 'jpg' ||  extension == '.png'
-	).map(func(file_name: String) -> String:
-		return directory + "/" + file_name
-	).filter(func(file_path: String) -> bool:
-		var hash = file_hasher.get_file_hash(file_path)
-		return !spot_repository.file_hash_exists(hash)
-	)
-
-	if file_names.is_empty():
-		hide()
-		return
-
-	_paths = PackedStringArray(file_names)
+	_paths = file_paths
 	_next_image = -1
 
 	# Reset UI
