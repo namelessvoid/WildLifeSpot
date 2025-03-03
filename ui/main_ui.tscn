@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ds4u6yauu4ssm"]
+[gd_scene load_steps=5 format=3 uid="uid://ds4u6yauu4ssm"]
 
 [ext_resource type="Script" uid="uid://cm6fh1dlhfk7j" path="res://ui/main_ui.gd" id="1_m6rnm"]
 [ext_resource type="Script" uid="uid://dmbndfqbtf8jo" path="res://ui/cameras_tab.gd" id="1_usf5r"]
+[ext_resource type="Script" uid="uid://cowrd2c6oifb1" path="res://ui/spots_tab.gd" id="2_x3h8h"]
 [ext_resource type="PackedScene" uid="uid://dwlxt0iprcf8c" path="res://ui/bulk_spot_window.tscn" id="3_2unuh"]
 
 [node name="MainUi" type="Control"]
@@ -38,15 +39,37 @@ item_1/id = 2
 [node name="TabContainer" type="TabContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 1
+current_tab = 0
 
 [node name="Spots" type="Control" parent="Panel/VBoxContainer/TabContainer"]
-visible = false
 layout_mode = 2
+script = ExtResource("2_x3h8h")
 metadata/_tab_index = 0
+
+[node name="HSplitContainer" type="HSplitContainer" parent="Panel/VBoxContainer/TabContainer/Spots"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+split_offset = 128
+
+[node name="SpotDaysContainer" type="VBoxContainer" parent="Panel/VBoxContainer/TabContainer/Spots/HSplitContainer"]
+layout_mode = 2
+
+[node name="DayList" type="ItemList" parent="Panel/VBoxContainer/TabContainer/Spots/HSplitContainer/SpotDaysContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SpotDetailsContainer" type="VBoxContainer" parent="Panel/VBoxContainer/TabContainer/Spots/HSplitContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 
 [node name="Cameras" type="Control" parent="Panel/VBoxContainer/TabContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 script = ExtResource("1_usf5r")
 metadata/_tab_index = 1
