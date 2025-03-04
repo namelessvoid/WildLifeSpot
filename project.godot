@@ -16,9 +16,9 @@ config/use_custom_user_dir=true
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
-[display]
+[editor_plugins]
 
-window/size/mode=2
+enabled=PackedStringArray("res://addons/easy_charts/plugin.cfg")
 
 [rendering]
 
