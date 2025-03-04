@@ -10,20 +10,23 @@ initial_position = 1
 size = Vector2i(1000, 500)
 script = ExtResource("1_qcqfl")
 
-[node name="MainContainer" type="HSplitContainer" parent="."]
-unique_name_in_owner = true
-visible = false
+[node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="MainContainer" type="HSplitContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
 split_offset = 1200
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MainContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/MainContainer"]
 layout_mode = 2
 
-[node name="ImageRect" type="TextureRect" parent="MainContainer/VBoxContainer2"]
+[node name="ImageRect" type="TextureRect" parent="MarginContainer/MainContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
@@ -31,81 +34,81 @@ texture = ExtResource("2_8jjfe")
 expand_mode = 1
 stretch_mode = 4
 
-[node name="ProgressBar" type="ProgressBar" parent="MainContainer/VBoxContainer2"]
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/MainContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MainContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/MainContainer/VBoxContainer"]
 layout_mode = 2
 text = "General"
 horizontal_alignment = 1
 
-[node name="GeneralInfoContainer" type="GridContainer" parent="MainContainer/VBoxContainer"]
+[node name="GeneralInfoContainer" type="GridContainer" parent="MarginContainer/MainContainer/VBoxContainer"]
 layout_mode = 2
 columns = 2
 
-[node name="Label" type="Label" parent="MainContainer/VBoxContainer/GeneralInfoContainer"]
+[node name="Label" type="Label" parent="MarginContainer/MainContainer/VBoxContainer/GeneralInfoContainer"]
 layout_mode = 2
 text = "Date:"
 
-[node name="DateTimeEdit" type="LineEdit" parent="MainContainer/VBoxContainer/GeneralInfoContainer"]
+[node name="DateTimeEdit" type="LineEdit" parent="MarginContainer/MainContainer/VBoxContainer/GeneralInfoContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "01-24-2025 14:00:50"
 
-[node name="Label2" type="Label" parent="MainContainer/VBoxContainer/GeneralInfoContainer"]
+[node name="Label2" type="Label" parent="MarginContainer/MainContainer/VBoxContainer/GeneralInfoContainer"]
 layout_mode = 2
 text = "Temperature:"
 
-[node name="TemperatureEdit" type="SpinBox" parent="MainContainer/VBoxContainer/GeneralInfoContainer"]
+[node name="TemperatureEdit" type="SpinBox" parent="MarginContainer/MainContainer/VBoxContainer/GeneralInfoContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 min_value = -100.0
 suffix = "°C"
 
-[node name="Label3" type="Label" parent="MainContainer/VBoxContainer/GeneralInfoContainer"]
+[node name="Label3" type="Label" parent="MarginContainer/MainContainer/VBoxContainer/GeneralInfoContainer"]
 layout_mode = 2
 text = "Camera:"
 
-[node name="CameraOptionsButton" type="OptionButton" parent="MainContainer/VBoxContainer/GeneralInfoContainer"]
+[node name="CameraOptionsButton" type="OptionButton" parent="MarginContainer/MainContainer/VBoxContainer/GeneralInfoContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="MainContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="MarginContainer/MainContainer/VBoxContainer"]
 layout_mode = 2
 text = "Animals:"
 horizontal_alignment = 1
 
-[node name="AnimalControlContainer" type="VBoxContainer" parent="MainContainer/VBoxContainer"]
+[node name="AnimalControlContainer" type="VBoxContainer" parent="MarginContainer/MainContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="AnimalBoxContainer" type="VBoxContainer" parent="MainContainer/VBoxContainer/AnimalControlContainer"]
+[node name="AnimalBoxContainer" type="VBoxContainer" parent="MarginContainer/MainContainer/VBoxContainer/AnimalControlContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="AnimalBox" parent="MainContainer/VBoxContainer/AnimalControlContainer/AnimalBoxContainer" instance=ExtResource("3_1mdiq")]
+[node name="AnimalBox" parent="MarginContainer/MainContainer/VBoxContainer/AnimalControlContainer/AnimalBoxContainer" instance=ExtResource("3_1mdiq")]
 layout_mode = 2
 
-[node name="AddNewAnimalButton" type="Button" parent="MainContainer/VBoxContainer/AnimalControlContainer"]
+[node name="AddNewAnimalButton" type="Button" parent="MarginContainer/MainContainer/VBoxContainer/AnimalControlContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Add new animal"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MainContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="SkipButton" type="Button" parent="MainContainer/VBoxContainer/HBoxContainer"]
+[node name="SkipButton" type="Button" parent="MarginContainer/MainContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Skip"
 
-[node name="SaveAndNextButton" type="Button" parent="MainContainer/VBoxContainer/HBoxContainer"]
+[node name="SaveAndNextButton" type="Button" parent="MarginContainer/MainContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Save & Next"
