@@ -11,3 +11,9 @@ var camera_id: int
 
 func get_date() -> String:
 	return date_time.get_slice("T", 0)
+
+func get_animals() -> PackedStringArray:
+	return animals.keys()
+
+func get_animal_count(animal: String) -> int:
+	return animals[animal]

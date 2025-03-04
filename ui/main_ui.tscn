@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dmbndfqbtf8jo" path="res://ui/cameras_tab.gd" id="1_usf5r"]
 [ext_resource type="Script" uid="uid://cowrd2c6oifb1" path="res://ui/spots_tab.gd" id="2_x3h8h"]
 [ext_resource type="PackedScene" uid="uid://dwlxt0iprcf8c" path="res://ui/bulk_spot_window.tscn" id="3_2unuh"]
+[ext_resource type="PackedScene" uid="uid://dlwq4kmdb3bhs" path="res://addons/easy_charts/control_charts/chart.tscn" id="3_qry5k"]
 
 [node name="MainUi" type="Control"]
 layout_mode = 3
@@ -43,6 +44,8 @@ current_tab = 0
 unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("2_x3h8h")
+chart_scene = ExtResource("3_qry5k")
+colors = Array[Color]([Color(0, 0.633561, 0.244255, 1), Color(1.05888e-06, 0.599498, 0.85004, 1), Color(0.977861, 0, 0.183616, 1), Color(0.749871, 0.552737, 9.62615e-07, 1), Color(0, 0.449016, 0.0242581, 1), Color(0.000339562, 0.198961, 0.673453, 1), Color(0.392521, 0.00107168, 0.570689, 1), Color(0.608437, 0.0168363, 0.0344286, 1), Color(0.439085, 0.246157, 1.92523e-07, 1), Color(0.928813, 0.860782, 0, 1), Color(1, 0.811431, 0.7628, 1)])
 metadata/_tab_index = 0
 
 [node name="HSplitContainer" type="HSplitContainer" parent="Panel/VBoxContainer/TabContainer/Spots"]
