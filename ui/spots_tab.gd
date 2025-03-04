@@ -67,7 +67,8 @@ func _on_date_selected(index: int) -> void:
 				empty_time_slots.fill(0)
 				spots_by_bird_per_hour[animal] = empty_time_slots
 
-			spots_by_bird_per_hour[animal][hour] += spot.get_animal_count(animal)
+			if spot.get_animal_count(animal) > spots_by_bird_per_hour[animal][hour]:
+				spots_by_bird_per_hour[animal][hour] = spot.get_animal_count(animal)
 
 	print(spots_by_bird_per_hour)
 
