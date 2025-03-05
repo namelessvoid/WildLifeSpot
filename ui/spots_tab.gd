@@ -45,6 +45,7 @@ func _ready():
 	_chart_properties.max_samples = 24
 	_chart_properties.x_scale = 23
 	#_chart_properties.y_scale = 1
+	_chart_properties.show_legend = true
 	_chart_properties.interactive = true
 
 func _initialize():
