@@ -5,9 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://1igx7b8aya" path="res://ui/animal_box.tscn" id="3_1mdiq"]
 
 [node name="BulkSpotWindow" type="Window"]
+transparent_bg = true
 title = "Bulk spot insert"
 initial_position = 1
 size = Vector2i(1000, 500)
+transparent = true
 script = ExtResource("1_qcqfl")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
