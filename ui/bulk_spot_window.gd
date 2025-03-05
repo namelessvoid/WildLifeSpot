@@ -21,6 +21,7 @@ var directory: String:
 @onready var _main_container: HSplitContainer = %MainContainer
 @onready var _image_rect: TextureRect = %ImageRect
 @onready var _progress_bar: ProgressBar = %ProgressBar
+@onready var _progress_label: Label = %ProgressLabel
 @onready var _date_time_edit: LineEdit = %DateTimeEdit
 @onready var _temperature_edit: SpinBox = %TemperatureEdit
 @onready var _camera_options_button: OptionButton = %CameraOptionsButton
@@ -103,6 +104,10 @@ func _pre_processing_finished(file_paths: PackedStringArray) -> void:
 	_main_container.visible = true
 	_preprocessing_container.visible = false
 
+	_progress_bar.value = 0
+	_progress_bar.max_value = file_paths.size()
+	_progress_label.text = "%d / %d" % [1, _progress_bar.max_value]
+
 	_camera_options_button.clear()
 	for camera in camera_repository.find_all():
 		_camera_options_button.add_item(camera.name, camera._id)
@@ -149,6 +154,9 @@ func _show_next_image():
 		finished.emit()
 		hide()
 		return
+
+	_progress_bar.value = _next_image
+	_progress_label.text = "%d / %d" % [_progress_bar.value + 1, _progress_bar.max_value]
 
 	var file_path := _paths[_next_image]
 	var image := Image.load_from_file(file_path)
