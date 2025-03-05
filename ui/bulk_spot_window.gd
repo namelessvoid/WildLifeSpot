@@ -133,6 +133,10 @@ func _save_and_show_next_image() -> void:
 	spot.animals = {}
 	for node in _animal_box_container.get_children():
 		var animal_box := node as AnimalBox
+		var name := animal_box.get_animal_name()
+		var count := animal_box.get_animal_count()
+		if name.is_empty() || count <= 0:
+			continue
 		spot.animals[animal_box.get_animal_name()] = animal_box.get_animal_count()
 
 	spot_repository.save(spot)
