@@ -44,11 +44,10 @@ item_0/id = 2
 [node name="TabContainer" type="TabContainer" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-current_tab = 1
+current_tab = 0
 
 [node name="Spots" type="Control" parent="Panel/MarginContainer/VBoxContainer/TabContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 script = ExtResource("2_x3h8h")
 chart_scene = ExtResource("3_qry5k")
@@ -89,6 +88,7 @@ layout_mode = 2
 
 [node name="Cameras" type="Control" parent="Panel/MarginContainer/VBoxContainer/TabContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 script = ExtResource("1_usf5r")
 metadata/_tab_index = 1
