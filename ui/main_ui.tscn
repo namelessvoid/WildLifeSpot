@@ -88,7 +88,6 @@ layout_mode = 2
 
 [node name="Cameras" type="Control" parent="Panel/MarginContainer/VBoxContainer/TabContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 script = ExtResource("1_usf5r")
 metadata/_tab_index = 1
