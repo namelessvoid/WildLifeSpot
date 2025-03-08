@@ -9,11 +9,11 @@ var spot_repository: FSSpotRepository
 var exif_reader: ExifReader
 var file_hasher: FileHasher
 
-var directory: String:
-	get: return directory
+var selected_files: PackedStringArray:
+	get: return selected_files
 	set(value):
-		directory = value
-		_on_directory_changed()
+		selected_files = value
+		_on_selected_files_changed()
 
 @onready var _preprocessing_container: CenterContainer = %PreprocessingContainer
 @onready var _preprocessing_progress: ProgressBar = %PreprocessingProgress
@@ -50,7 +50,7 @@ func _ready() -> void:
 	_save_and_next_button.pressed.connect(_save_and_show_next_image)
 	close_requested.connect(hide)
 
-func _on_directory_changed() -> void:
+func _on_selected_files_changed() -> void:
 	assert(exif_reader)
 	assert(spot_repository)
 	assert(camera_repository)
@@ -61,13 +61,9 @@ func _on_directory_changed() -> void:
 
 	var existing_hashes: Array = spot_repository.find_all()\
 		.map(func(spot: FSSpot) -> String: return spot.file_hash)
-
-	var files := Array(DirAccess.get_files_at(directory))\
-	.filter(func(file_name: String) -> bool:
-		var extension = file_name.to_lower().get_extension()
-		return extension == 'jpg' ||  extension == '.png'
-	).map(func(file_name: String) -> Dictionary[String, Variant]:
-		return { "path": directory + "/" + file_name, "already_persisted": false }
+	var files := Array(selected_files)\
+	.map(func(path: String) -> Dictionary[String, Variant]:
+		return { "path": path, "already_persisted": false }
 	)
 
 	var group_id := WorkerThreadPool.add_group_task(func(index: int) -> void:

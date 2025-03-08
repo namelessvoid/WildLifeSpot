@@ -23,7 +23,7 @@ func _ready():
 
 	_file_menu.id_pressed.connect(_on_file_menu_id_pressed)
 	_spots_tab.request_spot_bulk_add.connect(_bulk_spot_file_dialog.popup_centered_ratio.bind(0.9))
-	_bulk_spot_file_dialog.dir_selected.connect(_on_spot_bulk_directory_selected)
+	_bulk_spot_file_dialog.files_selected.connect(_on_bulk_spot_files_selected)
 	_bulk_spot_window.finished.connect(_spots_tab.refresh_date_list)
 
 	_cameras_tab.camera_repository = camera_repository
@@ -37,6 +37,6 @@ func _on_file_menu_id_pressed(p_id: int):
 	match p_id:
 		2: get_tree().quit()
 
-func _on_spot_bulk_directory_selected(dir: String) -> void:
+func _on_bulk_spot_files_selected(files: PackedStringArray) -> void:
 	_bulk_spot_window.popup_centered_ratio(0.9)
-	_bulk_spot_window.directory = dir
+	_bulk_spot_window.selected_files = files
