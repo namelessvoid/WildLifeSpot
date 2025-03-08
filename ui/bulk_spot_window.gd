@@ -27,6 +27,7 @@ var selected_files: PackedStringArray:
 @onready var _camera_options_button: OptionButton = %CameraOptionsButton
 @onready var _animal_box_container: VBoxContainer = %AnimalBoxContainer
 @onready var _add_new_animal_button: Button = %AddNewAnimalButton
+@onready var _back_button: Button = %BackButton
 @onready var _skip_button: Button = %SkipButton
 @onready var _save_and_next_button: Button = %SaveAndNextButton
 
@@ -42,10 +43,12 @@ func _ready() -> void:
 	assert(_camera_options_button)
 	assert(_animal_box_container)
 	assert(_add_new_animal_button)
+	assert(_back_button)
 	assert(_skip_button)
 	assert(_save_and_next_button)
 
 	_add_new_animal_button.pressed.connect(_add_animal_box)
+	_back_button.pressed.connect(_show_previous_image)
 	_skip_button.pressed.connect(_show_next_image)
 	_save_and_next_button.pressed.connect(_save_and_show_next_image)
 	close_requested.connect(hide)
@@ -144,6 +147,13 @@ func _save_and_show_next_image() -> void:
 
 	_show_next_image()
 
+func _show_previous_image():
+	_next_image -= 1
+	if _next_image < 0:
+		_next_image = 0
+
+	_update_ui()
+
 func _show_next_image():
 	_next_image += 1
 	if _next_image >= _paths.size():
@@ -151,6 +161,9 @@ func _show_next_image():
 		hide()
 		return
 
+	_update_ui()
+
+func _update_ui():
 	_progress_bar.value = _next_image
 	_progress_label.text = "%d / %d" % [_progress_bar.value + 1, _progress_bar.max_value]
 

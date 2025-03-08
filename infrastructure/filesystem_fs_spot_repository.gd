@@ -4,6 +4,9 @@ var _file_path := &"user://Spots.json"
 
 func save(p_spot: FSSpot) -> void:
 	var spots := find_all()
+	spots = spots.filter(func(s: FSSpot) -> bool:
+		return s.file_hash != p_spot.file_hash
+	)
 	spots.push_back(p_spot)
 	_save_all(spots)
 

@@ -1,8 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwlxt0iprcf8c"]
+[gd_scene load_steps=10 format=3 uid="uid://dwlxt0iprcf8c"]
 
 [ext_resource type="Script" uid="uid://cbapolihihptn" path="res://ui/bulk_spot_window.gd" id="1_qcqfl"]
 [ext_resource type="Texture2D" uid="uid://bah2g2geyw2ks" path="res://icon.svg" id="2_8jjfe"]
 [ext_resource type="PackedScene" uid="uid://1igx7b8aya" path="res://ui/animal_box.tscn" id="3_1mdiq"]
+
+[sub_resource type="InputEventAction" id="InputEventAction_o1nu8"]
+action = &"previous_spot"
+
+[sub_resource type="Shortcut" id="Shortcut_t01oa"]
+events = [SubResource("InputEventAction_o1nu8")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_8yvah"]
+action = &"skip_spot"
+
+[sub_resource type="Shortcut" id="Shortcut_o1nu8"]
+events = [SubResource("InputEventAction_8yvah")]
+
+[sub_resource type="InputEventAction" id="InputEventAction_xx3il"]
+action = &"save_and_next_spot"
+
+[sub_resource type="Shortcut" id="Shortcut_8yvah"]
+events = [SubResource("InputEventAction_xx3il")]
 
 [node name="BulkSpotWindow" type="Window"]
 transparent_bg = true
@@ -119,14 +137,22 @@ text = "Add new animal"
 layout_mode = 2
 alignment = 2
 
+[node name="BackButton" type="Button" parent="MarginContainer/MainContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+shortcut = SubResource("Shortcut_t01oa")
+text = "Back"
+
 [node name="SkipButton" type="Button" parent="MarginContainer/MainContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+shortcut = SubResource("Shortcut_o1nu8")
 text = "Skip"
 
 [node name="SaveAndNextButton" type="Button" parent="MarginContainer/MainContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+shortcut = SubResource("Shortcut_8yvah")
 text = "Save & Next"
 
 [node name="PreprocessingContainer" type="CenterContainer" parent="."]
