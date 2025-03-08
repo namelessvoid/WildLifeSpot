@@ -1,8 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://1igx7b8aya"]
+[gd_scene load_steps=8 format=3 uid="uid://1igx7b8aya"]
 
 [ext_resource type="Script" uid="uid://d3cb6ohi2iscc" path="res://ui/animal_box.gd" id="1_5fd02"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cb0ft"]
+bg_color = Color(0.83, 0.33366, 0.1826, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j2otg"]
+bg_color = Color(0.93, 0.37386, 0.2046, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_egwpb"]
+bg_color = Color(1, 0.402, 0.22, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pyskn"]
+bg_color = Color(0.37125, 0.55, 0.275, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1cpdx"]
+bg_color = Color(0.42525, 0.63, 0.315, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_256m5"]
+bg_color = Color(0.449629, 0.671974, 0.334117, 1)
+
 [node name="AnimalBox" type="HBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+offset_right = 389.0
+offset_bottom = 64.0
 script = ExtResource("1_5fd02")
 
 [node name="NameEdit" type="LineEdit" parent="."]
@@ -13,6 +34,16 @@ placeholder_text = "Animal"
 [node name="CountSpinBox" type="SpinBox" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/buttons_width = 64
+theme_override_styles/down_background_pressed = SubResource("StyleBoxFlat_cb0ft")
+theme_override_styles/down_background_hovered = SubResource("StyleBoxFlat_j2otg")
+theme_override_styles/down_background = SubResource("StyleBoxFlat_egwpb")
+theme_override_styles/up_background_pressed = SubResource("StyleBoxFlat_pyskn")
+theme_override_styles/up_background_hovered = SubResource("StyleBoxFlat_1cpdx")
+theme_override_styles/up_background = SubResource("StyleBoxFlat_256m5")
+value = 1.0
+alignment = 1
+select_all_on_focus = true
 
 [node name="Spacer" type="Control" parent="."]
 custom_minimum_size = Vector2(8, 0)
