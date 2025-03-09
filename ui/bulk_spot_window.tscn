@@ -170,7 +170,7 @@ layout_mode = 2
 text = "Processing options"
 horizontal_alignment = 1
 
-[node name="SkipAlreadyProgressedCheckbox" type="CheckBox" parent="PreprocessingOptionsContainer/HBoxContainer"]
+[node name="SkipAlreadyProcessedCheckbox" type="CheckBox" parent="PreprocessingOptionsContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 button_pressed = true

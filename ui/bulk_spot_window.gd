@@ -16,7 +16,7 @@ var selected_files: PackedStringArray:
 		_on_selected_files_changed()
 
 @onready var _preprocessing_options_container: Container = %PreprocessingOptionsContainer
-@onready var _skip_already_progressed_checkbox: CheckBox = %SkipAlreadyProgressedCheckbox
+@onready var _skip_already_processed_checkbox: CheckBox = %SkipAlreadyProcessedCheckbox
 @onready var _start_preproocessing_button: Button = %StartPreproocessingButton
 
 @onready var _preprocessing_progress_container: Container = %PreprocessingProgressContainer
@@ -42,7 +42,7 @@ var _next_image: int
 
 func _ready() -> void:
 	assert(_preprocessing_options_container)
-	assert(_skip_already_progressed_checkbox)
+	assert(_skip_already_processed_checkbox)
 	assert(_start_preproocessing_button)
 	assert(_preprocessing_progress_container)
 	assert(_preprocessing_progress)
@@ -81,6 +81,10 @@ func _show_preprocessing_options():
 	_preprocessing_progress_container.visible = false
 
 func _pre_process() -> void:
+	if !_skip_already_processed_checkbox.button_pressed:
+		_pre_processing_finished(selected_files)
+		return
+
 	_main_container.visible = false
 	_preprocessing_options_container.visible = false
 	_preprocessing_progress_container.visible = true
