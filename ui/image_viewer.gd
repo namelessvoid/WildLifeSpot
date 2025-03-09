@@ -1,10 +1,13 @@
 extends Control
 class_name ImageViewer
 
+signal request_save_image
+
 @onready var _sprite: Sprite2D = %Sprite2D
 @onready var _camera: Camera2D = %Camera2D
 @onready var _zoom_in_button: Button = %ZoomInButton
 @onready var _zoom_out_button: Button = %ZoomOutButton
+@onready var _save_image_button: Button = %SaveImageButton
 
 func _ready():
 	assert(_sprite)
@@ -14,6 +17,7 @@ func _ready():
 
 	_zoom_in_button.pressed.connect(zoom_in)
 	_zoom_out_button.pressed.connect(zoom_out)
+	_save_image_button.pressed.connect(request_save_image.emit)
 
 func set_texture(p_texture: Texture2D):
 	_sprite.texture = p_texture

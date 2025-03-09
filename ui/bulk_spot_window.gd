@@ -37,6 +37,8 @@ var selected_files: PackedStringArray:
 @onready var _skip_button: Button = %SkipButton
 @onready var _save_and_next_button: Button = %SaveAndNextButton
 
+@onready var _save_file_dialog: FileDialog = $SaveFileDialog
+
 var _paths: PackedStringArray
 var _next_image: int
 
@@ -65,6 +67,7 @@ func _ready() -> void:
 	_back_button.pressed.connect(_show_previous_image)
 	_skip_button.pressed.connect(_show_next_image)
 	_save_and_next_button.pressed.connect(_save_and_show_next_image)
+	_image_viewer.request_save_image.connect(_save_image)
 	close_requested.connect(hide)
 
 func _on_selected_files_changed() -> void:
@@ -205,3 +208,15 @@ func _update_ui():
 
 func _add_animal_box() -> void:
 	_animal_box_container.add_child(AnimalBoxScene.instantiate())
+
+func _save_image() -> void:
+	var file_to_save := _paths[_next_image]
+	_save_file_dialog.current_file = file_to_save.get_file()
+	_save_file_dialog.show()
+	var target_path = await _save_file_dialog.file_selected
+	var bytes := FileAccess.get_file_as_bytes(file_to_save)
+	var target_file := FileAccess.open(target_path, FileAccess.WRITE)
+	if !target_file:
+		return
+	target_file.store_buffer(bytes)
+	target_file.close()
