@@ -18,6 +18,7 @@ func _ready():
 func set_texture(p_texture: Texture2D):
 	_sprite.texture = p_texture
 	_camera.zoom = Vector2.ONE
+	_camera.offset = Vector2.ZERO
 
 	var texture_size = p_texture.get_size()
 	var texture_aspect := p_texture.get_size().x / p_texture.get_size().y
