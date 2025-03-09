@@ -23,7 +23,7 @@ var selected_files: PackedStringArray:
 @onready var _preprocessing_progress: ProgressBar = %PreprocessingProgress
 
 @onready var _main_container: Container = %MainContainer
-@onready var _image_rect: TextureRect = %ImageRect
+@onready var _image_viewer: ImageViewer = %ImageViewer
 
 @onready var _progress_bar: ProgressBar = %ProgressBar
 @onready var _progress_label: Label = %ProgressLabel
@@ -48,7 +48,7 @@ func _ready() -> void:
 	assert(_preprocessing_progress)
 
 	assert(_main_container)
-	assert(_image_rect)
+	assert(_image_viewer)
 	assert(_progress_bar)
 	assert(_date_time_edit)
 	assert(_temperature_edit)
@@ -197,7 +197,7 @@ func _update_ui():
 
 	var file_path := _paths[_next_image]
 	var image := Image.load_from_file(file_path)
-	_image_rect.texture = ImageTexture.create_from_image(image)
+	_image_viewer.set_texture.call_deferred(ImageTexture.create_from_image(image))
 
 	var exif_info = exif_reader.get_exif_info(file_path)
 	if exif_info != null:

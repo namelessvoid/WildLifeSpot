@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://dwlxt0iprcf8c"]
 
 [ext_resource type="Script" uid="uid://cbapolihihptn" path="res://ui/bulk_spot_window.gd" id="1_qcqfl"]
-[ext_resource type="Texture2D" uid="uid://bah2g2geyw2ks" path="res://icon.svg" id="2_8jjfe"]
 [ext_resource type="PackedScene" uid="uid://1igx7b8aya" path="res://ui/animal_box.tscn" id="3_1mdiq"]
+[ext_resource type="PackedScene" uid="uid://dpk875tpgrltq" path="res://ui/image_viewer.tscn" id="3_8yvah"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_o1nu8"]
 action = &"previous_spot"
@@ -45,31 +45,10 @@ split_offset = 1200
 [node name="VBoxContainer2" type="VBoxContainer" parent="MainContainer/VSplitContainer"]
 layout_mode = 2
 
-[node name="ImageRect" type="TextureRect" parent="MainContainer/VSplitContainer/VBoxContainer2"]
+[node name="ImageViewer" parent="MainContainer/VSplitContainer/VBoxContainer2" instance=ExtResource("3_8yvah")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-texture = ExtResource("2_8jjfe")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="ProgressBar" type="ProgressBar" parent="MainContainer/VSplitContainer/VBoxContainer2"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 30)
-layout_mode = 2
-show_percentage = false
-
-[node name="ProgressLabel" type="Label" parent="MainContainer/VSplitContainer/VBoxContainer2/ProgressBar"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "1 / 12"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/VSplitContainer"]
 layout_mode = 2
@@ -132,6 +111,24 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Add new animal"
 
+[node name="ProgressBar" type="ProgressBar" parent="MainContainer/VSplitContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+show_percentage = false
+
+[node name="ProgressLabel" type="Label" parent="MainContainer/VSplitContainer/VBoxContainer/ProgressBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "1 / 12"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/VSplitContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 2
@@ -151,6 +148,7 @@ text = "Skip"
 [node name="SaveAndNextButton" type="Button" parent="MainContainer/VSplitContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 shortcut = SubResource("Shortcut_8yvah")
 text = "Save & Next"
 
