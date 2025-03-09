@@ -15,13 +15,19 @@ var selected_files: PackedStringArray:
 		selected_files = value
 		_on_selected_files_changed()
 
-@onready var _preprocessing_container: CenterContainer = %PreprocessingContainer
+@onready var _preprocessing_options_container: Container = %PreprocessingOptionsContainer
+@onready var _skip_already_progressed_checkbox: CheckBox = %SkipAlreadyProgressedCheckbox
+@onready var _start_preproocessing_button: Button = %StartPreproocessingButton
+
+@onready var _preprocessing_progress_container: Container = %PreprocessingProgressContainer
 @onready var _preprocessing_progress: ProgressBar = %PreprocessingProgress
 
-@onready var _main_container: HSplitContainer = %MainContainer
+@onready var _main_container: Container = %MainContainer
 @onready var _image_rect: TextureRect = %ImageRect
+
 @onready var _progress_bar: ProgressBar = %ProgressBar
 @onready var _progress_label: Label = %ProgressLabel
+
 @onready var _date_time_edit: LineEdit = %DateTimeEdit
 @onready var _temperature_edit: SpinBox = %TemperatureEdit
 @onready var _camera_options_button: OptionButton = %CameraOptionsButton
@@ -35,6 +41,12 @@ var _paths: PackedStringArray
 var _next_image: int
 
 func _ready() -> void:
+	assert(_preprocessing_options_container)
+	assert(_skip_already_progressed_checkbox)
+	assert(_start_preproocessing_button)
+	assert(_preprocessing_progress_container)
+	assert(_preprocessing_progress)
+
 	assert(_main_container)
 	assert(_image_rect)
 	assert(_progress_bar)
@@ -46,6 +58,8 @@ func _ready() -> void:
 	assert(_back_button)
 	assert(_skip_button)
 	assert(_save_and_next_button)
+
+	_start_preproocessing_button.pressed.connect(_pre_process)
 
 	_add_new_animal_button.pressed.connect(_add_animal_box)
 	_back_button.pressed.connect(_show_previous_image)
@@ -59,8 +73,17 @@ func _on_selected_files_changed() -> void:
 	assert(camera_repository)
 	assert(file_hasher)
 
+	_show_preprocessing_options()
+
+func _show_preprocessing_options():
 	_main_container.visible = false
-	_preprocessing_container.visible = true
+	_preprocessing_options_container.visible = true
+	_preprocessing_progress_container.visible = false
+
+func _pre_process() -> void:
+	_main_container.visible = false
+	_preprocessing_options_container.visible = false
+	_preprocessing_progress_container.visible = true
 
 	var existing_hashes: Array = spot_repository.find_all()\
 		.map(func(spot: FSSpot) -> String: return spot.file_hash)
@@ -101,7 +124,8 @@ func _pre_processing_finished(file_paths: PackedStringArray) -> void:
 		return
 
 	_main_container.visible = true
-	_preprocessing_container.visible = false
+	_preprocessing_options_container.visible = false
+	_preprocessing_progress_container.visible = false
 
 	_progress_bar.value = 0
 	_progress_bar.max_value = file_paths.size()
