@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dpk875tpgrltq"]
 
 [ext_resource type="Script" uid="uid://dyfkqmv62yntw" path="res://ui/image_viewer.gd" id="1_xftmp"]
-[ext_resource type="Texture2D" uid="uid://ddhytnqgv5851" path="res://samples/common_blackbird.jpg" id="2_407a4"]
+[ext_resource type="Texture2D" uid="uid://bah2g2geyw2ks" path="res://icon.svg" id="2_xftmp"]
 
 [node name="ImageViewer" type="Control"]
 layout_mode = 3
@@ -28,7 +28,7 @@ render_target_update_mode = 4
 
 [node name="Sprite2D" type="Sprite2D" parent="SubViewportContainer/SubViewport"]
 unique_name_in_owner = true
-texture = ExtResource("2_407a4")
+texture = ExtResource("2_xftmp")
 offset = Vector2(64, 64)
 
 [node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport"]
