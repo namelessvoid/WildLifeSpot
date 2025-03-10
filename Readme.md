@@ -22,3 +22,8 @@ The bulk spot feature enables to process a big batch of camera trap pictures at 
 Inventorize your camera traps.
 
 ![Camera management](screenshots/camera_management.png)
+
+
+## Development
+
+Get [Godot Engine 4.4](https://godotengine.org/). Checkout the repository and open the project in Godot.
