@@ -15,7 +15,7 @@ Spotted animals are displayed as diagrams, allow to see e.g. peak times of anima
 
 ![Spot diagram](screenshots/spot_diagram.png)
 
-The bulk spot feature enables to process a big batch of camera trap pictures at once. You just have to classify and count visible animals. FaunaSpot takes care of the rest.
+The bulk spot feature enables to process a big batch of camera trap pictures at once. You just have to classify and count visible animals. FaunaSpot takes care of the rest. ([Image license](samples/licenses.md))
 
 ![Spotting animals](screenshots/spot_image.png)
 
