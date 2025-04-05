@@ -28,7 +28,7 @@ func _get_chart_properties(spots: Array[FSSpot]) -> ChartProperties:
 	chart_properties.colors.background = Color.TRANSPARENT
 	chart_properties.colors.grid = Color("#283442")
 	chart_properties.colors.ticks = Color("#283442")
-	chart_properties.colors.text = Color.RED
+	chart_properties.colors.text = Color.WHITE_SMOKE
 	chart_properties.draw_bounding_box = false
 	chart_properties.title = "Animals spotted"
 	chart_properties.x_label = "Time"
