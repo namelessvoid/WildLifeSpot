@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://ds4u6yauu4ssm"]
+[gd_scene load_steps=7 format=3 uid="uid://ds4u6yauu4ssm"]
 
 [ext_resource type="Script" uid="uid://cm6fh1dlhfk7j" path="res://ui/main_ui.gd" id="1_m6rnm"]
 [ext_resource type="Script" uid="uid://dmbndfqbtf8jo" path="res://ui/cameras_tab.gd" id="1_usf5r"]
 [ext_resource type="Script" uid="uid://cowrd2c6oifb1" path="res://ui/spots_tab.gd" id="2_x3h8h"]
 [ext_resource type="PackedScene" uid="uid://dwlxt0iprcf8c" path="res://ui/bulk_spot_window.tscn" id="3_2unuh"]
+[ext_resource type="Theme" uid="uid://ddi3sxxk457h5" path="res://ui/theming/spot_chart_theme.tres" id="3_186kx"]
 [ext_resource type="Script" uid="uid://biewagogkebie" path="res://ui/spot_chart.gd" id="4_186kx"]
 
 [node name="MainUi" type="Control"]
@@ -84,10 +85,11 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 
-[node name="BirdSpotChart" type="Control" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Spots/MarginContainer/HSplitContainer/SpotDetailsContainer"]
+[node name="SpotChart" type="Control" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Spots/MarginContainer/HSplitContainer/SpotDetailsContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("3_186kx")
 script = ExtResource("4_186kx")
 colors = Array[Color]([Color(0, 0.633561, 0.244255, 1), Color(1.05888e-06, 0.599498, 0.85004, 1), Color(0.977861, 0, 0.183616, 1), Color(0.749871, 0.552737, 9.62615e-07, 1), Color(0, 0.422094, 0.0212651, 1), Color(0.000339562, 0.198961, 0.673453, 1), Color(0.392521, 0.00107168, 0.570689, 1), Color(0.608437, 0.0168363, 0.0344286, 1), Color(0.439085, 0.246157, 1.92523e-07, 1), Color(0.928813, 0.860782, 0, 1), Color(1, 0.811431, 0.7628, 1)])
 

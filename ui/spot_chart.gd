@@ -1,5 +1,5 @@
 extends Control
-class_name BirdSpotChart
+class_name SpotChart
 
 @export var colors: Array[Color]
 

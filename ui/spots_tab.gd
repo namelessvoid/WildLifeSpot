@@ -7,7 +7,7 @@ var spot_repository: FSSpotRepository
 @onready var _bulk_add_button: Button = %BulkAddButton
 @onready var _date_list: ItemList = %DateList
 @onready var _spot_details_container: VBoxContainer = %SpotDetailsContainer
-@onready var _chart: BirdSpotChart = %BirdSpotChart
+@onready var _chart: SpotChart = %SpotChart
 
 func refresh_date_list() -> void:
 	var dates = spot_repository.find_all_dates()
