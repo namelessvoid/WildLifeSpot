@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dmbndfqbtf8jo" path="res://ui/cameras_tab.gd" id="1_usf5r"]
 [ext_resource type="Script" uid="uid://cowrd2c6oifb1" path="res://ui/spots_tab.gd" id="2_x3h8h"]
 [ext_resource type="PackedScene" uid="uid://dwlxt0iprcf8c" path="res://ui/bulk_spot_window.tscn" id="3_2unuh"]
-[ext_resource type="Script" uid="uid://biewagogkebie" path="res://ui/bird_spot_chart.gd" id="4_186kx"]
+[ext_resource type="Script" uid="uid://biewagogkebie" path="res://ui/spot_chart.gd" id="4_186kx"]
 
 [node name="MainUi" type="Control"]
 layout_mode = 3

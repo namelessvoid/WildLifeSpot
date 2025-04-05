@@ -6,6 +6,9 @@ class_name BirdSpotChart
 var _easy_chart_scene: PackedScene = preload("res://addons/easy_charts/control_charts/chart.tscn")
 var _easy_chart: Chart
 var _chart_properties: ChartProperties
+var _x_values: Array = range(0, 23).map(
+	func(i: int) -> String: return "%02d" % i
+)
 
 func set_spots(spots: Array[FSSpot]) -> void: 
 	if _easy_chart:
@@ -13,7 +16,6 @@ func set_spots(spots: Array[FSSpot]) -> void:
 		_easy_chart.queue_free()
 	
 	_easy_chart = _easy_chart_scene.instantiate();
-	_easy_chart.set_x_domain(0, 23)
 	_easy_chart.set_y_domain(0, _get_y_max(spots))
 	_easy_chart.x_labels_function = _get_x_label
 	_easy_chart.y_labels_function = _get_y_label
@@ -26,13 +28,11 @@ func _get_chart_properties(spots: Array[FSSpot]) -> ChartProperties:
 	chart_properties.colors.background = Color.TRANSPARENT
 	chart_properties.colors.grid = Color("#283442")
 	chart_properties.colors.ticks = Color("#283442")
-	chart_properties.colors.text = Color.WHITE_SMOKE
+	chart_properties.colors.text = Color.RED
 	chart_properties.draw_bounding_box = false
 	chart_properties.title = "Animals spotted"
 	chart_properties.x_label = "Time"
 	chart_properties.y_label = "Count"
-	chart_properties.max_samples = 0
-	chart_properties.x_scale = 23
 	chart_properties.y_scale = _get_y_max(spots)
 	chart_properties.show_legend = true
 	chart_properties.interactive = true
@@ -78,13 +78,13 @@ func _get_plot_functions(spots: Array[FSSpot]) -> Array[Function]:
 
 func _bird_plot_function(animal: String, spots_per_hour: Array, color: Color) -> Function:
 	return Function.new(
-		range(0, 24),
+		_x_values,
 		spots_per_hour,
 		animal,
 		{
 			color = color,
-			marker = Function.Marker.CROSS,
-			type = Function.Type.SCATTER
+			type = Function.Type.BAR,
+			bar_size = 5
 		}
 	)
 

@@ -6,7 +6,7 @@ var alphabet : String = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
 func _ready():
 	pass
 
-static func _map_domain(value: float, from_domain: Dictionary, to_domain: Dictionary) -> float:
+static func _map_domain(value: float, from_domain: ChartAxisDomain, to_domain: ChartAxisDomain) -> float:
 	return remap(value, from_domain.lb, from_domain.ub, to_domain.lb, to_domain.ub) 
 
 static func _format_value(value: float, is_decimal: bool) -> String:
@@ -50,7 +50,7 @@ static func _find_min_max(values: Array) -> Dictionary:
 	
 	return { min = _min, max = _max }
 
-static func _sample_values(values: Array, from_domain: Dictionary, to_domain: Dictionary) -> PackedFloat32Array:
+static func _sample_values(values: Array, from_domain: ChartAxisDomain, to_domain: ChartAxisDomain) -> PackedFloat32Array:
 	if values.is_empty():
 		printerr("Trying to plot an empty dataset!")
 		return PackedFloat32Array()

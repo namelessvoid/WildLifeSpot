@@ -2,16 +2,32 @@ extends Control
 class_name FunctionPlotter
 
 var function: Function
-var x_domain: Dictionary
-var y_domain: Dictionary
+var chart: Chart
 
-func _init(function: Function) -> void:
+var x_domain: ChartAxisDomain
+var y_domain: ChartAxisDomain
+
+static func create_for_function(chart: Chart, function: Function) -> FunctionPlotter:
+	match function.get_type():
+		Function.Type.LINE:
+			return LinePlotter.new(chart, function)
+		Function.Type.AREA:
+			return AreaPlotter.new(chart, function)
+		Function.Type.PIE:
+			return PiePlotter.new(chart, function)
+		Function.Type.BAR:
+			return BarPlotter.new(chart, function)
+		Function.Type.SCATTER, _:
+			return ScatterPlotter.new(chart, function)
+
+func _init(chart: Chart, function: Function) -> void:
+	self.chart = chart
 	self.function = function
 
 func _ready() -> void:
 	set_process_input(get_chart_properties().interactive)
 
-func update_values(x_domain: Dictionary, y_domain: Dictionary) -> void:
+func update_values(x_domain: ChartAxisDomain, y_domain: ChartAxisDomain) -> void:
 	self.visible = self.function.get_visibility()
 	if not self.function.get_visibility():
 		return

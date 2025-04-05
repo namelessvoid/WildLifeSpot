@@ -23,7 +23,7 @@ func set_labels_functions(x_labels_function: Callable, y_labels_function: Callab
 func get_box() -> Rect2:
 	var box: Rect2 = get_rect()
 	box.position.x += box_margins.x
-	#box.position.y += box_margins.y
+#	box.position.y += box_margins.y
 	box.end.x -= box_margins.x
 	box.end.y -= box_margins.y
 	return box
