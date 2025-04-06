@@ -20,22 +20,25 @@ func save(p_spot: FSAnimalSpot) -> void:
 
 func find_all() -> Array[FSAnimalSpot]:
 	_db.query("SELECT * FROM " + _table_name)
+	return _deserialize(_db.query_result)
 
-	var spots: Array[FSAnimalSpot] = []
-	spots.resize(_db.query_result.size())
+func find_all_by_date(date: String) -> Array[FSAnimalSpot]:
+	_db.query_with_bindings(
+		"SELECT * FROM " + _table_name + " WHERE DATE(date_time)=?",
+		[date]
+	)
+	return _deserialize(_db.query_result)
+
+func find_all_dates() -> PackedStringArray:
+	_db.query("SELECT DISTINCT(DATE(date_time)) AS spot_date FROM " + _table_name)
+
+	var dates: PackedStringArray = []
+	dates.resize(_db.query_result.size())
+
 	for i in range(_db.query_result.size()):
-		var serialized = _db.query_result[i]
-		var spot = FSAnimalSpot.new()
-		spot._id = serialized.id
-		spot.source = serialized.source
-		spot.file_path = serialized.file_path
-		spot.camera_id = serialized.camera_id
-		spot.date_time = serialized.date_time
-		spot.animal_name = serialized.animal_name
-		spot.animal_count = serialized.animal_count
-		spots[i] = spot
+		dates[i] = _db.query_result[i]["spot_date"]
 
-	return spots
+	return dates
 
 func _ready() -> void:
 	_db = SQLite.new()
@@ -56,3 +59,21 @@ func _ensure_table():
 		"animal_name": { "data_type": "text", "not_null": true },
 		"animal_count": { "data_type": "int", "not_null": true }
 	})
+
+static func _deserialize(query_result: Array[Dictionary]) -> Array[FSAnimalSpot]:
+	var spots: Array[FSAnimalSpot] = []
+	spots.resize(query_result.size())
+
+	for i in range(query_result.size()):
+		var serialized = query_result[i]
+		var spot = FSAnimalSpot.new()
+		spot._id = serialized.id
+		spot.source = serialized.source
+		spot.file_path = serialized.file_path
+		spot.camera_id = serialized.camera_id
+		spot.date_time = serialized.date_time
+		spot.animal_name = serialized.animal_name
+		spot.animal_count = serialized.animal_count
+		spots[i] = spot
+
+	return spots
