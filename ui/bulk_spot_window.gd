@@ -6,6 +6,7 @@ signal finished
 
 var camera_repository: FSCameraRepository
 var spot_repository: FSSpotRepository
+var processed_images_repository: FSProcessedImageRepository
 var exif_reader: ExifReader
 var file_hasher: FileHasher
 
@@ -74,6 +75,7 @@ func _on_selected_files_changed() -> void:
 	assert(exif_reader)
 	assert(spot_repository)
 	assert(camera_repository)
+	assert(processed_images_repository)
 	assert(file_hasher)
 
 	_show_preprocessing_options()
@@ -100,9 +102,9 @@ func _pre_process() -> void:
 	)
 
 	var group_id := WorkerThreadPool.add_group_task(func(index: int) -> void:
-		var path: String= files[index]["path"]
+		var path: String = files[index]["path"]
 		var hash = file_hasher.get_file_hash(path)
-		files[index]["already_persisted"] = existing_hashes.has(hash)
+		files[index]["already_persisted"] = processed_images_repository.has_been_processed(hash)
 	, files.size())
 
 	_preprocessing_progress.value = 0
@@ -175,6 +177,7 @@ func _save_and_show_next_image() -> void:
 		spot.animals[animal_box.get_animal_name()] = animal_box.get_animal_count()
 
 	spot_repository.save(spot)
+	processed_images_repository.mark_processed(spot.file_hash)
 
 	_show_next_image()
 

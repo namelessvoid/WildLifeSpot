@@ -2,6 +2,7 @@ extends Control
 
 @export var camera_repository: FSCameraRepository
 @export var spot_repository: FSSpotRepository
+@export var processed_image_repository: FSProcessedImageRepository
 @export var exif_reader: ExifReader
 @export var file_hasher: FileHasher
 
@@ -14,6 +15,7 @@ extends Control
 func _ready():
 	assert(camera_repository)
 	assert(spot_repository)
+	assert(processed_image_repository)
 	assert(exif_reader)
 	assert(file_hasher)
 
@@ -30,6 +32,7 @@ func _ready():
 	_spots_tab.spot_repository = spot_repository
 	_bulk_spot_window.camera_repository = camera_repository
 	_bulk_spot_window.spot_repository = spot_repository
+	_bulk_spot_window.processed_images_repository = processed_image_repository
 	_bulk_spot_window.exif_reader = exif_reader
 	_bulk_spot_window.file_hasher = file_hasher
 
