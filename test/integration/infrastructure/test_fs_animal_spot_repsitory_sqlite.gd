@@ -99,3 +99,41 @@ func test_find_all_dates_returns_distinct_dates():
 
 	# Assert
 	assert_eq(dates, PackedStringArray(["2025-01-01", "2025-01-02"]))
+
+func test_delete_by_source_and_date_time_does_only_delete_matching_spots():
+	# Arrange
+	var repository := _create_repository()
+
+	var spot_non_matching_source = FSAnimalSpot.new()
+	spot_non_matching_source.source = "not-image"
+	spot_non_matching_source.date_time = "2025-01-01T12:01:03"
+	spot_non_matching_source.animal_name = "non-matching-source"
+	repository.save(spot_non_matching_source)
+
+	var spot_non_matching_date_time = FSAnimalSpot.new()
+	spot_non_matching_date_time.source = "image"
+	spot_non_matching_date_time.date_time = "2025-01-01T12:01:04"
+	spot_non_matching_date_time.animal_name = "non-matching-date-time"
+	repository.save(spot_non_matching_date_time)
+
+	var matching_spot1 := FSAnimalSpot.new()
+	matching_spot1.source = "image"
+	matching_spot1.date_time = "2025-01-01T12:01:03"
+	repository.save(matching_spot1)
+
+	var matching_spot2 := FSAnimalSpot.new()
+	matching_spot2.source = "image"
+	matching_spot2.date_time = "2025-01-01T12:01:03"
+	repository.save(matching_spot2)
+
+	# Sanity check
+	assert_eq(repository.find_all().size(), 4)
+
+	# Act
+	repository.delete_by_source_and_date_time("image", "2025-01-01T12:01:03")
+
+	# Assert
+	var spots := repository.find_all()
+	assert_eq(spots.size(), 2)
+	assert_eq(spots[0].animal_name, "non-matching-source")
+	assert_eq(spots[1].animal_name, "non-matching-date-time")

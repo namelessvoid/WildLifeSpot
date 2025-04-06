@@ -5,7 +5,7 @@ const AnimalBoxScene := preload("res://ui/animal_box.tscn")
 signal finished
 
 var camera_repository: FSCameraRepository
-var spot_repository: FSSpotRepository
+var spot_repository: FSAnimalSpotRepository
 var processed_images_repository: FSProcessedImageRepository
 var exif_reader: ExifReader
 var file_hasher: FileHasher
@@ -160,24 +160,26 @@ func _pre_processing_finished(file_paths: PackedStringArray) -> void:
 
 func _save_and_show_next_image() -> void:
 	var file_path := _paths[_next_image]
+	var spot_date_time = _date_time_edit.text
 
-	var spot := FSSpot.new()
-	spot.type = "image"
-	spot.file_path = file_path
-	spot.file_hash = file_hasher.get_file_hash(file_path)
-	spot.date_time = _date_time_edit.text
-	spot.temperature = _temperature_edit.value
-	spot.animals = {}
+	spot_repository.delete_by_source_and_date_time("image", spot_date_time)
+
 	for node in _animal_box_container.get_children():
 		var animal_box := node as AnimalBox
-		var name := animal_box.get_animal_name()
-		var count := animal_box.get_animal_count()
-		if name.is_empty() || count <= 0:
+		if animal_box.get_animal_name().is_empty() || animal_box.get_animal_count() <= 0:
 			continue
-		spot.animals[animal_box.get_animal_name()] = animal_box.get_animal_count()
 
-	spot_repository.save(spot)
-	processed_images_repository.mark_processed(spot.file_hash)
+		var spot = FSAnimalSpot.new()
+		spot.source = "image"
+		spot.file_path = file_path
+		spot.date_time = spot_date_time
+		spot.animal_name = animal_box.get_animal_name()
+		spot.animal_count = animal_box.get_animal_count()
+
+		spot_repository.save(spot)
+
+	var file_hash = file_hasher.get_file_hash(file_path)
+	processed_images_repository.mark_processed(file_hash)
 
 	_show_next_image()
 

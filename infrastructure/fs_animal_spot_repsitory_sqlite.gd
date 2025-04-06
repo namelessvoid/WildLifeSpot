@@ -40,6 +40,13 @@ func find_all_dates() -> PackedStringArray:
 
 	return dates
 
+func delete_by_source_and_date_time(source: String, date_time: String) -> void:
+	var success = _db.query_with_bindings(
+		"DELETE FROM " + _table_name + " WHERE source=? AND date_time=?",
+		[source, date_time]
+	)
+	assert(success)
+
 func _ready() -> void:
 	_db = SQLite.new()
 	_db.path = _db_path

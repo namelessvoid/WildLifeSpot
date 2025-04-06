@@ -16,3 +16,6 @@ func find_all_by_date(date: String) -> Array[FSAnimalSpot]:
 func find_all_dates() -> PackedStringArray:
 	assert(false, "Not implemented")
 	return []
+
+func delete_by_source_and_date_time(source: String, date_time: String) -> void:
+	assert(false, "Not implemented")
