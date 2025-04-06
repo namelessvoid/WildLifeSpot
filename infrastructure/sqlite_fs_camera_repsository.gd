@@ -20,6 +20,29 @@ func find_all() -> Array[FSCamera]:
 
 	return cameras
 
+func save(camera: FSCamera) -> void:
+	if camera._id == -1:
+		_db.insert_row(_table_name, {
+			"name": camera.name,
+			"manufacturer": camera.manufacturer,
+			"model": camera.model
+		})
+	else:
+		_db.query("BEGIN TRANSACTION;")
+		_db.query_with_bindings("UPDATE " + _table_name + "
+			SET name=?, manufacturer=?, model=?
+			WHERE id=?
+		", [camera.name, camera.manufacturer, camera.model, camera._id])
+		_db.query("END TRANSACTION;")
+	
+func delete(camera: FSCamera) -> void:
+	_db.query("BEGIN TRANSACTION;")
+	_db.query_with_bindings(
+		"DELETE FROM " + _table_name + " WHERE id=?",
+		[camera._id]
+	)
+	_db.query("END TRANSACTION;")
+
 func _ready() -> void:
 	_db = SQLite.new()
 	_db.path = _db_path
