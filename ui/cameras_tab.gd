@@ -62,6 +62,8 @@ func _on_new_camera_clicked() -> void:
 	camera_repository.save(camera)
 	_cameras.append(camera)
 	_update_camera_list()
+	_camera_list.select(_cameras.size() - 1)
+	_show_camera_details(camera)
 
 func _on_save_camera_clicked() -> void:
 	_selected_camera.name = _name_edit.text
