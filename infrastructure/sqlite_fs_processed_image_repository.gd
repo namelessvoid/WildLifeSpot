@@ -14,6 +14,9 @@ func has_been_processed(file_hash: String) -> bool:
 	return _db.query_result[0]["hash_exists"] == 1
 
 func mark_processed(file_hash: String) -> void:
+	if has_been_processed(file_hash):
+		return
+
 	_db.insert_row(_table_name, { "file_hash": file_hash })
 
 func _ready() -> void:
