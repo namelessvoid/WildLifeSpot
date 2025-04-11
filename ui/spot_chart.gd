@@ -10,7 +10,7 @@ var _x_values: Array = range(0, 23).map(
 	func(i: int) -> String: return "%02d" % i
 )
 
-func set_spots(spots: Array[FSAnimalSpot]) -> void: 
+func set_spots(spots: Array[AnimalSpot]) -> void: 
 	if _easy_chart:
 		remove_child(_easy_chart)
 		_easy_chart.queue_free()
@@ -22,7 +22,7 @@ func set_spots(spots: Array[FSAnimalSpot]) -> void:
 	add_child(_easy_chart)
 	_easy_chart.plot(_get_plot_functions(spots), _get_chart_properties(spots))
 
-func _get_chart_properties(spots: Array[FSAnimalSpot]) -> ChartProperties:
+func _get_chart_properties(spots: Array[AnimalSpot]) -> ChartProperties:
 	var chart_properties := ChartProperties.new()
 	chart_properties.colors.frame = Color("#161a1d")
 	chart_properties.colors.background = Color.TRANSPARENT
@@ -38,7 +38,7 @@ func _get_chart_properties(spots: Array[FSAnimalSpot]) -> ChartProperties:
 	chart_properties.interactive = true
 	return chart_properties
 
-func _get_y_max(spots: Array[FSAnimalSpot]) -> int:
+func _get_y_max(spots: Array[AnimalSpot]) -> int:
 	var max_value = 0
 	for spot in spots:
 		if spot.animal_count > max_value:
@@ -49,10 +49,10 @@ func _get_y_max(spots: Array[FSAnimalSpot]) -> int:
 
 	return max_value
 
-func _get_plot_functions(spots: Array[FSAnimalSpot]) -> Array[Function]:
+func _get_plot_functions(spots: Array[AnimalSpot]) -> Array[Function]:
 	var spots_by_bird_per_hour = {}
 	for spot in spots:
-		var date_time_dict := Time.get_datetime_dict_from_datetime_string(spot.date_time, false)
+		var date_time_dict := Time.get_datetime_dict_from_datetime_string(spot.spotted_at, false)
 		var hour := date_time_dict["hour"] as int
 
 		if !spots_by_bird_per_hour.has(spot.animal_name):

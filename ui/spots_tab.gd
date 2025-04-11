@@ -2,7 +2,7 @@ extends Control
 
 signal request_spot_bulk_add
 
-var spot_repository: FSAnimalSpotRepository
+var spot_repository: AnimalSpotRepository
 
 @onready var _bulk_add_button: Button = %BulkAddButton
 @onready var _date_list: ItemList = %DateList

@@ -1,15 +1,15 @@
 extends Node
-class_name FSAnimalSpotRepository
+class_name AnimalSpotRepository
 
-func save(p_spot: FSAnimalSpot) -> void:
+func save(p_spot: AnimalSpot) -> void:
 	assert(false, "Not implemented")
 	pass
 
-func find_all() -> Array[FSAnimalSpot]:
+func find_all() -> Array[AnimalSpot]:
 	assert(false, "Not implemented")
 	return []
 
-func find_all_by_date(date: String) -> Array[FSAnimalSpot]:
+func find_all_by_date(date: String) -> Array[AnimalSpot]:
 	assert(false, "Not implemented")
 	return []
 
@@ -17,5 +17,5 @@ func find_all_dates() -> PackedStringArray:
 	assert(false, "Not implemented")
 	return []
 
-func delete_by_source_and_date_time(source: String, date_time: String) -> void:
+func delete_by_source_and_spotted_at(source: String, spotted_at: String) -> void:
 	assert(false, "Not implemented")

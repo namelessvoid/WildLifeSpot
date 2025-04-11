@@ -5,7 +5,7 @@ const AnimalBoxScene := preload("res://ui/animal_box.tscn")
 signal finished
 
 var camera_repository: FSCameraRepository
-var spot_repository: FSAnimalSpotRepository
+var spot_repository: AnimalSpotRepository
 var processed_images_repository: FSProcessedImageRepository
 var exif_reader: ExifReader
 var file_hasher: FileHasher
@@ -94,8 +94,6 @@ func _pre_process() -> void:
 	_preprocessing_options_container.visible = false
 	_preprocessing_progress_container.visible = true
 
-	var existing_hashes: Array = spot_repository.find_all()\
-		.map(func(spot: FSSpot) -> String: return spot.file_hash)
 	var files := Array(selected_files)\
 	.map(func(path: String) -> Dictionary[String, Variant]:
 		return { "path": path, "already_persisted": false }
@@ -162,17 +160,17 @@ func _save_and_show_next_image() -> void:
 	var file_path := _paths[_next_image]
 	var spot_date_time = _date_time_edit.text
 
-	spot_repository.delete_by_source_and_date_time("image", spot_date_time)
+	spot_repository.delete_by_source_and_spotted_at("image", spot_date_time)
 
 	for node in _animal_box_container.get_children():
 		var animal_box := node as AnimalBox
 		if animal_box.get_animal_name().is_empty() || animal_box.get_animal_count() <= 0:
 			continue
 
-		var spot = FSAnimalSpot.new()
+		var spot = AnimalSpot.new()
 		spot.source = "image"
 		spot.file_path = file_path
-		spot.date_time = spot_date_time
+		spot.spotted_at = spot_date_time
 		spot.animal_name = animal_box.get_animal_name()
 		spot.animal_count = animal_box.get_animal_count()
 

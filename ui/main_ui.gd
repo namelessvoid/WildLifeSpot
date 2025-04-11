@@ -1,7 +1,7 @@
 extends Control
 
 @export var camera_repository: FSCameraRepository
-@export var spot_repository: FSAnimalSpotRepository
+@export var spot_repository: AnimalSpotRepository
 @export var processed_image_repository: FSProcessedImageRepository
 @export var exif_reader: ExifReader
 @export var file_hasher: FileHasher
