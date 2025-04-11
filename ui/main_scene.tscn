@@ -12,7 +12,8 @@
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="MainUi" parent="CanvasLayer" node_paths=PackedStringArray("camera_repository", "spot_repository", "processed_image_repository", "exif_reader", "file_hasher") instance=ExtResource("1_x4b18")]
+[node name="MainUi" parent="CanvasLayer" node_paths=PackedStringArray("database_manager", "camera_repository", "spot_repository", "processed_image_repository", "exif_reader", "file_hasher") instance=ExtResource("1_x4b18")]
+database_manager = NodePath("../../DatabaseManager")
 camera_repository = NodePath("../../CameraRepository")
 spot_repository = NodePath("../../AnimalSpotRepository")
 processed_image_repository = NodePath("../../ProcessedImagesRepository")

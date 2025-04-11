@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dx7ktkeex2mww"]
+
+[ext_resource type="Script" uid="uid://dasu1ngf2w6os" path="res://ui/select_database_dialog.gd" id="1_ne6pt"]
+
+[node name="SelectDatabaseDialog" type="FileDialog"]
+auto_translate_mode = 1
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
+access = 1
+filters = PackedStringArray("*.db;Database;application/x-sqlite3")
+use_native_dialog = true
+script = ExtResource("1_ne6pt")

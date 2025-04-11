@@ -1,4 +1,5 @@
 extends Node
+class_name DatabaseManagerSQLite
 
 @export var animal_spot_repository: AnimalSpotRepositorySQLite
 @export var camera_repository: CameraRepositorySQLite
