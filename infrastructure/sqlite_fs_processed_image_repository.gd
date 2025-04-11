@@ -1,6 +1,6 @@
 extends FSProcessedImageRepository
+class_name ProcessedImageRepositorySQLite
 
-var _db_path = &"user://wildlifespot.db"
 const _table_name = &"processed_image"
 
 var _db: SQLite
@@ -19,9 +19,12 @@ func mark_processed(file_hash: String) -> void:
 
 	_db.insert_row(_table_name, { "file_hash": file_hash })
 
-func _ready() -> void:
+func set_db_path(p_db_path: String) -> void:
+	if _db:
+		_db.close_db()
+
 	_db = SQLite.new()
-	_db.path = _db_path
+	_db.path = p_db_path
 	_db.open_db()
 	_ensure_table()
 

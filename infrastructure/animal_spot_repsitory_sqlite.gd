@@ -1,6 +1,6 @@
 extends AnimalSpotRepository
+class_name AnimalSpotRepositorySQLite
 
-var _db_path = &"user://wildlifespot.db"
 const _table_name = &"animal_spot"
 
 var _db: SQLite
@@ -47,9 +47,12 @@ func delete_by_source_and_spotted_at(source: String, spotted_at: String) -> void
 	)
 	assert(success)
 
-func _ready() -> void:
+func set_db_path(p_db_path: String) -> void:
+	if _db:
+		_db.close_db()
+
 	_db = SQLite.new()
-	_db.path = _db_path
+	_db.path = p_db_path
 	_db.open_db()
 	_ensure_table()
 

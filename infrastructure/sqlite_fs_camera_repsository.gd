@@ -1,6 +1,6 @@
 extends FSCameraRepository
+class_name CameraRepositorySQLite
 
-const _db_path = &"user://wildlifespot.db"
 const _table_name = &"camera"
 
 var _db: SQLite
@@ -43,9 +43,12 @@ func delete(camera: FSCamera) -> void:
 	)
 	_db.query("END TRANSACTION;")
 
-func _ready() -> void:
+func set_db_path(p_db_path: String) -> void:
+	if _db:
+		_db.close_db()
+
 	_db = SQLite.new()
-	_db.path = _db_path
+	_db.path = p_db_path
 	_db.open_db()
 	_ensure_table()
 
