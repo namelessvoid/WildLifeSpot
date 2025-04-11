@@ -28,13 +28,15 @@ func _ready() -> void:
 	_save_camera_button.pressed.connect(_on_save_camera_clicked)
 	_delete_camera_button.pressed.connect(_on_delete_camera_clicked)
 
-	_hide_camera_details()
-
 	_initialize.call_deferred()
 	
 func _initialize() -> void:
+	camera_repository.db_changed.connect(_on_db_changed)
+
+func _on_db_changed():
 	_cameras = camera_repository.find_all()
 	_update_camera_list()
+	_hide_camera_details()
 
 func _show_camera_details(p_camera: FSCamera) -> void:
 	_selected_camera = p_camera

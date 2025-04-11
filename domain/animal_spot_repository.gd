@@ -1,6 +1,8 @@
 extends Node
 class_name AnimalSpotRepository
 
+signal db_changed
+
 func save(p_spot: AnimalSpot) -> void:
 	assert(false, "Not implemented")
 	pass

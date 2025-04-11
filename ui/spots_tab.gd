@@ -24,14 +24,21 @@ func _ready():
 	_date_list.item_selected.connect(_on_date_selected)
 
 	_spot_details_container.visible = true
+	_chart.visible = false
 
 	_initialize.call_deferred()
 
 func _initialize():
 	assert(spot_repository)
 	refresh_date_list()
+	spot_repository.db_changed.connect(_on_db_changed)
 
 func _on_date_selected(index: int) -> void:
 	var date := _date_list.get_item_text(index)
 	var spots = spot_repository.find_all_by_date(date)
 	_chart.set_spots(spots)
+	_chart.visible = true
+
+func _on_db_changed():
+	refresh_date_list()
+	_chart.visible = false

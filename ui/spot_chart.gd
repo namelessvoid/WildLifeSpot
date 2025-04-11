@@ -14,7 +14,10 @@ func set_spots(spots: Array[AnimalSpot]) -> void:
 	if _easy_chart:
 		remove_child(_easy_chart)
 		_easy_chart.queue_free()
-	
+
+	if spots == null:
+		return
+
 	_easy_chart = _easy_chart_scene.instantiate();
 	_easy_chart.set_y_domain(0, _get_y_max(spots))
 	_easy_chart.x_labels_function = _get_x_label

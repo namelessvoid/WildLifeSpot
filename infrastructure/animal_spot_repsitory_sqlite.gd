@@ -56,6 +56,8 @@ func set_db_path(p_db_path: String) -> void:
 	_db.open_db()
 	_ensure_table()
 
+	db_changed.emit()
+
 func _exit_tree() -> void:
 	_db.close_db()
 
