@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://tr7amj4h6rn6"]
+
+[ext_resource type="Script" uid="uid://cowrd2c6oifb1" path="res://ui/spots_tab.gd" id="1_l3oh5"]
+[ext_resource type="Theme" uid="uid://ddi3sxxk457h5" path="res://ui/theming/spot_chart_theme.tres" id="2_hdh03"]
+[ext_resource type="Script" uid="uid://biewagogkebie" path="res://ui/spot_chart.gd" id="3_n70y0"]
+
+[node name="Spots" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_l3oh5")
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer"]
+layout_mode = 2
+split_offset = 152
+
+[node name="SpotDaysContainer" type="VBoxContainer" parent="MarginContainer/HSplitContainer"]
+layout_mode = 2
+
+[node name="BulkAddButton" type="Button" parent="MarginContainer/HSplitContainer/SpotDaysContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add spots"
+
+[node name="DateList" type="ItemList" parent="MarginContainer/HSplitContainer/SpotDaysContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+item_count = 1
+item_0/text = "adsfadsf"
+
+[node name="SpotDetailsContainer" type="VBoxContainer" parent="MarginContainer/HSplitContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+
+[node name="SpotChart" type="Control" parent="MarginContainer/HSplitContainer/SpotDetailsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("2_hdh03")
+script = ExtResource("3_n70y0")
+colors = Array[Color]([Color(0, 0.633561, 0.244255, 1), Color(1.05888e-06, 0.599498, 0.85004, 1), Color(0.977861, 0, 0.183616, 1), Color(0.749871, 0.552737, 9.62615e-07, 1), Color(0, 0.422094, 0.0212651, 1), Color(0.000339562, 0.198961, 0.673453, 1), Color(0.392521, 0.00107168, 0.570689, 1), Color(0.608437, 0.0168363, 0.0344286, 1), Color(0.439085, 0.246157, 1.92523e-07, 1), Color(0.928813, 0.860782, 0, 1), Color(1, 0.811431, 0.7628, 1)])

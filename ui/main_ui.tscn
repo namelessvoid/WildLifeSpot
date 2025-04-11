@@ -1,11 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://ds4u6yauu4ssm"]
+[gd_scene load_steps=6 format=3 uid="uid://ds4u6yauu4ssm"]
 
 [ext_resource type="Script" uid="uid://cm6fh1dlhfk7j" path="res://ui/main_ui.gd" id="1_m6rnm"]
-[ext_resource type="Script" uid="uid://dmbndfqbtf8jo" path="res://ui/cameras_tab.gd" id="1_usf5r"]
-[ext_resource type="Script" uid="uid://cowrd2c6oifb1" path="res://ui/spots_tab.gd" id="2_x3h8h"]
+[ext_resource type="PackedScene" uid="uid://tr7amj4h6rn6" path="res://ui/spots_tab.tscn" id="2_qry5k"]
 [ext_resource type="PackedScene" uid="uid://dwlxt0iprcf8c" path="res://ui/bulk_spot_window.tscn" id="3_2unuh"]
-[ext_resource type="Theme" uid="uid://ddi3sxxk457h5" path="res://ui/theming/spot_chart_theme.tres" id="3_186kx"]
-[ext_resource type="Script" uid="uid://biewagogkebie" path="res://ui/spot_chart.gd" id="4_186kx"]
+[ext_resource type="PackedScene" uid="uid://dffhglkusahi1" path="res://ui/cameras_tab.tscn" id="3_186kx"]
 [ext_resource type="PackedScene" uid="uid://dx7ktkeex2mww" path="res://ui/select_database_dialog.tscn" id="7_ti1yg"]
 
 [node name="MainUi" type="Control"]
@@ -52,138 +50,14 @@ layout_mode = 2
 size_flags_vertical = 3
 current_tab = 0
 
-[node name="Spots" type="Control" parent="Panel/MarginContainer/VBoxContainer/TabContainer"]
+[node name="Spots" parent="Panel/MarginContainer/VBoxContainer/TabContainer" instance=ExtResource("2_qry5k")]
 unique_name_in_owner = true
 layout_mode = 2
-script = ExtResource("2_x3h8h")
-metadata/_tab_index = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Spots"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HSplitContainer" type="HSplitContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Spots/MarginContainer"]
-layout_mode = 2
-split_offset = 152
-
-[node name="SpotDaysContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Spots/MarginContainer/HSplitContainer"]
-layout_mode = 2
-
-[node name="BulkAddButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Spots/MarginContainer/HSplitContainer/SpotDaysContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Add spots"
-
-[node name="DateList" type="ItemList" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Spots/MarginContainer/HSplitContainer/SpotDaysContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-item_count = 1
-item_0/text = "adsfadsf"
-
-[node name="SpotDetailsContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Spots/MarginContainer/HSplitContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(500, 0)
-layout_mode = 2
-
-[node name="SpotChart" type="Control" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Spots/MarginContainer/HSplitContainer/SpotDetailsContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-theme = ExtResource("3_186kx")
-script = ExtResource("4_186kx")
-colors = Array[Color]([Color(0, 0.633561, 0.244255, 1), Color(1.05888e-06, 0.599498, 0.85004, 1), Color(0.977861, 0, 0.183616, 1), Color(0.749871, 0.552737, 9.62615e-07, 1), Color(0, 0.422094, 0.0212651, 1), Color(0.000339562, 0.198961, 0.673453, 1), Color(0.392521, 0.00107168, 0.570689, 1), Color(0.608437, 0.0168363, 0.0344286, 1), Color(0.439085, 0.246157, 1.92523e-07, 1), Color(0.928813, 0.860782, 0, 1), Color(1, 0.811431, 0.7628, 1)])
-
-[node name="Cameras" type="Control" parent="Panel/MarginContainer/VBoxContainer/TabContainer"]
+[node name="Cameras" parent="Panel/MarginContainer/VBoxContainer/TabContainer" instance=ExtResource("3_186kx")]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-script = ExtResource("1_usf5r")
-metadata/_tab_index = 1
-
-[node name="MarginContainer" type="MarginContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Cameras"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VSplitContainer" type="HSplitContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Cameras/MarginContainer"]
-layout_mode = 2
-split_offset = 152
-
-[node name="CameraListContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Cameras/MarginContainer/VSplitContainer"]
-layout_mode = 2
-
-[node name="NewCameraButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Cameras/MarginContainer/VSplitContainer/CameraListContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "New Camera"
-
-[node name="CameraList" type="ItemList" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Cameras/MarginContainer/VSplitContainer/CameraListContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-item_count = 1
-item_0/text = "Camera"
-
-[node name="CameraDetailsContainer" type="VBoxContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Cameras/MarginContainer/VSplitContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="GridContainer" type="GridContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Cameras/MarginContainer/VSplitContainer/CameraDetailsContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-columns = 2
-
-[node name="Label" type="Label" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Cameras/MarginContainer/VSplitContainer/CameraDetailsContainer/GridContainer"]
-layout_mode = 2
-text = "Name:"
-
-[node name="NameEdit" type="LineEdit" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Cameras/MarginContainer/VSplitContainer/CameraDetailsContainer/GridContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "Camera name"
-
-[node name="Label2" type="Label" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Cameras/MarginContainer/VSplitContainer/CameraDetailsContainer/GridContainer"]
-layout_mode = 2
-text = "Model:"
-
-[node name="ModelEdit" type="LineEdit" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Cameras/MarginContainer/VSplitContainer/CameraDetailsContainer/GridContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "Model"
-
-[node name="Label3" type="Label" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Cameras/MarginContainer/VSplitContainer/CameraDetailsContainer/GridContainer"]
-layout_mode = 2
-text = "Manufacturer:"
-
-[node name="ManufacturerEdit" type="LineEdit" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Cameras/MarginContainer/VSplitContainer/CameraDetailsContainer/GridContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "Manufacturer"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Cameras/MarginContainer/VSplitContainer/CameraDetailsContainer"]
-layout_mode = 2
-alignment = 2
-
-[node name="DeleteCameraButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Cameras/MarginContainer/VSplitContainer/CameraDetailsContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Delete"
-
-[node name="SaveCameraButton" type="Button" parent="Panel/MarginContainer/VBoxContainer/TabContainer/Cameras/MarginContainer/VSplitContainer/CameraDetailsContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Save"
 
 [node name="BulkSpotFileDialog" type="FileDialog" parent="."]
 unique_name_in_owner = true
