@@ -16,6 +16,10 @@ config/use_custom_user_dir=true
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/stretch/scale=2.0
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/easy_charts/plugin.cfg", "res://addons/godot-sqlite/plugin.cfg", "res://addons/gut/plugin.cfg")

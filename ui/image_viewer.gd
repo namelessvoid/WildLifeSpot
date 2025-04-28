@@ -29,11 +29,9 @@ func set_texture(p_texture: Texture2D):
 
 	_sprite.offset = texture_size / 2
 
-	var texture_scale: float
-	if texture_aspect >= 1:
-		texture_scale = size.y / texture_size.y 
-	else:
-		texture_scale = size.x / texture_size.x
+	var texture_scale_x: float = size.x / texture_size.x
+	var texture_scale_y: float = size.y / texture_size.y 
+	var texture_scale = min(texture_scale_x, texture_scale_y)
 	_sprite.scale = Vector2(texture_scale, texture_scale)
 
 func zoom_in():
