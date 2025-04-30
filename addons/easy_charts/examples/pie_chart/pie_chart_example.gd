@@ -7,7 +7,7 @@ var f1: Function
 
 func _ready():
 	# Let's create our @x values
-	var x: Array = [10, 20, 30, 40]
+	var x: Array = [100, 400]
 	
 	# And our y values. It can be an n-size array of arrays.
 	# NOTE: `x.size() == y.size()` or `x.size() == y[n].size()`
@@ -57,7 +57,7 @@ var new_val: float = 4.5
 func _process(delta: float):
 	# This function updates the values of a function and then updates the plot
 	new_val += 5
-	
+
 	# we can use the `Function.add_point(x, y)` method to update a function
 	f1.add_point(new_val, cos(new_val) * 20)
 	chart.queue_redraw() # This will force the Chart to be updated

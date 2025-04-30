@@ -75,9 +75,6 @@ func _draw_x_ticks() -> void:
 	# 3. calculate the offset in the real x domain, which is x_domain / x_scale.
 	var scaler: int = x_tick_count
 	
-	if x_label_centered:
-		scaler += 1
-	
 	var x_pixel_dist: float = self.plot_box.size.x / (scaler) \
 		if x_label_centered \
 		else self.plot_box.size.x / (scaler - 1)
