@@ -6,8 +6,8 @@ class_name SpotChart
 var _easy_chart_scene: PackedScene = preload("res://addons/easy_charts/control_charts/chart.tscn")
 var _easy_chart: Chart
 var _chart_properties: ChartProperties
-var _x_values: Array = range(0, 23).map(
-	func(i: int) -> String: return "%02d" % i
+var _x_values: Array = range(0, 24).map(
+	func(i: int) -> String: return "%d - %dh" % [i, i+1]
 )
 
 func set_spots(spots: Array[AnimalSpot]) -> void: 
