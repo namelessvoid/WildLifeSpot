@@ -20,8 +20,6 @@ func set_spots(spots: Array[AnimalSpot]) -> void:
 
 	_easy_chart = _easy_chart_scene.instantiate();
 	_easy_chart.set_y_domain(0, _get_y_max(spots))
-	_easy_chart.x_labels_function = _get_x_label
-	_easy_chart.y_labels_function = _get_y_label
 	add_child(_easy_chart)
 	_easy_chart.plot(_get_plot_functions(spots), _get_chart_properties(spots))
 
@@ -87,9 +85,3 @@ func _bird_plot_function(animal: String, spots_per_hour: Array, color: Color) ->
 			bar_size = 5
 		}
 	)
-
-func _get_x_label(value: float) -> String:
-	return "%02d" % value
-
-func _get_y_label(value: float) -> String:
-	return "%d" % value
