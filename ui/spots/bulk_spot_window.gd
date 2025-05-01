@@ -1,6 +1,6 @@
 extends Window
 
-const AnimalBoxScene := preload("res://ui/animal_box.tscn")
+const AnimalBoxScene := preload("res://ui/spots/animal_box.tscn")
 
 signal finished
 

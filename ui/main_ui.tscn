@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://ds4u6yauu4ssm"]
 
 [ext_resource type="Script" uid="uid://cm6fh1dlhfk7j" path="res://ui/main_ui.gd" id="1_m6rnm"]
-[ext_resource type="PackedScene" uid="uid://tr7amj4h6rn6" path="res://ui/spots_tab.tscn" id="2_qry5k"]
-[ext_resource type="PackedScene" uid="uid://dwlxt0iprcf8c" path="res://ui/bulk_spot_window.tscn" id="3_2unuh"]
-[ext_resource type="PackedScene" uid="uid://dffhglkusahi1" path="res://ui/cameras_tab.tscn" id="3_186kx"]
+[ext_resource type="PackedScene" uid="uid://tr7amj4h6rn6" path="res://ui/spots/spots_tab.tscn" id="2_qry5k"]
+[ext_resource type="PackedScene" uid="uid://dwlxt0iprcf8c" path="res://ui/spots/bulk_spot_window.tscn" id="3_2unuh"]
+[ext_resource type="PackedScene" uid="uid://dffhglkusahi1" path="res://ui/cameras/cameras_tab.tscn" id="3_186kx"]
 [ext_resource type="PackedScene" uid="uid://dx7ktkeex2mww" path="res://ui/select_database_dialog.tscn" id="7_ti1yg"]
 
 [node name="MainUi" type="Control"]

@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://tr7amj4h6rn6"]
 
-[ext_resource type="Script" uid="uid://cowrd2c6oifb1" path="res://ui/spots_tab.gd" id="1_l3oh5"]
+[ext_resource type="Script" uid="uid://cowrd2c6oifb1" path="res://ui/spots/spots_tab.gd" id="1_l3oh5"]
 [ext_resource type="Theme" uid="uid://ddi3sxxk457h5" path="res://ui/theming/spot_chart_theme.tres" id="2_hdh03"]
-[ext_resource type="Script" uid="uid://biewagogkebie" path="res://ui/spot_chart.gd" id="3_n70y0"]
+[ext_resource type="Script" uid="uid://biewagogkebie" path="res://ui/spots/spot_chart.gd" id="3_n70y0"]
 
 [node name="Spots" type="Control"]
 layout_mode = 3

@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://dwlxt0iprcf8c"]
 
-[ext_resource type="Script" uid="uid://cbapolihihptn" path="res://ui/bulk_spot_window.gd" id="1_qcqfl"]
-[ext_resource type="PackedScene" uid="uid://1igx7b8aya" path="res://ui/animal_box.tscn" id="3_1mdiq"]
+[ext_resource type="Script" uid="uid://cbapolihihptn" path="res://ui/spots/bulk_spot_window.gd" id="1_qcqfl"]
+[ext_resource type="PackedScene" uid="uid://1igx7b8aya" path="res://ui/spots/animal_box.tscn" id="3_1mdiq"]
 [ext_resource type="PackedScene" uid="uid://dpk875tpgrltq" path="res://ui/image_viewer.tscn" id="3_8yvah"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_o1nu8"]
