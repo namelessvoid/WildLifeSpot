@@ -1,4 +1,4 @@
-extends Control
+extends Window
 
 var camera_repository: FSCameraRepository
 
@@ -29,7 +29,9 @@ func _ready() -> void:
 	_delete_camera_button.pressed.connect(_on_delete_camera_clicked)
 
 	_initialize.call_deferred()
-	
+
+	close_requested.connect(hide)
+
 func _initialize() -> void:
 	camera_repository.db_changed.connect(_on_db_changed)
 

@@ -27,6 +27,7 @@ transparent_bg = true
 title = "Bulk spot insert"
 initial_position = 1
 size = Vector2i(1000, 500)
+exclusive = true
 transparent = true
 script = ExtResource("1_qcqfl")
 

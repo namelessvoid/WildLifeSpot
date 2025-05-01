@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://ds4u6yauu4ssm"]
+[gd_scene load_steps=7 format=3 uid="uid://ds4u6yauu4ssm"]
 
 [ext_resource type="Script" uid="uid://cm6fh1dlhfk7j" path="res://ui/main_ui.gd" id="1_m6rnm"]
 [ext_resource type="PackedScene" uid="uid://tr7amj4h6rn6" path="res://ui/spots/spots_tab.tscn" id="2_qry5k"]
 [ext_resource type="PackedScene" uid="uid://dwlxt0iprcf8c" path="res://ui/spots/bulk_spot_window.tscn" id="3_2unuh"]
 [ext_resource type="PackedScene" uid="uid://dffhglkusahi1" path="res://ui/cameras/cameras_tab.tscn" id="3_186kx"]
+[ext_resource type="Theme" uid="uid://ds7klc2qe2idq" path="res://ui/theming/theme.tres" id="6_186kx"]
 [ext_resource type="PackedScene" uid="uid://dx7ktkeex2mww" path="res://ui/select_database_dialog.tscn" id="7_ti1yg"]
 
 [node name="MainUi" type="Control"]
@@ -45,6 +46,19 @@ item_1/id = 3
 item_2/text = "Quit"
 item_2/id = 2
 
+[node name="Spots" type="PopupMenu" parent="Panel/MarginContainer/VBoxContainer/MenuBar"]
+item_count = 2
+item_0/text = "Add from cameras"
+item_0/id = 1
+item_1/text = "Add manual"
+item_1/id = 2
+
+[node name="Cameras" type="PopupMenu" parent="Panel/MarginContainer/VBoxContainer/MenuBar"]
+unique_name_in_owner = true
+item_count = 1
+item_0/text = "Manage"
+item_0/id = 1
+
 [node name="TabContainer" type="TabContainer" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -52,11 +66,6 @@ current_tab = 0
 
 [node name="Spots" parent="Panel/MarginContainer/VBoxContainer/TabContainer" instance=ExtResource("2_qry5k")]
 unique_name_in_owner = true
-layout_mode = 2
-
-[node name="Cameras" parent="Panel/MarginContainer/VBoxContainer/TabContainer" instance=ExtResource("3_186kx")]
-unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
 [node name="BulkSpotFileDialog" type="FileDialog" parent="."]
@@ -76,3 +85,8 @@ visible = false
 
 [node name="SelectDatabaseDialog" parent="." instance=ExtResource("7_ti1yg")]
 unique_name_in_owner = true
+
+[node name="CamerasWindow" parent="." instance=ExtResource("3_186kx")]
+unique_name_in_owner = true
+visible = false
+theme = ExtResource("6_186kx")
