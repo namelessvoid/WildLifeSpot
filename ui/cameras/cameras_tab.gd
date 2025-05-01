@@ -28,7 +28,7 @@ func _ready() -> void:
 	_save_camera_button.pressed.connect(_on_save_camera_clicked)
 	_delete_camera_button.pressed.connect(_on_delete_camera_clicked)
 
-	_initialize.call_deferred()
+	about_to_popup.connect(_on_db_changed)
 
 	close_requested.connect(hide)
 
