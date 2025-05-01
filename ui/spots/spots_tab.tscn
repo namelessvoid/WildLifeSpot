@@ -25,11 +25,6 @@ split_offset = 152
 [node name="SpotDaysContainer" type="VBoxContainer" parent="MarginContainer/HSplitContainer"]
 layout_mode = 2
 
-[node name="BulkAddButton" type="Button" parent="MarginContainer/HSplitContainer/SpotDaysContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Add spots"
-
 [node name="DateList" type="ItemList" parent="MarginContainer/HSplitContainer/SpotDaysContainer"]
 unique_name_in_owner = true
 layout_mode = 2

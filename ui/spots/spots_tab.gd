@@ -1,10 +1,7 @@
 extends Control
 
-signal request_spot_bulk_add
-
 var spot_repository: AnimalSpotRepository
 
-@onready var _bulk_add_button: Button = %BulkAddButton
 @onready var _date_list: ItemList = %DateList
 @onready var _spot_details_container: VBoxContainer = %SpotDetailsContainer
 @onready var _chart: SpotChart = %SpotChart
@@ -16,11 +13,9 @@ func refresh_date_list() -> void:
 		_date_list.add_item(date)
 
 func _ready():
-	assert(_bulk_add_button)
 	assert(_date_list)
 	assert(_spot_details_container)
 
-	_bulk_add_button.pressed.connect(request_spot_bulk_add.emit)
 	_date_list.item_selected.connect(_on_date_selected)
 
 	_spot_details_container.visible = true

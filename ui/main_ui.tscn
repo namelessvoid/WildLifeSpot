@@ -47,6 +47,7 @@ item_2/text = "Quit"
 item_2/id = 2
 
 [node name="Spots" type="PopupMenu" parent="Panel/MarginContainer/VBoxContainer/MenuBar"]
+unique_name_in_owner = true
 item_count = 2
 item_0/text = "Add from cameras"
 item_0/id = 1
@@ -59,14 +60,10 @@ item_count = 1
 item_0/text = "Manage"
 item_0/id = 1
 
-[node name="TabContainer" type="TabContainer" parent="Panel/MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-current_tab = 0
-
-[node name="Spots" parent="Panel/MarginContainer/VBoxContainer/TabContainer" instance=ExtResource("2_qry5k")]
+[node name="SpotsDisplay" parent="Panel/MarginContainer/VBoxContainer" instance=ExtResource("2_qry5k")]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="BulkSpotFileDialog" type="FileDialog" parent="."]
 unique_name_in_owner = true
