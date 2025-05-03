@@ -11,6 +11,6 @@ func save(p_camera: FSCamera) -> void:
 	assert(false, "Not implemented")
 	pass
 
-func delete(p_camera: FSCamera) -> void:
+func delete(p_id: int) -> void:
 	assert(false, "Not implemented")
 	pass

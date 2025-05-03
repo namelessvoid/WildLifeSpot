@@ -40,7 +40,6 @@ func _ready():
 	_bulk_spot_file_dialog.files_selected.connect(_on_bulk_spot_files_selected)
 	_bulk_spot_window.finished.connect(_spots_display.refresh_date_list)
 
-	_cameras_window.camera_repository = camera_repository
 	_spots_display.spot_repository = spot_repository
 
 	_select_database_dialog.database_manager = database_manager

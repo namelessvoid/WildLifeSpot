@@ -27,6 +27,7 @@ func save(camera: FSCamera) -> void:
 			"manufacturer": camera.manufacturer,
 			"model": camera.model
 		})
+		camera._id = _db.last_insert_rowid
 	else:
 		_db.query("BEGIN TRANSACTION;")
 		_db.query_with_bindings("UPDATE " + _table_name + "
@@ -34,12 +35,12 @@ func save(camera: FSCamera) -> void:
 			WHERE id=?
 		", [camera.name, camera.manufacturer, camera.model, camera._id])
 		_db.query("END TRANSACTION;")
-	
-func delete(camera: FSCamera) -> void:
+
+func delete(p_id: int) -> void:
 	_db.query("BEGIN TRANSACTION;")
 	_db.query_with_bindings(
 		"DELETE FROM " + _table_name + " WHERE id=?",
-		[camera._id]
+		[p_id]
 	)
 	_db.query("END TRANSACTION;")
 

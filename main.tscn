@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bfrjddjae20jo"]
+[gd_scene load_steps=9 format=3 uid="uid://bfrjddjae20jo"]
 
 [ext_resource type="PackedScene" uid="uid://ds4u6yauu4ssm" path="res://ui/main_ui.tscn" id="1_272bh"]
 [ext_resource type="Script" uid="uid://b71kxvb5gq05g" path="res://infrastructure/exif_reader.gd" id="2_5vw27"]
+[ext_resource type="Script" uid="uid://dqgirapuo0fl6" path="res://domain/handler/camera_handler.gd" id="2_kek77"]
 [ext_resource type="Script" uid="uid://cqrunl6k85syq" path="res://infrastructure/file_hasher.gd" id="3_kek77"]
 [ext_resource type="Script" uid="uid://bgqujskyligxn" path="res://infrastructure/sqlite_fs_camera_repsository.gd" id="4_4c57u"]
 [ext_resource type="Script" uid="uid://drow4khperyq4" path="res://infrastructure/sqlite_fs_processed_image_repository.gd" id="5_efxa6"]
@@ -13,29 +14,37 @@
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="MainUi" parent="CanvasLayer" node_paths=PackedStringArray("database_manager", "camera_repository", "spot_repository", "processed_image_repository", "exif_reader", "file_hasher") instance=ExtResource("1_272bh")]
-database_manager = NodePath("../../DatabaseManager")
-camera_repository = NodePath("../../CameraRepository")
-spot_repository = NodePath("../../AnimalSpotRepository")
-processed_image_repository = NodePath("../../ProcessedImagesRepository")
-exif_reader = NodePath("../../ExifReader")
-file_hasher = NodePath("../../FileHasher")
+database_manager = NodePath("../../Infrastructure/DatabaseManager")
+camera_repository = NodePath("../../Infrastructure/CameraRepository")
+spot_repository = NodePath("../../Infrastructure/AnimalSpotRepository")
+processed_image_repository = NodePath("../../Infrastructure/ProcessedImagesRepository")
+exif_reader = NodePath("../../Infrastructure/ExifReader")
+file_hasher = NodePath("../../Infrastructure/FileHasher")
 
-[node name="ExifReader" type="Node" parent="."]
+[node name="Handlers" type="Node" parent="."]
+
+[node name="CameraHandler" type="Node" parent="Handlers" node_paths=PackedStringArray("repository")]
+script = ExtResource("2_kek77")
+repository = NodePath("../../Infrastructure/CameraRepository")
+
+[node name="Infrastructure" type="Node" parent="."]
+
+[node name="ExifReader" type="Node" parent="Infrastructure"]
 script = ExtResource("2_5vw27")
 
-[node name="FileHasher" type="Node" parent="."]
+[node name="FileHasher" type="Node" parent="Infrastructure"]
 script = ExtResource("3_kek77")
 
-[node name="CameraRepository" type="Node" parent="."]
+[node name="CameraRepository" type="Node" parent="Infrastructure"]
 script = ExtResource("4_4c57u")
 
-[node name="ProcessedImagesRepository" type="Node" parent="."]
+[node name="ProcessedImagesRepository" type="Node" parent="Infrastructure"]
 script = ExtResource("5_efxa6")
 
-[node name="AnimalSpotRepository" type="Node" parent="."]
+[node name="AnimalSpotRepository" type="Node" parent="Infrastructure"]
 script = ExtResource("6_dg77c")
 
-[node name="DatabaseManager" type="Node" parent="." node_paths=PackedStringArray("animal_spot_repository", "camera_repository", "processed_image_repository")]
+[node name="DatabaseManager" type="Node" parent="Infrastructure" node_paths=PackedStringArray("animal_spot_repository", "camera_repository", "processed_image_repository")]
 script = ExtResource("7_ycdy4")
 animal_spot_repository = NodePath("../AnimalSpotRepository")
 camera_repository = NodePath("../CameraRepository")

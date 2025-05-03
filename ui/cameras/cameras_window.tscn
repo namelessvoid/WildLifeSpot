@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dffhglkusahi1"]
 
-[ext_resource type="Script" uid="uid://dmbndfqbtf8jo" path="res://ui/cameras/cameras_tab.gd" id="1_w16hf"]
+[ext_resource type="Script" uid="uid://dmbndfqbtf8jo" path="res://ui/cameras/cameras_window.gd" id="1_3wxlp"]
 
 [node name="CamerasWindow" type="Window"]
 transparent_bg = true
@@ -8,7 +8,7 @@ mode = 2
 size = Vector2i(600, 500)
 exclusive = true
 transparent = true
-script = ExtResource("1_w16hf")
+script = ExtResource("1_3wxlp")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
