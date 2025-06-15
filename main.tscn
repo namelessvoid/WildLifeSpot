@@ -2,14 +2,14 @@
 
 [ext_resource type="PackedScene" uid="uid://ds4u6yauu4ssm" path="res://ui/main_ui.tscn" id="1_272bh"]
 [ext_resource type="Script" uid="uid://b71kxvb5gq05g" path="res://infrastructure/exif_reader.gd" id="2_5vw27"]
-[ext_resource type="Script" uid="uid://dqgirapuo0fl6" path="res://domain/handler/camera_handler.gd" id="2_kek77"]
-[ext_resource type="Script" uid="uid://rhadtrjdcqls" path="res://domain/handler/settings_handler.gd" id="3_4c57u"]
+[ext_resource type="Script" uid="uid://dqgirapuo0fl6" path="res://domain/camera/camera_handler.gd" id="2_kek77"]
+[ext_resource type="Script" uid="uid://rhadtrjdcqls" path="res://domain/settings/settings_handler.gd" id="3_4c57u"]
 [ext_resource type="Script" uid="uid://cqrunl6k85syq" path="res://infrastructure/file_hasher.gd" id="3_kek77"]
 [ext_resource type="Script" uid="uid://bgqujskyligxn" path="res://infrastructure/sqlite_fs_camera_repsository.gd" id="4_4c57u"]
 [ext_resource type="Script" uid="uid://drow4khperyq4" path="res://infrastructure/sqlite_fs_processed_image_repository.gd" id="5_efxa6"]
 [ext_resource type="Script" uid="uid://dc2gnkf034nnb" path="res://infrastructure/animal_spot_repsitory_sqlite.gd" id="6_dg77c"]
 [ext_resource type="Script" uid="uid://bwei37br22hc0" path="res://infrastructure/database_manager_sqlite.gd" id="7_ycdy4"]
-[ext_resource type="Script" uid="uid://b7nt7smiwd5ia" path="res://domain/settings_repository.gd" id="10_4c57u"]
+[ext_resource type="Script" uid="uid://b7nt7smiwd5ia" path="res://domain/settings/settings_repository.gd" id="10_4c57u"]
 
 [node name="MainScene" type="Node2D"]
 
