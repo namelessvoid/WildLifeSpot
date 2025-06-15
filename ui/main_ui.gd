@@ -11,11 +11,12 @@ extends Control
 @onready var _spots_menu := %Spots as PopupMenu
 @onready var _cameras_menu := %Cameras as PopupMenu
 
-@onready var _spots_display := %SpotsDisplay
+@onready var _spots_display := %SpotsDisplay as Control
+@onready var _settings_window := %SettingsWindow as Window
 @onready var _cameras_window := %CamerasWindow as Window
 @onready var _select_database_dialog := %SelectDatabaseDialog as FileDialog
 @onready var _bulk_spot_file_dialog := %BulkSpotFileDialog as FileDialog
-@onready var _bulk_spot_window := %BulkSpotWindow
+@onready var _bulk_spot_window := %BulkSpotWindow as Window
 
 func _ready():
 	assert(database_manager)
@@ -54,6 +55,7 @@ func _on_file_menu_id_pressed(p_id: int):
 	match p_id:
 		1: _select_database_dialog.show_create()
 		3: _select_database_dialog.show_load()
+		5: _settings_window.popup_centered_ratio(0.9)
 		2: get_tree().quit()
 
 func _on_spots_menu_id_pressed(p_id: int):
