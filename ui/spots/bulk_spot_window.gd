@@ -214,6 +214,9 @@ func _add_animal_box() -> void:
 
 func _save_image() -> void:
 	var file_to_save := _paths[_next_image]
+	_save_file_dialog.current_dir = ProjectSettings.globalize_path(
+		Settings.get_setting(Settings.IMAGE_STORE, Settings.IMAGE_STORE_PATH)
+	)
 	_save_file_dialog.current_file = file_to_save.get_file()
 	_save_file_dialog.show()
 	var target_path = await _save_file_dialog.file_selected

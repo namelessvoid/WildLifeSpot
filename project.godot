@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 CommandQueryDispatcher="*res://domain/handler/command_query_dispatcher.gd"
+Settings="*res://domain/settings/settings.gd"
 
 [display]
 
