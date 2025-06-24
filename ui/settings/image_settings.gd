@@ -12,16 +12,9 @@ func _ready() -> void:
 func _save_image_store_path(p_path: String):
 	Settings.set_setting(Settings.IMAGE_STORE, Settings.IMAGE_STORE_PATH, p_path)
 
+func _on_file_dialog_dir_selected(p_dir: String):
+	_image_store_path_edit.text = p_dir
+	_save_image_store_path(p_dir)
+
 func _show_image_store_path_dialog():
-	var dialog := FileDialog.new()
-	add_child(dialog)
-	dialog.use_native_dialog = true
-	dialog.file_mode = FileDialog.FILE_MODE_OPEN_DIR
-	dialog.dir_selected.connect(func(p_dir: String):
-		_image_store_path_edit.text = p_dir
-		_save_image_store_path(p_dir)
-		dialog.queue_free()
-	)
-	dialog.canceled.connect(dialog.queue_free)
-	dialog.popup_centered_ratio(0.8)
-	
+	FileDialogManager.show_dir_dialog(_on_file_dialog_dir_selected)

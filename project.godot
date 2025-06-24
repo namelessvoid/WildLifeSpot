@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 CommandQueryDispatcher="*res://domain/handler/command_query_dispatcher.gd"
 Settings="*res://domain/settings/settings.gd"
+FileDialogManager="*res://ui/file_dialog_manager.gd"
 
 [display]
 
