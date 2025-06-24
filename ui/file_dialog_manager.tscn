@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqc5xss4uy4yf"]
+
+[ext_resource type="Script" uid="uid://815l1qbp88w4" path="res://ui/file_dialog_manager.gd" id="1_4wk10"]
+
+[node name="FileDialogManager" type="Node3D"]
+script = ExtResource("1_4wk10")
+
+[node name="FileDialog" type="FileDialog" parent="."]
+access = 2
+use_native_dialog = true
