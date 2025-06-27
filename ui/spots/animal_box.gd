@@ -16,6 +16,11 @@ func _ready() -> void:
 	assert(_count_spin_box)
 	assert(_delete_button)
 
+	# Do not focus line edit when spin buttons pressed
+	_count_spin_box.value_changed.connect(func(_value):
+		_count_spin_box.get_line_edit().release_focus()
+	)
+
 	_delete_button.pressed.connect(_delete)
 
 func _delete():
