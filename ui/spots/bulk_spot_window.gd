@@ -94,13 +94,12 @@ func _pre_process() -> void:
 
 	var files := Array(selected_files)\
 	.map(func(path: String) -> Dictionary[String, Variant]:
-		return { "path": path, "already_persisted": false }
+		return { "path": path, "hash": "" }
 	)
 
 	var group_id := WorkerThreadPool.add_group_task(func(index: int) -> void:
 		var path: String = files[index]["path"]
-		var hash = file_hasher.get_file_hash(path)
-		files[index]["already_persisted"] = processed_images_repository.has_been_processed(hash)
+		files[index]["hash"] = file_hasher.get_file_hash(path)
 	, files.size())
 
 	_preprocessing_progress.value = 0
@@ -114,7 +113,7 @@ func _pre_process() -> void:
 	WorkerThreadPool.wait_for_group_task_completion(group_id)
 
 	files = files.filter(func(f: Dictionary) -> bool:
-		return !f["already_persisted"]
+		return !processed_images_repository.has_been_processed(f["hash"])
 	)
 	
 	var file_paths = PackedStringArray(
