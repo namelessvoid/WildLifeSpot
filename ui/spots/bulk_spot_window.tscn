@@ -178,7 +178,7 @@ text = "Skip images that have been
 been processed previously"
 flat = true
 
-[node name="StartPreproocessingButton" type="Button" parent="PreprocessingOptionsContainer/HBoxContainer"]
+[node name="StartPreprocessingButton" type="Button" parent="PreprocessingOptionsContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4

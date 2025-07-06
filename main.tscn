@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bfrjddjae20jo"]
+[gd_scene load_steps=10 format=3 uid="uid://bfrjddjae20jo"]
 
 [ext_resource type="PackedScene" uid="uid://ds4u6yauu4ssm" path="res://ui/main_ui.tscn" id="1_272bh"]
 [ext_resource type="Script" uid="uid://b71kxvb5gq05g" path="res://infrastructure/exif_reader.gd" id="2_5vw27"]
 [ext_resource type="Script" uid="uid://dqgirapuo0fl6" path="res://domain/camera/camera_handler.gd" id="2_kek77"]
+[ext_resource type="Script" uid="uid://bsxwtqybnaljw" path="res://domain/animal_spot/animal_spot_handler.gd" id="3_4c57u"]
 [ext_resource type="Script" uid="uid://cqrunl6k85syq" path="res://infrastructure/file_hasher.gd" id="3_kek77"]
 [ext_resource type="Script" uid="uid://bgqujskyligxn" path="res://infrastructure/sqlite_fs_camera_repsository.gd" id="4_4c57u"]
 [ext_resource type="Script" uid="uid://drow4khperyq4" path="res://infrastructure/sqlite_fs_processed_image_repository.gd" id="5_efxa6"]
@@ -26,6 +27,10 @@ file_hasher = NodePath("../../Infrastructure/FileHasher")
 [node name="CameraHandler" type="Node" parent="Handlers" node_paths=PackedStringArray("repository")]
 script = ExtResource("2_kek77")
 repository = NodePath("../../Infrastructure/CameraRepository")
+
+[node name="AnimalSpotHandler" type="Node" parent="Handlers" node_paths=PackedStringArray("repository")]
+script = ExtResource("3_4c57u")
+repository = NodePath("../../Infrastructure/AnimalSpotRepository")
 
 [node name="Infrastructure" type="Node" parent="."]
 

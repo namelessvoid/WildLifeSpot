@@ -18,7 +18,7 @@ var selected_files: PackedStringArray:
 
 @onready var _preprocessing_options_container: Container = %PreprocessingOptionsContainer
 @onready var _skip_already_processed_checkbox: CheckBox = %SkipAlreadyProcessedCheckbox
-@onready var _start_preproocessing_button: Button = %StartPreproocessingButton
+@onready var _start_preprocessing_button: Button = %StartPreprocessingButton
 
 @onready var _preprocessing_progress_container: Container = %PreprocessingProgressContainer
 @onready var _preprocessing_progress: ProgressBar = %PreprocessingProgress
@@ -44,7 +44,7 @@ var _next_image: int
 func _ready() -> void:
 	assert(_preprocessing_options_container)
 	assert(_skip_already_processed_checkbox)
-	assert(_start_preproocessing_button)
+	assert(_start_preprocessing_button)
 	assert(_preprocessing_progress_container)
 	assert(_preprocessing_progress)
 
@@ -60,7 +60,7 @@ func _ready() -> void:
 	assert(_skip_button)
 	assert(_save_and_next_button)
 
-	_start_preproocessing_button.pressed.connect(_pre_process)
+	_start_preprocessing_button.pressed.connect(_pre_process)
 
 	_add_new_animal_button.pressed.connect(_add_animal_box)
 	_back_button.pressed.connect(_show_previous_image)
@@ -156,8 +156,13 @@ func _pre_processing_finished(file_paths: PackedStringArray) -> void:
 func _save_and_show_next_image() -> void:
 	var file_path := _paths[_next_image]
 	var spot_date_time = _date_time_edit.text
-
-	spot_repository.delete_by_source_and_spotted_at("image", spot_date_time)
+	var camera_id := _camera_options_button.get_item_id(_camera_options_button.selected)
+	
+	var command := DeleteExistingAnimalSpots.new(
+		"image",
+		spot_date_time
+	)
+	CommandQueryDispatcher.dispatch(command)
 
 	for node in _animal_box_container.get_children():
 		var animal_box := node as AnimalBox
@@ -170,6 +175,7 @@ func _save_and_show_next_image() -> void:
 		spot.spotted_at = spot_date_time
 		spot.animal_name = animal_box.get_animal_name()
 		spot.animal_count = animal_box.get_animal_count()
+		spot.camera_id = camera_id
 
 		spot_repository.save(spot)
 
