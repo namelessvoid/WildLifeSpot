@@ -4,7 +4,7 @@ const Repository = preload("res://infrastructure/sqlite_fs_processed_image_repos
 
 func _create_repository() -> FSProcessedImageRepository:
 	var repository := Repository.new()
-	repository._db_path = ":memory:"
+	repository.set_db_path(":memory:")
 	add_child_autofree(repository)
 	return repository
 

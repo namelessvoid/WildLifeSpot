@@ -4,7 +4,7 @@ const Repository = preload("res://infrastructure/animal_spot_repsitory_sqlite.gd
 
 func _create_repository() -> AnimalSpotRepository:
 	var repository := Repository.new()
-	repository._db_path = ":memory:"
+	repository.set_db_path(":memory:")
 	add_child_autofree(repository)
 	return repository
 
