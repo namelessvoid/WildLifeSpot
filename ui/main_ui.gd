@@ -1,5 +1,7 @@
 extends Control
 
+const ReportControl = preload("res://ui/reports/report_control.gd")
+
 @export var database_manager: DatabaseManagerSQLite
 @export var camera_repository: FSCameraRepository
 @export var spot_repository: AnimalSpotRepository
@@ -11,7 +13,7 @@ extends Control
 @onready var _spots_menu := %Spots as PopupMenu
 @onready var _cameras_menu := %Cameras as PopupMenu
 
-@onready var _spots_display := %SpotsDisplay as Control
+@onready var _report_control := %ReportControl as ReportControl
 @onready var _settings_window := %SettingsWindow as Window
 @onready var _cameras_window := %CamerasWindow as Window
 @onready var _select_database_dialog := %SelectDatabaseDialog as FileDialog
@@ -39,9 +41,9 @@ func _ready():
 	_cameras_menu.id_pressed.connect(_on_cameras_menu_id_pressed)
 
 	_bulk_spot_file_dialog.files_selected.connect(_on_bulk_spot_files_selected)
-	_bulk_spot_window.finished.connect(_spots_display.refresh_date_list)
+	_bulk_spot_window.finished.connect(_report_control.refresh_date_list)
 
-	_spots_display.spot_repository = spot_repository
+	_report_control.spot_repository = spot_repository
 
 	_select_database_dialog.database_manager = database_manager
 

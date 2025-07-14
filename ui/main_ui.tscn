@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://ds4u6yauu4ssm"]
 
 [ext_resource type="Script" uid="uid://cm6fh1dlhfk7j" path="res://ui/main_ui.gd" id="1_m6rnm"]
-[ext_resource type="PackedScene" uid="uid://tr7amj4h6rn6" path="res://ui/spots/spots_tab.tscn" id="2_qry5k"]
+[ext_resource type="PackedScene" uid="uid://tr7amj4h6rn6" path="res://ui/reports/report_control.tscn" id="2_qry5k"]
 [ext_resource type="PackedScene" uid="uid://dwlxt0iprcf8c" path="res://ui/spots/bulk_spot_window.tscn" id="3_2unuh"]
 [ext_resource type="PackedScene" uid="uid://dffhglkusahi1" path="res://ui/cameras/cameras_window.tscn" id="3_186kx"]
 [ext_resource type="Theme" uid="uid://ds7klc2qe2idq" path="res://ui/theming/theme.tres" id="6_186kx"]
@@ -67,7 +67,7 @@ item_count = 1
 item_0/text = "Manage"
 item_0/id = 1
 
-[node name="SpotsDisplay" parent="Panel/MarginContainer/VBoxContainer" instance=ExtResource("2_qry5k")]
+[node name="ReportControl" parent="Panel/MarginContainer/VBoxContainer" instance=ExtResource("2_qry5k")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
