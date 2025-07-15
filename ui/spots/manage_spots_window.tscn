@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnmwxqqecj670"]
+
+[ext_resource type="Script" uid="uid://bsd3qlb7rriuj" path="res://ui/spots/manage_spots_window.gd" id="1_l57nq"]
+
+[node name="ManageSpotsWindow" type="Window"]
+transparent_bg = true
+title = "Manage spots"
+initial_position = 1
+size = Vector2i(1000, 500)
+exclusive = true
+transparent = true
+script = ExtResource("1_l57nq")
+
+[node name="MainContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpotsTree" type="Tree" parent="MainContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 4
+column_titles_visible = true
+hide_root = true
+select_mode = 1

@@ -26,11 +26,11 @@ func _ready() -> void:
 	_save_camera_button.pressed.connect(_on_save_camera_clicked)
 	_delete_camera_button.pressed.connect(_on_delete_camera_clicked)
 
-	about_to_popup.connect(_about_to_popup)
+	about_to_popup.connect(_on_about_to_popup)
 
 	close_requested.connect(hide)
 
-func _about_to_popup():
+func _on_about_to_popup():
 	_selected_camera_id = -1
 	_update_camera_list()
 
