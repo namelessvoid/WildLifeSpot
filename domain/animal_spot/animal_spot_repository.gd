@@ -11,6 +11,10 @@ func find_all() -> Array[AnimalSpot]:
 	assert(false, "Not implemented")
 	return []
 
+func find_all_by(p_source: String, p_camera_id: int, p_spotted_at: String) -> Array[AnimalSpot]:
+	assert(false, "Not implemented")
+	return []
+
 func find_all_by_date(date: String) -> Array[AnimalSpot]:
 	assert(false, "Not implemented")
 	return []

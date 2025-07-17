@@ -22,6 +22,17 @@ func find_all() -> Array[AnimalSpot]:
 	_db.query("SELECT * FROM " + _table_name)
 	return _deserialize(_db.query_result)
 
+func find_all_by(p_source: String, p_camera_id: int, p_spotted_at: String) -> Array[AnimalSpot]:
+	_db.query_with_bindings(
+		"SELECT * FROM " + _table_name
+		+ " WHERE source=?"
+		+ " AND camera_id=?"
+		+ " AND spotted_at=?",
+		[p_source, p_camera_id, p_spotted_at]
+	)
+	return _deserialize(_db.query_result)
+
+
 func find_all_by_date(date: String) -> Array[AnimalSpot]:
 	_db.query_with_bindings(
 		"SELECT * FROM " + _table_name + " WHERE DATE(spotted_at)=?",
