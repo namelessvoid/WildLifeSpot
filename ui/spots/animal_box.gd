@@ -5,8 +5,14 @@ extends HBoxContainer
 @onready var _count_spin_box: SpinBox = $CountSpinBox
 @onready var _delete_button: Button = $DeleteButton
 
+func set_animal_name(p_name: String) -> void:
+	_name_edit.text = p_name
+
 func get_animal_name() -> String:
 	return _name_edit.text
+
+func set_animal_count(p_count: int) -> void:
+	_count_spin_box.value = p_count
 
 func get_animal_count() -> int:
 	return _count_spin_box.value

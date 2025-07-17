@@ -212,6 +212,34 @@ func _update_ui():
 	if exif_info != null:
 		_date_time_edit.text = exif_info.date_time
 
+	# Update animal inputs if image has been spotted before
+	var camera_id := _camera_options_button.get_item_id(_camera_options_button.selected)
+	var spotted_at := _date_time_edit.text
+	var query := FindAllAnimalSpotsByQuery.new("image", camera_id, spotted_at)
+	var existing_spots: Array[AnimalSpot] = CommandQueryDispatcher.dispatch(query)
+	if existing_spots.size() > 0:
+		var animal_count_map := {}
+		for spot in existing_spots:
+			animal_count_map[spot.animal_name] = spot.animal_count
+		for animal_box_node in _animal_box_container.get_children():
+			var animal_box := animal_box_node as AnimalBox
+			var animal_name := animal_box.get_animal_name()
+			var existing_count: int = animal_count_map.get(animal_name, 0)
+			animal_box.set_animal_count(existing_count)
+			animal_count_map.erase(animal_name)
+		for unmapped_animal_name in animal_count_map:
+			var unmapped_animal_count = animal_count_map[unmapped_animal_name]
+			var animal_box := _animal_box_container.get_child(
+				_animal_box_container.get_child_count() - 1
+			) as AnimalBox
+			if !animal_box.get_animal_name().is_empty():
+				_add_animal_box()
+				animal_box = _animal_box_container.get_child(
+					_animal_box_container.get_child_count() - 1
+				) as AnimalBox
+			animal_box.set_animal_name(unmapped_animal_name)
+			animal_box.set_animal_count(unmapped_animal_count)
+
 func _add_animal_box() -> void:
 	_animal_box_container.add_child(AnimalBoxScene.instantiate())
 
