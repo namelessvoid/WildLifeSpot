@@ -1,6 +1,7 @@
 extends Window
 
 const AnimalBoxScene := preload("res://ui/spots/animal_box.tscn")
+const ImagePreprocessor := preload("res://ui/spots/image_preprocessor.gd")
 
 signal finished
 
@@ -37,6 +38,8 @@ var selected_files: PackedStringArray:
 @onready var _back_button: Button = %BackButton
 @onready var _skip_button: Button = %SkipButton
 @onready var _save_and_next_button: Button = %SaveAndNextButton
+
+@onready var _image_preprocessor: ImagePreprocessor = %ImagePreprocessor
 
 var _paths: PackedStringArray
 var _next_image: int
@@ -84,42 +87,8 @@ func _show_preprocessing_options():
 	_preprocessing_progress_container.visible = false
 
 func _pre_process() -> void:
-	if !_skip_already_processed_checkbox.button_pressed:
-		_pre_processing_finished(selected_files)
-		return
-
-	_main_container.visible = false
-	_preprocessing_options_container.visible = false
-	_preprocessing_progress_container.visible = true
-
-	var files := Array(selected_files)\
-	.map(func(path: String) -> Dictionary[String, Variant]:
-		return { "path": path, "hash": "" }
-	)
-
-	var group_id := WorkerThreadPool.add_group_task(func(index: int) -> void:
-		var path: String = files[index]["path"]
-		files[index]["hash"] = file_hasher.get_file_hash(path)
-	, files.size())
-
-	_preprocessing_progress.value = 0
-	if files.size() > 100:
-		while !WorkerThreadPool.is_group_task_completed(group_id):
-			var processed = WorkerThreadPool.get_group_processed_element_count(group_id)
-			_preprocessing_progress.value = (processed / float(files.size())) * 100.0
-			if processed < files.size():
-				await get_tree().create_timer(1).timeout
-
-	WorkerThreadPool.wait_for_group_task_completion(group_id)
-
-	files = files.filter(func(f: Dictionary) -> bool:
-		return !processed_images_repository.has_been_processed(f["hash"])
-	)
-	
-	var file_paths = PackedStringArray(
-		files.map(func(f) -> String: return f["path"])
-	)
-	
+	var skip_processed_files := _skip_already_processed_checkbox.button_pressed
+	var file_paths := await _image_preprocessor.pre_process(selected_files, skip_processed_files)
 	_pre_processing_finished(file_paths)
 
 func _pre_processing_finished(file_paths: PackedStringArray) -> void:

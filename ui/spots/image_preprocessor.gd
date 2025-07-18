@@ -1,0 +1,48 @@
+extends Node
+
+signal progress_changed(p_progress: float)
+
+func pre_process(p_file_paths: PackedStringArray, p_skip_already_processed_files: bool) -> PackedStringArray:
+	var file_paths := p_file_paths
+	if p_skip_already_processed_files:
+		file_paths = await _filter_already_processed_files(p_file_paths)
+
+	#var quarter_hour_buckets = {}
+	#for file_path in file_paths:
+		#var exif_info = exif_reader.get_exif_info(file_path)
+		#if exif_info != null:
+			#var unix_time: int = Time.get_unix_time_from_datetime_string(exif_info.date_time)
+			#var quarter_hour: int = unix_time - (unix_time % (15 * 60))
+			#print_debug(quarter_hour)
+	return file_paths
+
+func _filter_already_processed_files(p_file_paths: PackedStringArray):
+	var files := Array(p_file_paths)\
+	.map(func(path: String) -> Dictionary[String, Variant]:
+		return { "path": path, "hash": "" }
+	)
+
+	var group_id := WorkerThreadPool.add_group_task(func(index: int) -> void:
+		var hash_query := ComputeImageHashQuery.new(files[index]["path"])
+		files[index]["hash"] = CommandQueryDispatcher.dispatch(hash_query)
+	, files.size())
+
+	progress_changed.emit(0)
+	if files.size() > 100:
+		while !WorkerThreadPool.is_group_task_completed(group_id):
+			var processed = WorkerThreadPool.get_group_processed_element_count(group_id)
+			progress_changed.emit(processed / float(files.size()) * 100.0)
+			if processed < files.size():
+				await get_tree().create_timer(1).timeout
+
+	WorkerThreadPool.wait_for_group_task_completion(group_id)
+
+	files = files.filter(func(f: Dictionary) -> bool:
+		var query = HasImageBeenProcessedQuery.new(f["hash"])
+		return !CommandQueryDispatcher.dispatch(query)
+	)
+
+	var file_paths = PackedStringArray(
+		files.map(func(f) -> String: return f["path"])
+	)
+	return file_paths

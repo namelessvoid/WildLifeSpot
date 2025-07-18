@@ -1,4 +1,4 @@
-extends Node
+extends RefCounted
 
 var _id = -1
 var _source: String = "image"
