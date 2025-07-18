@@ -12,7 +12,7 @@ repos:
 - repo: local
   hooks:
   - id: gut
-    name: gut
+    name: Run unit and integration tests
     entry: mise r gut
     pass_filenames: false
     language: system
