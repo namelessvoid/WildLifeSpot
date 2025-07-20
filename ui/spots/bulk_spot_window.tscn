@@ -174,9 +174,18 @@ horizontal_alignment = 1
 [node name="SkipAlreadyProcessedCheckbox" type="CheckBox" parent="PreprocessingOptionsContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+tooltip_text = "If enabled, images, that you already have spotted before, will be skipped."
 button_pressed = true
 text = "Skip images that have been
 been processed previously"
+flat = true
+
+[node name="GroupIntoQuartersCheckbox" type="CheckBox" parent="PreprocessingOptionsContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "By grouping images into 15 minute buckets, you can spot a lot of files easier, because you only have to set the count the maximum animals per quarter."
+button_pressed = true
+text = "Group into 15 minutes buckets"
 flat = true
 
 [node name="StartPreprocessingButton" type="Button" parent="PreprocessingOptionsContainer/HBoxContainer"]

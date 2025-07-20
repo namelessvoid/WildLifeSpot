@@ -2,19 +2,26 @@ extends Node
 
 signal progress_changed(p_progress: float)
 
-func pre_process(p_file_paths: PackedStringArray, p_skip_already_processed_files: bool) -> PackedStringArray:
+func pre_process(
+	p_file_paths: PackedStringArray,
+	p_skip_already_processed_files: bool,
+	p_group_into_quarters: bool
+) -> Array[Dictionary]:
 	var file_paths := p_file_paths
 	if p_skip_already_processed_files:
 		file_paths = await _filter_already_processed_files(p_file_paths)
 
-	#var quarter_hour_buckets = {}
-	#for file_path in file_paths:
-		#var exif_info = exif_reader.get_exif_info(file_path)
-		#if exif_info != null:
-			#var unix_time: int = Time.get_unix_time_from_datetime_string(exif_info.date_time)
-			#var quarter_hour: int = unix_time - (unix_time % (15 * 60))
-			#print_debug(quarter_hour)
-	return file_paths
+	var bucket_length_in_seconds = 1
+	if p_group_into_quarters:
+		bucket_length_in_seconds = 15 * 60
+	var file_path_with_time_buckts := _get_file_paths_with_time_bucket(file_paths, bucket_length_in_seconds)
+
+	file_path_with_time_buckts.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
+		if a["bucket"] == b["bucket"]:
+			return a["file_path"] < b["file_path"]
+		return a["bucket"] < b["bucket"]
+	)
+	return file_path_with_time_buckts
 
 func _filter_already_processed_files(p_file_paths: PackedStringArray):
 	var files := Array(p_file_paths)\
@@ -46,3 +53,22 @@ func _filter_already_processed_files(p_file_paths: PackedStringArray):
 		files.map(func(f) -> String: return f["path"])
 	)
 	return file_paths
+
+func _get_file_paths_with_time_bucket(
+	p_file_paths: PackedStringArray,
+	p_bucket_length_in_seconds: int
+) -> Array[Dictionary]:
+	var time_buckets: Array[Dictionary] = []
+	for file_path in p_file_paths:
+		var exif_query := GetExifInfoQuery.new(file_path)
+		var exif_info: ExifInfo = CommandQueryDispatcher.dispatch(exif_query)
+		var unix_time: int = -1
+		if exif_info != null:
+			unix_time = Time.get_unix_time_from_datetime_string(exif_info.date_time)
+		var bucket: int = unix_time - (unix_time % p_bucket_length_in_seconds)
+		time_buckets.append({
+			"bucket": bucket,
+			"file_path": file_path
+		})
+
+	return time_buckets

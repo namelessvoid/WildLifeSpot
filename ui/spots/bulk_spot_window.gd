@@ -19,6 +19,7 @@ var selected_files: PackedStringArray:
 
 @onready var _preprocessing_options_container: Container = %PreprocessingOptionsContainer
 @onready var _skip_already_processed_checkbox: CheckBox = %SkipAlreadyProcessedCheckbox
+@onready var _gorup_into_quarters_checkbox: CheckBox = %GroupIntoQuartersCheckbox
 @onready var _start_preprocessing_button: Button = %StartPreprocessingButton
 
 @onready var _preprocessing_progress_container: Container = %PreprocessingProgressContainer
@@ -41,13 +42,14 @@ var selected_files: PackedStringArray:
 
 @onready var _image_preprocessor: ImagePreprocessor = %ImagePreprocessor
 
-var _paths: PackedStringArray
+var _bucketed_file_paths: Array[Dictionary]
 var _next_image: int
 
 func _ready() -> void:
 	assert(_preprocessing_options_container)
 	assert(_skip_already_processed_checkbox)
 	assert(_start_preprocessing_button)
+	assert(_gorup_into_quarters_checkbox)
 	assert(_preprocessing_progress_container)
 	assert(_preprocessing_progress)
 
@@ -88,11 +90,14 @@ func _show_preprocessing_options():
 
 func _pre_process() -> void:
 	var skip_processed_files := _skip_already_processed_checkbox.button_pressed
-	var file_paths := await _image_preprocessor.pre_process(selected_files, skip_processed_files)
-	_pre_processing_finished(file_paths)
+	var group_into_quarters := _gorup_into_quarters_checkbox.button_pressed
+	var bucketed_file_paths := await _image_preprocessor.pre_process(
+		selected_files, skip_processed_files, group_into_quarters
+	)
+	_pre_processing_finished(bucketed_file_paths)
 
-func _pre_processing_finished(file_paths: PackedStringArray) -> void:
-	if file_paths.is_empty():
+func _pre_processing_finished(p_bucketed_file_paths: Array[Dictionary]) -> void:
+	if p_bucketed_file_paths.is_empty():
 		hide()
 		return
 
@@ -101,14 +106,14 @@ func _pre_processing_finished(file_paths: PackedStringArray) -> void:
 	_preprocessing_progress_container.visible = false
 
 	_progress_bar.value = 0
-	_progress_bar.max_value = file_paths.size()
+	_progress_bar.max_value = p_bucketed_file_paths.size()
 	_progress_label.text = "%d / %d" % [1, _progress_bar.max_value]
 
 	_camera_options_button.clear()
 	for camera in camera_repository.find_all():
 		_camera_options_button.add_item(camera.name, camera._id)
 
-	_paths = file_paths
+	_bucketed_file_paths = p_bucketed_file_paths
 	_next_image = -1
 
 	# Reset UI
@@ -123,7 +128,7 @@ func _pre_processing_finished(file_paths: PackedStringArray) -> void:
 	_show_next_image()
 
 func _save_and_show_next_image() -> void:
-	var file_path := _paths[_next_image]
+	var file_path: Dictionary = _bucketed_file_paths[_next_image]
 	var spot_date_time = _date_time_edit.text
 	var camera_id := _camera_options_button.get_item_id(_camera_options_button.selected)
 	
@@ -140,7 +145,7 @@ func _save_and_show_next_image() -> void:
 
 		var spot = AnimalSpot.new()
 		spot.source = "image"
-		spot.file_path = file_path
+		spot.file_path = file_path["file_path"]
 		spot.spotted_at = spot_date_time
 		spot.animal_name = animal_box.get_animal_name()
 		spot.animal_count = animal_box.get_animal_count()
@@ -148,7 +153,7 @@ func _save_and_show_next_image() -> void:
 
 		spot_repository.save(spot)
 
-	var file_hash = file_hasher.get_file_hash(file_path)
+	var file_hash = file_hasher.get_file_hash(file_path["file_path"])
 	processed_images_repository.mark_processed(file_hash)
 
 	_show_next_image()
@@ -162,7 +167,7 @@ func _show_previous_image():
 
 func _show_next_image():
 	_next_image += 1
-	if _next_image >= _paths.size():
+	if _next_image >= _bucketed_file_paths.size():
 		finished.emit()
 		hide()
 		return
@@ -173,13 +178,10 @@ func _update_ui():
 	_progress_bar.value = _next_image
 	_progress_label.text = "%d / %d" % [_progress_bar.value + 1, _progress_bar.max_value]
 
-	var file_path := _paths[_next_image]
-	var image := Image.load_from_file(file_path)
+	var file_path := _bucketed_file_paths[_next_image]
+	var image := Image.load_from_file(file_path["file_path"])
 	_image_viewer.set_texture.call_deferred(ImageTexture.create_from_image(image))
-
-	var exif_info = exif_reader.get_exif_info(file_path)
-	if exif_info != null:
-		_date_time_edit.text = exif_info.date_time
+	_date_time_edit.text = Time.get_datetime_string_from_unix_time(file_path["bucket"])
 
 	# Update animal inputs if image has been spotted before
 	var camera_id := _camera_options_button.get_item_id(_camera_options_button.selected)
@@ -213,14 +215,14 @@ func _add_animal_box() -> void:
 	_animal_box_container.add_child(AnimalBoxScene.instantiate())
 
 func _on_image_viewer_save_image_requested():
-	var file := _paths[_next_image].get_file()
+	var file: String = _bucketed_file_paths[_next_image]["file_path"].get_file()
 	var dir = ProjectSettings.globalize_path(
 		Settings.get_setting(Settings.IMAGE_STORE, Settings.IMAGE_STORE_PATH)
 	)
 	FileDialogManager.show_file_save_dialog(_save_image, file, dir)
 
 func _save_image(p_target_path: String) -> void:
-	var file_to_save := _paths[_next_image]
+	var file_to_save: String = _bucketed_file_paths[_next_image]["file_path"]
 	var bytes := FileAccess.get_file_as_bytes(file_to_save)
 	var target_file := FileAccess.open(p_target_path, FileAccess.WRITE)
 	if !target_file:

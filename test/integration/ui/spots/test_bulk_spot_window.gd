@@ -4,6 +4,7 @@ const _bulk_spot_window_scene: PackedScene = preload("res://ui/spots/bulk_spot_w
 const BulkSpotWindow = preload("res://ui/spots/bulk_spot_window.gd")
 
 const CommandQueryHandlerGenerator := preload("res://test/generators/command_query_handler_generator.gd")
+const ExifInfoGenerator := preload("res://test/generators/exif_info_generator.gd")
 
 func _generate_bulk_spot_window() -> BulkSpotWindow:
 	var bulk_spot_window := _bulk_spot_window_scene.instantiate()
@@ -34,6 +35,7 @@ func test_shows_main_container_when_preprocessing_finished():
 	var mock_handler: CommandQueryHandler = CommandQueryHandlerGenerator.new()\
 		.with_query(ComputeImageHashQuery, "hash")\
 		.with_query(HasImageBeenProcessedQuery, false)\
+		.with_query(GetExifInfoQuery, ExifInfoGenerator.new().build())\
 		.with_query(FindAllAnimalSpotsByQuery, [] as Array[AnimalSpot])\
 		.build()
 	add_child_autofree(mock_handler)
@@ -61,6 +63,7 @@ func test_deletes_spots_and_saves_new_ones():
 	var handler: CommandQueryHandler = CommandQueryHandlerGenerator.new()\
 		.with_query(ComputeImageHashQuery, "hash")\
 		.with_query(HasImageBeenProcessedQuery, false)\
+		.with_query(GetExifInfoQuery, ExifInfoGenerator.new().build())\
 		.with_query(FindAllAnimalSpotsByQuery, [] as Array[AnimalSpot])\
 		.with_command(DeleteExistingAnimalSpots)\
 		.build()
