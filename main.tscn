@@ -56,7 +56,8 @@ animal_spot_repository = NodePath("../AnimalSpotRepository")
 camera_repository = NodePath("../CameraRepository")
 processed_image_repository = NodePath("../ProcessedImagesRepository")
 
-[node name="ProcessedImageHandler" type="Node" parent="Infrastructure" node_paths=PackedStringArray("processed_image_repository", "file_hasher")]
+[node name="ProcessedImageHandler" type="Node" parent="Infrastructure" node_paths=PackedStringArray("processed_image_repository", "file_hasher", "exif_reader")]
 script = ExtResource("10_4c57u")
 processed_image_repository = NodePath("../ProcessedImagesRepository")
 file_hasher = NodePath("../FileHasher")
+exif_reader = NodePath("../ExifReader")
