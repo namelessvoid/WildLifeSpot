@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://bxwecvbr1fvkd"]
+
+[ext_resource type="Script" uid="uid://dcq1c4miye7ux" path="res://ui/toast_bar.gd" id="1_bh6hq"]
+
+[node name="ToastBar" type="PanelContainer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 0
+script = ExtResource("1_bh6hq")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quarter finished. Animal counts have been reset to zero."
+
+[node name="CloseButton" type="Button" parent="MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "x"
+flat = true
+
+[node name="Timer" type="Timer" parent="."]
