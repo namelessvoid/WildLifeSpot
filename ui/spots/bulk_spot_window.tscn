@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://dwlxt0iprcf8c"]
+[gd_scene load_steps=12 format=3 uid="uid://dwlxt0iprcf8c"]
 
 [ext_resource type="Script" uid="uid://cbapolihihptn" path="res://ui/spots/bulk_spot_window.gd" id="1_qcqfl"]
 [ext_resource type="PackedScene" uid="uid://1igx7b8aya" path="res://ui/spots/animal_box.tscn" id="3_1mdiq"]
 [ext_resource type="PackedScene" uid="uid://dpk875tpgrltq" path="res://ui/image_viewer.tscn" id="3_8yvah"]
 [ext_resource type="Script" uid="uid://bm1245ydieoed" path="res://ui/spots/image_preprocessor.gd" id="4_55kfi"]
+[ext_resource type="PackedScene" uid="uid://bxwecvbr1fvkd" path="res://ui/toast_bar.tscn" id="5_4672c"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_o1nu8"]
 action = &"previous_spot"
@@ -220,3 +221,6 @@ rounded = true
 [node name="ImagePreprocessor" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("4_55kfi")
+
+[node name="ToastBar" parent="." instance=ExtResource("5_4672c")]
+unique_name_in_owner = true

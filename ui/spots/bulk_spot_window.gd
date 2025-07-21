@@ -2,6 +2,7 @@ extends Window
 
 const AnimalBoxScene := preload("res://ui/spots/animal_box.tscn")
 const ImagePreprocessor := preload("res://ui/spots/image_preprocessor.gd")
+const ToastBar := preload("res://ui/toast_bar.gd")
 
 signal finished
 
@@ -19,7 +20,7 @@ var selected_files: PackedStringArray:
 
 @onready var _preprocessing_options_container: Container = %PreprocessingOptionsContainer
 @onready var _skip_already_processed_checkbox: CheckBox = %SkipAlreadyProcessedCheckbox
-@onready var _gorup_into_quarters_checkbox: CheckBox = %GroupIntoQuartersCheckbox
+@onready var _group_into_quarters_checkbox: CheckBox = %GroupIntoQuartersCheckbox
 @onready var _start_preprocessing_button: Button = %StartPreprocessingButton
 
 @onready var _preprocessing_progress_container: Container = %PreprocessingProgressContainer
@@ -42,14 +43,17 @@ var selected_files: PackedStringArray:
 
 @onready var _image_preprocessor: ImagePreprocessor = %ImagePreprocessor
 
+@onready var _toast_bar: ToastBar = %ToastBar
+
 var _bucketed_file_paths: Array[Dictionary]
 var _next_image: int
+var _previous_time_bucket: String = ""
 
 func _ready() -> void:
 	assert(_preprocessing_options_container)
 	assert(_skip_already_processed_checkbox)
 	assert(_start_preprocessing_button)
-	assert(_gorup_into_quarters_checkbox)
+	assert(_group_into_quarters_checkbox)
 	assert(_preprocessing_progress_container)
 	assert(_preprocessing_progress)
 
@@ -64,6 +68,7 @@ func _ready() -> void:
 	assert(_back_button)
 	assert(_skip_button)
 	assert(_save_and_next_button)
+	assert(_toast_bar)
 
 	_start_preprocessing_button.pressed.connect(_pre_process)
 
@@ -90,7 +95,7 @@ func _show_preprocessing_options():
 
 func _pre_process() -> void:
 	var skip_processed_files := _skip_already_processed_checkbox.button_pressed
-	var group_into_quarters := _gorup_into_quarters_checkbox.button_pressed
+	var group_into_quarters := _group_into_quarters_checkbox.button_pressed
 	var bucketed_file_paths := await _image_preprocessor.pre_process(
 		selected_files, skip_processed_files, group_into_quarters
 	)
@@ -180,8 +185,9 @@ func _update_ui():
 
 	var file_path := _bucketed_file_paths[_next_image]
 	var image := Image.load_from_file(file_path["file_path"])
+	var time_bucket: String = Time.get_datetime_string_from_unix_time(file_path["bucket"])
 	_image_viewer.set_texture.call_deferred(ImageTexture.create_from_image(image))
-	_date_time_edit.text = Time.get_datetime_string_from_unix_time(file_path["bucket"])
+	_date_time_edit.text = time_bucket
 
 	# Update animal inputs if image has been spotted before
 	var camera_id := _camera_options_button.get_item_id(_camera_options_button.selected)
@@ -210,9 +216,20 @@ func _update_ui():
 				) as AnimalBox
 			animal_box.set_animal_name(unmapped_animal_name)
 			animal_box.set_animal_count(unmapped_animal_count)
+	elif  _group_into_quarters_checkbox.button_pressed \
+			&& !_previous_time_bucket.is_empty() \
+			&& _previous_time_bucket != time_bucket:
+		_set_animal_box_counts_to_zero()
+	_previous_time_bucket = time_bucket
 
 func _add_animal_box() -> void:
 	_animal_box_container.add_child(AnimalBoxScene.instantiate())
+
+func _set_animal_box_counts_to_zero() -> void:
+	for box_node in _animal_box_container.get_children():
+		var animal_box: AnimalBox = box_node
+		animal_box.set_animal_count(0)
+	_toast_bar.show_toast("Quarter finished. Animal counts reset to zero.", 4)
 
 func _on_image_viewer_save_image_requested():
 	var file: String = _bucketed_file_paths[_next_image]["file_path"].get_file()
