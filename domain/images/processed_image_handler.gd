@@ -20,7 +20,7 @@ func handle(p_dispatchable: Variant) -> Variant:
 	if p_dispatchable is ComputeImageHashQuery:
 		return file_hasher.get_file_hash(p_dispatchable._file_path)
 	if p_dispatchable is GetExifInfoQuery:
-		return exif_reader.get_exif_info(p_dispatchable._file_path)
+		return exif_reader.GetExifInfo(p_dispatchable._file_paths)
 
 	return null
 

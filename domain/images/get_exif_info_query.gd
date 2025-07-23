@@ -1,7 +1,7 @@
 extends RefCounted
 class_name GetExifInfoQuery
 
-var _file_path: String
+var _file_paths: PackedStringArray
 
-func _init(p_file_path: String):
-	_file_path = p_file_path
+func _init(p_file_paths: PackedStringArray):
+	_file_paths = p_file_paths

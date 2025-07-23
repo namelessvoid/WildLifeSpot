@@ -9,7 +9,6 @@ signal finished
 var camera_repository: FSCameraRepository
 var spot_repository: AnimalSpotRepository
 var processed_images_repository: FSProcessedImageRepository
-var exif_reader: ExifReader
 var file_hasher: FileHasher
 
 var selected_files: PackedStringArray:
@@ -80,7 +79,6 @@ func _ready() -> void:
 	close_requested.connect(hide)
 
 func _on_selected_files_changed() -> void:
-	assert(exif_reader)
 	assert(spot_repository)
 	assert(camera_repository)
 	assert(processed_images_repository)

@@ -13,6 +13,6 @@ func with_camera_make(p_camera_make: String):
 
 func build():
 	var exif_info = ExifInfo.new()
-	exif_info.date_time = _date_time
-	exif_info.camera_make = _camera_make
+	exif_info.DateTime = _date_time
+	exif_info.CameraMake = _camera_make
 	return exif_info

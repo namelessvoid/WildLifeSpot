@@ -59,12 +59,15 @@ func _get_file_paths_with_time_bucket(
 	p_bucket_length_in_seconds: int
 ) -> Array[Dictionary]:
 	var time_buckets: Array[Dictionary] = []
+	var exif_query = GetExifInfoQuery.new(p_file_paths)
+	var exif_infos: Dictionary[String, ExifInfo] = CommandQueryDispatcher.dispatch(exif_query)
 	for file_path in p_file_paths:
-		var exif_query := GetExifInfoQuery.new(file_path)
-		var exif_info: ExifInfo = CommandQueryDispatcher.dispatch(exif_query)
+		var exif_info: ExifInfo = exif_infos.get(file_path, null)
+
 		var unix_time: int = -1
 		if exif_info != null:
-			unix_time = Time.get_unix_time_from_datetime_string(exif_info.date_time)
+			unix_time = Time.get_unix_time_from_datetime_string(exif_info.DateTime)
+
 		var bucket: int = unix_time - (unix_time % p_bucket_length_in_seconds)
 		time_buckets.append({
 			"bucket": bucket,

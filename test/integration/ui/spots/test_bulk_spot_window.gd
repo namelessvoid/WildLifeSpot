@@ -8,7 +8,6 @@ const ExifInfoGenerator := preload("res://test/generators/exif_info_generator.gd
 
 func _generate_bulk_spot_window() -> BulkSpotWindow:
 	var bulk_spot_window := _bulk_spot_window_scene.instantiate()
-	bulk_spot_window.exif_reader = double(ExifReader).new()
 	bulk_spot_window.camera_repository = double(FSCameraRepository).new()
 	bulk_spot_window.file_hasher = double(FileHasher).new()
 	bulk_spot_window.spot_repository = double(AnimalSpotRepository).new()
@@ -35,7 +34,7 @@ func test_shows_main_container_when_preprocessing_finished():
 	var mock_handler: CommandQueryHandler = CommandQueryHandlerGenerator.new()\
 		.with_query(ComputeImageHashQuery, "hash")\
 		.with_query(HasImageBeenProcessedQuery, false)\
-		.with_query(GetExifInfoQuery, ExifInfoGenerator.new().build())\
+		.with_query(GetExifInfoQuery, { "/some/file": ExifInfoGenerator.new().build() } as Dictionary[String, ExifInfo])\
 		.with_query(FindAllAnimalSpotsByQuery, [] as Array[AnimalSpot])\
 		.build()
 	add_child_autofree(mock_handler)
@@ -63,7 +62,7 @@ func test_deletes_spots_and_saves_new_ones():
 	var handler: CommandQueryHandler = CommandQueryHandlerGenerator.new()\
 		.with_query(ComputeImageHashQuery, "hash")\
 		.with_query(HasImageBeenProcessedQuery, false)\
-		.with_query(GetExifInfoQuery, ExifInfoGenerator.new().build())\
+		.with_query(GetExifInfoQuery, { "/some/file": ExifInfoGenerator.new().build() } as Dictionary[String, ExifInfo])\
 		.with_query(FindAllAnimalSpotsByQuery, [] as Array[AnimalSpot])\
 		.with_command(DeleteExistingAnimalSpots)\
 		.build()
