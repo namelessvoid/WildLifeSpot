@@ -32,7 +32,11 @@ class MockCommandQueryHandler:
 		return true
 
 	func handle(p_dispatchable: Variant) -> Variant:
-		assert(_return_values.size() > 0, "MockCommandQueryHandler: Received call but did not expect any more calls")
+		assert(
+			_return_values.size() > 0,
+			"MockCommandQueryHandler: Called with Dispatchable of type %s, but did not expect any more calls"
+			% [p_dispatchable.get_script().resource_path]
+		)
 		assert(
 			p_dispatchable.get_script() == _return_values[0]["type"],
 			"MockCommandQueryHandler: Called with unexpected Dispatchable of type %s. Expected type: %s"

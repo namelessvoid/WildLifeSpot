@@ -40,9 +40,9 @@ var selected_files: PackedStringArray:
 @onready var _skip_button: Button = %SkipButton
 @onready var _save_and_next_button: Button = %SaveAndNextButton
 
-@onready var _image_preprocessor: ImagePreprocessor = %ImagePreprocessor
-
 @onready var _toast_bar: ToastBar = %ToastBar
+
+var _image_preprocessor: ImagePreprocessor
 
 var _bucketed_file_paths: Array[Dictionary]
 var _next_image: int
@@ -70,6 +70,10 @@ func _ready() -> void:
 	assert(_toast_bar)
 
 	_start_preprocessing_button.pressed.connect(_pre_process)
+
+	# We don't use @onready to make the _image_preprocessor stubbable for tests.
+	if _image_preprocessor == null:
+		_image_preprocessor = %ImagePreprocessor
 	_image_preprocessor.progress_changed.connect(_on_image_preprocessor_progress_changed)
 
 	_add_new_animal_button.pressed.connect(_add_animal_box)
