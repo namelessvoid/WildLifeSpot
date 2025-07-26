@@ -40,7 +40,7 @@ func _filter_already_processed_files(p_file_paths: PackedStringArray):
 			var processed = WorkerThreadPool.get_group_processed_element_count(group_id)
 			progress_changed.emit(processed / float(files.size()) * 100.0)
 			if processed < files.size():
-				await get_tree().create_timer(1).timeout
+				await get_tree().create_timer(0.1).timeout
 
 	WorkerThreadPool.wait_for_group_task_completion(group_id)
 

@@ -23,7 +23,7 @@ var selected_files: PackedStringArray:
 @onready var _start_preprocessing_button: Button = %StartPreprocessingButton
 
 @onready var _preprocessing_progress_container: Container = %PreprocessingProgressContainer
-@onready var _preprocessing_progress: ProgressBar = %PreprocessingProgress
+@onready var _preprocessing_progress_bar: ProgressBar = %PreprocessingProgressBar
 
 @onready var _main_container: Container = %MainContainer
 @onready var _image_viewer: ImageViewer = %ImageViewer
@@ -54,7 +54,7 @@ func _ready() -> void:
 	assert(_start_preprocessing_button)
 	assert(_group_into_quarters_checkbox)
 	assert(_preprocessing_progress_container)
-	assert(_preprocessing_progress)
+	assert(_preprocessing_progress_bar)
 
 	assert(_main_container)
 	assert(_image_viewer)
@@ -70,6 +70,7 @@ func _ready() -> void:
 	assert(_toast_bar)
 
 	_start_preprocessing_button.pressed.connect(_pre_process)
+	_image_preprocessor.progress_changed.connect(_on_image_preprocessor_progress_changed)
 
 	_add_new_animal_button.pressed.connect(_add_animal_box)
 	_back_button.pressed.connect(_show_previous_image)
@@ -86,18 +87,24 @@ func _on_selected_files_changed() -> void:
 
 	_show_preprocessing_options()
 
+func _on_image_preprocessor_progress_changed(p_value: float) -> void:
+	_preprocessing_progress_bar.value = p_value
+
 func _show_preprocessing_options():
 	_main_container.visible = false
 	_preprocessing_options_container.visible = true
 	_preprocessing_progress_container.visible = false
 
 func _pre_process() -> void:
+	_preprocessing_options_container.visible = false
+	_preprocessing_progress_container.visible = true
+
 	var skip_processed_files := _skip_already_processed_checkbox.button_pressed
 	var group_into_quarters := _group_into_quarters_checkbox.button_pressed
-	var bucketed_file_paths := await _image_preprocessor.pre_process(
+	var file_paths_with_time_bucket := await _image_preprocessor.pre_process(
 		selected_files, skip_processed_files, group_into_quarters
 	)
-	_pre_processing_finished(bucketed_file_paths)
+	_pre_processing_finished(file_paths_with_time_bucket)
 
 func _pre_processing_finished(p_bucketed_file_paths: Array[Dictionary]) -> void:
 	if p_bucketed_file_paths.is_empty():

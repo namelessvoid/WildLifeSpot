@@ -212,7 +212,7 @@ layout_mode = 2
 text = "Pre-processing..."
 horizontal_alignment = 1
 
-[node name="PreprocessingProgress" type="ProgressBar" parent="PreprocessingProgressContainer/HBoxContainer"]
+[node name="PreprocessingProgressBar" type="ProgressBar" parent="PreprocessingProgressContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
