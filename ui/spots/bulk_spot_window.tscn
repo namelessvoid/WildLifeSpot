@@ -233,5 +233,5 @@ size = Vector2i(256, 166)
 always_on_top = true
 transparent = true
 ok_button_text = "Continue"
-dialog_text = "The current time bucket finished. All Animal spots are reset to zero."
+dialog_text = "The current time bucket finished. Animal count input boxes are reset to zero."
 dialog_autowrap = true

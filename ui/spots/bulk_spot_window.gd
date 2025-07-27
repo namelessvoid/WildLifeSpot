@@ -87,6 +87,8 @@ func _ready() -> void:
 	_time_bucket_finished_dialog.close_requested.connect(_on_time_bucket_finished_dialog_closed)
 	_time_bucket_finished_dialog.confirmed.connect(_on_time_bucket_finished_dialog_closed)
 	_time_bucket_finished_dialog.canceled.connect(_on_time_bucket_finished_dialog_closed)
+	_time_bucket_finished_dialog.get_label().horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_time_bucket_finished_dialog.get_label().vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 
 	close_requested.connect(hide)
 
