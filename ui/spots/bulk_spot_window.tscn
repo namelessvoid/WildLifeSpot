@@ -224,3 +224,14 @@ script = ExtResource("4_55kfi")
 
 [node name="ToastBar" parent="." instance=ExtResource("5_4672c")]
 unique_name_in_owner = true
+
+[node name="TimeBucketFinishedDialog" type="AcceptDialog" parent="."]
+unique_name_in_owner = true
+transparent_bg = true
+title = "Time Bucket Finished"
+size = Vector2i(256, 166)
+always_on_top = true
+transparent = true
+ok_button_text = "Continue"
+dialog_text = "The current time bucket finished. All Animal spots are reset to zero."
+dialog_autowrap = true

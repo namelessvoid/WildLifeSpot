@@ -1,7 +1,10 @@
-[gd_resource type="Theme" load_steps=22 format=3 uid="uid://ds7klc2qe2idq"]
+[gd_resource type="Theme" load_steps=23 format=3 uid="uid://ds7klc2qe2idq"]
 
 [ext_resource type="StyleBox" uid="uid://bbedko50o4827" path="res://ui/theming/panel_stylebox.tres" id="1_g6c0y"]
 [ext_resource type="StyleBox" uid="uid://buu088jyf2cjh" path="res://ui/theming/itemlist_selected_stylebox.tres" id="1_wgrbg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aunaq"]
+bg_color = Color(0.929715, 0.929715, 0.929715, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b58vi"]
 content_margin_left = 8.0
@@ -248,6 +251,7 @@ expand_margin_right = 8.0
 expand_margin_bottom = 6.0
 
 [resource]
+AcceptDialog/styles/panel = SubResource("StyleBoxFlat_aunaq")
 Button/colors/font_color = Color(0.259294, 0.259294, 0.259294, 1)
 Button/colors/font_focus_color = Color(0.259294, 0.259294, 0.259294, 1)
 Button/colors/font_hover_color = Color(0.259294, 0.259294, 0.259294, 1)

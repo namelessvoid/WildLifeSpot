@@ -41,6 +41,7 @@ var selected_files: PackedStringArray:
 @onready var _save_and_next_button: Button = %SaveAndNextButton
 
 @onready var _toast_bar: ToastBar = %ToastBar
+@onready var _time_bucket_finished_dialog: AcceptDialog = %TimeBucketFinishedDialog
 
 var _image_preprocessor: ImagePreprocessor
 
@@ -68,6 +69,7 @@ func _ready() -> void:
 	assert(_skip_button)
 	assert(_save_and_next_button)
 	assert(_toast_bar)
+	assert(_time_bucket_finished_dialog)
 
 	_start_preprocessing_button.pressed.connect(_pre_process)
 
@@ -81,6 +83,11 @@ func _ready() -> void:
 	_skip_button.pressed.connect(_show_next_image)
 	_save_and_next_button.pressed.connect(_save_and_show_next_image)
 	_image_viewer.request_save_image.connect(_on_image_viewer_save_image_requested)
+
+	_time_bucket_finished_dialog.close_requested.connect(_on_time_bucket_finished_dialog_closed)
+	_time_bucket_finished_dialog.confirmed.connect(_on_time_bucket_finished_dialog_closed)
+	_time_bucket_finished_dialog.canceled.connect(_on_time_bucket_finished_dialog_closed)
+
 	close_requested.connect(hide)
 
 func _on_selected_files_changed() -> void:
@@ -238,7 +245,15 @@ func _set_animal_box_counts_to_zero() -> void:
 	for box_node in _animal_box_container.get_children():
 		var animal_box: AnimalBox = box_node
 		animal_box.set_animal_count(0)
-	_toast_bar.show_toast("Quarter finished. Animal counts reset to zero.", 4)
+	_show_time_bucket_finished_dialog()
+
+func _show_time_bucket_finished_dialog():
+	_time_bucket_finished_dialog.popup_centered()
+	unfocusable = true
+
+func _on_time_bucket_finished_dialog_closed():
+	unfocusable = false
+	grab_focus()
 
 func _on_image_viewer_save_image_requested():
 	var file: String = _bucketed_file_paths[_next_image]["file_path"].get_file()
