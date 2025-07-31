@@ -71,6 +71,9 @@ func load_functions(functions: Array[Function]) -> void:
 			_:
 				function_legend.add_function(function)
 
+	_draw()
+
+## Returns all functions of a specific type that are part of this chart.
 func get_functions_by_type(type: Function.Type) -> Array[Function]:
 	return functions.filter(func(function: Function) -> bool:
 		return function.get_type() == type
@@ -79,7 +82,7 @@ func get_functions_by_type(type: Function.Type) -> Array[Function]:
 ## Returns true, if the x tick labels should be rendered centered between
 ## tick lines. This is the case if there are multiple bar charts AND
 ## the x values are discrete.
-func _center_x_tick_labels() -> bool:
+func are_x_tick_labels_centered() -> bool:
 	return get_functions_by_type(Function.Type.BAR).size() > 1 && \
 			x_domain.is_discrete
 
@@ -115,12 +118,24 @@ func _draw() -> void:
 				x_domain = ChartAxisDomain.from_values(x, chart_properties.smooth_domain)
 			if not is_y_fixed:
 				y_domain = ChartAxisDomain.from_values(y, chart_properties.smooth_domain)
+	
+	if !x_domain.is_discrete:
+		x_domain.set_tick_count(chart_properties.x_scale)
+
+	if x_labels_function:
+		x_domain.labels_function = x_labels_function
+
+	if !y_domain.is_discrete:
+		y_domain.set_tick_count(chart_properties.y_scale)
+
+	if y_labels_function:
+		y_domain.labels_function = y_labels_function
 
 	# Update values for the PlotBox in order to propagate them to the children
 	update_plotbox(x_domain, y_domain, x_labels_function, y_labels_function)
 
 	# Update GridBox
-	grid_box.x_label_centered = _center_x_tick_labels()
+	grid_box.x_labels_centered = are_x_tick_labels_centered()
 	update_gridbox(x_domain, y_domain, x_labels_function, y_labels_function)
 
 	# Update each FunctionPlotter in FunctionsBox
@@ -142,8 +157,6 @@ func update_plotbox(x_domain: ChartAxisDomain, y_domain: ChartAxisDomain, x_labe
 func update_gridbox(x_domain: ChartAxisDomain, y_domain: ChartAxisDomain, x_labels_function: Callable, y_labels_function: Callable) -> void:
 	grid_box.set_domains(x_domain, y_domain)
 	grid_box.set_labels_functions(x_labels_function, y_labels_function)
-	grid_box.x_tick_count = x[0].size() if x_domain.is_discrete else chart_properties.x_scale
-	grid_box.y_tick_count = y[0].size() if y_domain.is_discrete else chart_properties.y_scale
 	grid_box.queue_redraw()
 
 func calculate_plotbox_margins(x_domain: ChartAxisDomain, y_domain: ChartAxisDomain, y_labels_function: Callable) -> Vector2:
@@ -193,3 +206,7 @@ func _hide_tooltip(point: Point, function: Function) -> void:
 		return
 
 	_tooltip.hide()
+
+func _on_function_legend_function_clicked(function: Function) -> void:
+	function.toggle_visibility()
+	queue_redraw()

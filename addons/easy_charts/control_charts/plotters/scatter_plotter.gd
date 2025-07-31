@@ -8,8 +8,11 @@ var _points: Array[Point]
 var points_positions: PackedVector2Array
 var focused_point: Point
 
-var _point_size: float:
-	get: return function.props.get("point_size", 3.0)
+var _point_size: float
+
+func _init(chart: Chart, function: Function):
+	super(chart, function)
+	_point_size = function.props.get("point_size", 3.0)
 
 func _draw() -> void:
 	super._draw()
@@ -32,14 +35,22 @@ func _sample() -> void:
 	if get_chart_properties().max_samples > 0:
 		lower_bound = max(0, function.__x.size() - get_chart_properties().max_samples)
 
+	var left_padding := 0.0
+	if chart.are_x_tick_labels_centered():
+		var distance_between_ticks_px = \
+			x_domain.map_to(1, function.__x, x_sampled_domain)\
+			- x_domain.map_to(0, function.__x, x_sampled_domain)
+		left_padding = 0.5 * distance_between_ticks_px
+
 	for i in range(lower_bound, function.__x.size()):
 		var _position: Vector2 = Vector2(
-			ECUtilities._map_domain(float(function.__x[i]), x_domain, x_sampled_domain),
-			ECUtilities._map_domain(float(function.__y[i]), y_domain, y_sampled_domain)
+			x_domain.map_to(i, function.__x, x_sampled_domain),
+			y_domain.map_to(i, function.__y, y_sampled_domain)
 		)
 
 		var point = Point.new(_position, { x = function.__x[i], y = function.__y[i] })
-		# Don't generate outside y domain upper and lower bounds!
+
+		# Don't sample outside y domain upper and lower bounds
 		if point.position.y > y_sampled_domain.lb || point.position.y < y_sampled_domain.ub:
 			continue
 
