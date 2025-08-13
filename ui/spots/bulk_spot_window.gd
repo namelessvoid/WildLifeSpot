@@ -77,7 +77,6 @@ func _ready() -> void:
 	if _image_preprocessor == null:
 		_image_preprocessor = %ImagePreprocessor
 	_image_preprocessor.progress_changed.connect(_on_image_preprocessor_progress_changed)
-	_image_preprocessor.finished.connect(_pre_processing_finished)
 
 	_add_new_animal_button.pressed.connect(_add_animal_box)
 	_back_button.pressed.connect(_show_previous_image)
@@ -115,9 +114,10 @@ func _pre_process() -> void:
 
 	var skip_processed_files := _skip_already_processed_checkbox.button_pressed
 	var group_into_quarters := _group_into_quarters_checkbox.button_pressed
-	_image_preprocessor.pre_process(
+	var file_paths_with_time_bucket := await _image_preprocessor.pre_process(
 		selected_files, skip_processed_files, group_into_quarters
 	)
+	_pre_processing_finished(file_paths_with_time_bucket)
 
 func _pre_processing_finished(p_bucketed_file_paths: Array[Dictionary]) -> void:
 	if p_bucketed_file_paths.is_empty():

@@ -2,6 +2,6 @@
 "pipx" = "1.7.1"
 "pipx:pre-commit" = "4.2.0"
 
-[tasks.test]
-description = "Run tests"
-run = "GODOT_BIN=$(which godot) ./addons/gdUnit4/runtest.sh -a test"
+[tasks.gut]
+description = "Run GUT tests"
+run = "godot -s --path . addons/gut/gut_cmdln.gd -gexit"

@@ -1,16 +1,17 @@
-extends GdUnitTestSuite
+extends GutTest
 
 const Repository = preload("res://infrastructure/animal_spot_repsitory_sqlite.gd")
 
 func _create_repository() -> AnimalSpotRepository:
-	var repository: AnimalSpotRepository = auto_free(Repository.new())
+	var repository := Repository.new()
 	repository.set_db_path(":memory:")
+	add_child_autofree(repository)
 	return repository
 
 func test_find_all_returns_empty_array_if_no_spots_exist():
 	var repository := _create_repository()
 	
-	assert_array(repository.find_all()).is_empty()
+	assert_true(repository.find_all().is_empty())
 
 func test_find_all_returns_saved_spots():
 	var repository := _create_repository()
@@ -19,7 +20,7 @@ func test_find_all_returns_saved_spots():
 	repository.save(spot1)
 	repository.save(spot2)
 
-	assert_array(repository.find_all()).has_size(2)
+	assert_eq(repository.find_all().size(), 2)
 
 func test_saves_and_restores_spot_properly():
 	# Arrange
@@ -37,18 +38,18 @@ func test_saves_and_restores_spot_properly():
 	var spot_from_db := repository.find_all()[0]
 
 	# Assert
-	assert_int(spot_from_db._id).is_equal(1)
-	assert_str(spot_from_db.source).is_equal("image")
-	assert_int(spot_from_db.camera_id).is_equal(2)
-	assert_str(spot_from_db.file_path).is_equal("/some/path/image.png")
-	assert_str(spot_from_db.spotted_at).is_equal("2025-04-04T14:00:12")
-	assert_str(spot_from_db.animal_name).is_equal("Beaver")
-	assert_int(spot_from_db.animal_count).is_equal(5)
+	assert_eq(spot_from_db._id, 1)
+	assert_eq(spot_from_db.source, "image")
+	assert_eq(spot_from_db.camera_id, 2)
+	assert_eq(spot_from_db.file_path, "/some/path/image.png")
+	assert_eq(spot_from_db.spotted_at, "2025-04-04T14:00:12")
+	assert_eq(spot_from_db.animal_name, "Beaver")
+	assert_eq(spot_from_db.animal_count, 5)
 
 func test_find_all_by_date_returns_empty_array_if_no_spots_exist():
 	var repository := _create_repository()
 
-	assert_array(repository.find_all_by_date("2025-01-01")).is_empty()
+	assert_true(repository.find_all_by_date("2025-01-01").is_empty())
 
 func test_find_all_by_date_returns_all_matching_spots():
 	# Arrange
@@ -70,12 +71,12 @@ func test_find_all_by_date_returns_all_matching_spots():
 	var spots := repository.find_all_by_date("2025-01-01")
 
 	# Assert
-	assert_array(spots).has_size(2)
+	assert_eq(spots.size(), 2)
 
 func test_find_all_dates_returns_empty_array_if_no_spots_exist():
 	var repository := _create_repository()
 	
-	assert_array(repository.find_all_dates()).is_empty()
+	assert_true(repository.find_all_dates().is_empty())
 
 func test_find_all_dates_returns_distinct_dates():
 	# Arrange
@@ -97,7 +98,7 @@ func test_find_all_dates_returns_distinct_dates():
 	var dates = repository.find_all_dates()
 
 	# Assert
-	assert_array(dates).is_equal(["2025-01-01", "2025-01-02"])
+	assert_eq(dates, PackedStringArray(["2025-01-01", "2025-01-02"]))
 
 func test_delete_by_source_and_spotted_at_does_only_delete_matching_spots():
 	# Arrange
@@ -126,13 +127,13 @@ func test_delete_by_source_and_spotted_at_does_only_delete_matching_spots():
 	repository.save(matching_spot2)
 
 	# Sanity check
-	assert_array(repository.find_all()).has_size(4)
+	assert_eq(repository.find_all().size(), 4)
 
 	# Act
 	repository.delete_by_source_and_spotted_at("image", "2025-01-01T12:01:03")
 
 	# Assert
 	var spots := repository.find_all()
-	assert_array(spots).has_size(2)
-	assert_str(spots[0].animal_name).is_equal("non-matching-source")
-	assert_str(spots[1].animal_name).is_equal("non-matching-date-time")
+	assert_eq(spots.size(), 2)
+	assert_eq(spots[0].animal_name, "non-matching-source")
+	assert_eq(spots[1].animal_name, "non-matching-date-time")
