@@ -1,12 +1,13 @@
 extends Node
 
 signal progress_changed(p_progress: float)
+signal finished(results: Array[Dictionary])
 
 func pre_process(
 	p_file_paths: PackedStringArray,
 	p_skip_already_processed_files: bool,
 	p_group_into_quarters: bool
-) -> Array[Dictionary]:
+) -> void:
 	var file_paths := p_file_paths
 	if p_skip_already_processed_files:
 		file_paths = await _filter_already_processed_files(p_file_paths)
@@ -21,7 +22,7 @@ func pre_process(
 			return a["file_path"] < b["file_path"]
 		return a["bucket"] < b["bucket"]
 	)
-	return file_path_with_time_buckts
+	finished.emit(file_path_with_time_buckts)
 
 func _filter_already_processed_files(p_file_paths: PackedStringArray):
 	var files := Array(p_file_paths)\

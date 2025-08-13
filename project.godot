@@ -33,7 +33,12 @@ project/assembly_name="WildLifeSpot"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/easy_charts/plugin.cfg", "res://addons/godot-sqlite/plugin.cfg", "res://addons/gut/plugin.cfg")
+enabled=PackedStringArray("res://addons/easy_charts/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/godot-sqlite/plugin.cfg")
+
+[gdunit4]
+
+settings/test/test_discovery=true
+report/verbose_orphans=false
 
 [global_group]
 

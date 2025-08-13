@@ -11,8 +11,8 @@ repos:
   - id: check-added-large-files
 - repo: local
   hooks:
-  - id: gut
+  - id: test
     name: Run unit and integration tests
-    entry: mise r gut
+    entry: mise r test
     pass_filenames: false
     language: system
