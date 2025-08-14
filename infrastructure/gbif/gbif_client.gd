@@ -1,8 +1,6 @@
 extends Node
 class_name GBIFClient
 
-const GBIFSearchResult = preload("res://phylopic/gbif_search_result.gd")
-
 @export var http_requester: HTTPRequester
 
 const _host_name := "https://api.gbif.org"
@@ -13,7 +11,7 @@ func _ready() -> void:
 
 func search_by_vernacular_name(p_vernacular_name: String) -> GBIFSearchResult:
 	var url := _search_url_template.format({"vernacular_name": p_vernacular_name})
-	var http_result = await http_requester.do_get(_host_name, url)
+	var http_result = await http_requester.do_get(_host_name + url)
 
 	if http_result.status_code != 200:
 		return GBIFSearchErrorResult.new()

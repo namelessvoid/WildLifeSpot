@@ -1,36 +1,46 @@
 extends Node
 class_name HTTPRequester
 
-func do_get(host: String, url: String, headers: PackedStringArray = []) -> HTTPResponse:
-	var http_request = HTTPRequest.new()
+func do_get(p_full_url: String, p_headers: PackedStringArray = []) -> HTTPResponse:
+	var http_request := HTTPRequest.new()
 	add_child(http_request)
 
-	http_request.request(host + url, headers)
+	http_request.request(p_full_url, p_headers)
 	var result := await http_request.request_completed as Array
 
 	http_request.queue_free()
-	
-	var status_code: int = result[1]
-	var response_headers: PackedStringArray = result[2]
-	var raw_body: PackedByteArray = result[3]
+	return HTTPResponse.new(result[1], result[3], result[2])
 
-	if status_code == 307  || status_code == 308:
-		var redirect_location: String
-		for header in response_headers:
-			if !header.to_lower().begins_with("location:"):
-				continue
-			redirect_location = header.replace("Location: ", "")
-		return await do_get(host, redirect_location, headers)
+func do_get_with_redirect(p_host: String, p_path: String, p_headers: PackedStringArray = []) -> HTTPResponse:
+	var http_response := await do_get(p_host + p_path, p_headers)
 
-	return HTTPResponse.new(status_code, raw_body)
+	if http_response.is_redirect():
+		var redirect_location := http_response.find_header_value("Location")
+		return await do_get(p_host + redirect_location, p_headers)
+
+	return http_response
+
 
 class HTTPResponse:
 	var body: PackedByteArray
 	var status_code: int
+	var headers: PackedStringArray
 
-	func _init(p_status_code: int, p_body: PackedByteArray):
+	func _init(p_status_code: int, p_body: PackedByteArray, p_headers: PackedStringArray):
 		body = p_body
 		status_code = p_status_code
+		headers = p_headers
 
 	func json_body_to_dict() -> Dictionary:
 		return JSON.parse_string(body.get_string_from_utf8())
+
+	func is_redirect() -> bool:
+		return status_code == 307 || status_code == 300
+
+	func find_header_value(p_header_name: String) -> String:
+		var header_name_lower := p_header_name.to_lower()
+		for header in headers:
+			var header_lower := header.to_lower()
+			if header_lower.begins_with(header_name_lower):
+				return header_lower.replace(header_name_lower + ": ", "")
+		return ""

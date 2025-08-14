@@ -36,6 +36,7 @@ func _show_settings_scene(p_scene: PackedScene):
 	if _settings_container.get_children().size() > 0:
 		var current_settings := _settings_container.get_child(0)
 		_settings_container.remove_child(current_settings)
+		current_settings.queue_free()
 
 	var new_settings := p_scene.instantiate()
 	_settings_container.add_child(new_settings)
