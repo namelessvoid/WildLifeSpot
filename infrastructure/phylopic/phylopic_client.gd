@@ -5,27 +5,30 @@ class_name PhylopicClient
 
 const _default_headers := ["Accept: application/vnd.phylopic.v2+json"]
 const _host := "https://api.phylopic.org"
+var _build: String = ""
 
 func _ready() -> void:
 	assert(http_requester)
 
 func find_picture_for_gbif_item(p_gbif_item: GBIFSearchResult.Item) -> Image:
-	var build := await _get_build()
-	var node_url := await _get_species_node_for_gbif_item(p_gbif_item, build)
-	var primary_image_node_url := await _get_primary_image_node_url(node_url)
-	var primary_image_url := await _get_image_url(primary_image_node_url)
+	await _ensure_build()
+	var node_url := await _get_species_node_for_gbif_item(p_gbif_item)
+	var primary_image_url := await _get_primary_image_url(node_url)
 	return await _get_image(primary_image_url)
 
-func _get_build() -> String:
-	var http_response := await http_requester.do_get_with_redirect(_host, "/", _default_headers)
-	return str(http_response.json_body_to_dict()['build'] as int)
+func _ensure_build() -> void:
+	if !_build.is_empty():
+		return
 
-func _get_species_node_for_gbif_item(p_gbif_item: GBIFSearchResult.Item, p_build: String) -> String:
+	var http_response := await http_requester.do_get_with_redirect(_host, "/", _default_headers)
+	_build = str(http_response.json_body_to_dict()['build'] as int)
+
+func _get_species_node_for_gbif_item(p_gbif_item: GBIFSearchResult.Item) -> String:
 	var species_url = (
 		"/resolve/gbif.org/species?build={build}"
 	 	+ "&objectIDs={speciesKey},{genusKey},{familyKey},{orderKey},{classKey},{phylumKey},{kingdomKey}"
 	).format({
-		"build": p_build,
+		"build": _build,
 		"speciesKey": p_gbif_item.species_key,
 		"genusKey": p_gbif_item.genus_key,
 		"familyKey": p_gbif_item.family_key,
@@ -38,15 +41,11 @@ func _get_species_node_for_gbif_item(p_gbif_item: GBIFSearchResult.Item, p_build
 	var body = http_response.json_body_to_dict()
 	return body["href"]
 
-func _get_primary_image_node_url(p_node_url: String) -> String:
-	var http_response := await http_requester.do_get(_host + p_node_url, _default_headers)
+func _get_primary_image_url(p_node_url: String) -> String:
+	var url := _host + p_node_url + "&embed_primaryImage=true"
+	var http_response := await http_requester.do_get(url, _default_headers)
 	var body := http_response.json_body_to_dict()
-	return body['_links']['primaryImage']['href']
-
-func _get_image_url(p_image_node_url: String) -> String:
-	var http_response := await http_requester.do_get(_host + p_image_node_url, _default_headers)
-	var body := http_response.json_body_to_dict()
-	return body['_links']['rasterFiles'][-1]['href']
+	return body['_embedded']['primaryImage']['_links']['rasterFiles'][-1]['href']
 
 func _get_image(p_image_url: String) -> Image:
 	var http_response = await http_requester.do_get(p_image_url)
