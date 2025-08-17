@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://b80f2ewpbp12u"]
+
+[ext_resource type="Script" uid="uid://b5xyp3yj8v3we" path="res://ui/settings/animal_settings.gd" id="1_g7pbd"]
+[ext_resource type="Script" uid="uid://bhataf23a3ds5" path="res://ui/components/stack_container.gd" id="2_wkvma"]
+
+[node name="AnimalSettings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_g7pbd")
+
+[node name="StackContainer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_wkvma")
+metadata/_custom_type_script = "uid://bhataf23a3ds5"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="StackContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="StackContainer/VBoxContainer"]
+layout_mode = 2
+text = "Animal settings"
+
+[node name="AnimalTree" type="Tree" parent="StackContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PhylopicButton" type="Button" parent="StackContainer/VBoxContainer"]
+layout_mode = 2
