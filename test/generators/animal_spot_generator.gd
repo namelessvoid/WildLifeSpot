@@ -36,7 +36,7 @@ func with_animal_count(p_animal_count: int):
 	_animal_count = p_animal_count
 	return self
 
-func build():
+func build() -> AnimalSpot:
 	var spot = AnimalSpot.new()
 	spot._id = _id
 	spot.source = _source

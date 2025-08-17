@@ -23,5 +23,9 @@ func find_all_dates() -> PackedStringArray:
 	assert(false, "Not implemented")
 	return []
 
+func find_all_distinct_animal_names() -> PackedStringArray:
+	assert(false, "Not implemented")
+	return []
+
 func delete_by_source_and_spotted_at(source: String, spotted_at: String) -> void:
 	assert(false, "Not implemented")

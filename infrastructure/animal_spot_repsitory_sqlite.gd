@@ -51,6 +51,17 @@ func find_all_dates() -> PackedStringArray:
 
 	return dates
 
+func find_all_distinct_animal_names() -> PackedStringArray:
+	_db.query("SELECT DISTINCT(animal_name) AS animal_name FROM " + _table_name)
+
+	var animal_names: PackedStringArray = []
+	animal_names.resize(_db.query_result.size())
+
+	for i in range(_db.query_result.size()):
+		animal_names[i] = _db.query_result[i]["animal_name"]
+
+	return animal_names
+
 func delete_by_source_and_spotted_at(source: String, spotted_at: String) -> void:
 	var success = _db.query_with_bindings(
 		"DELETE FROM " + _table_name + " WHERE source=? AND spotted_at=?",
