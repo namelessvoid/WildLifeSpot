@@ -1,8 +1,6 @@
 extends Control
 class_name SpotChart
 
-@export var colors: Array[Color]
-
 var _easy_chart_scene: PackedScene = preload("res://addons/easy_charts/control_charts/chart.tscn")
 var _easy_chart: Chart
 var _chart_properties: ChartProperties
@@ -51,26 +49,26 @@ func _get_y_max(spots: Array[AnimalSpot]) -> int:
 	return max_value
 
 func _get_plot_functions(spots: Array[AnimalSpot]) -> Array[Function]:
-	var spots_by_bird_per_hour = {}
+	var spots_by_animal_name_per_hour = {}
 	for spot in spots:
 		var date_time_dict := Time.get_datetime_dict_from_datetime_string(spot.spotted_at, false)
 		var hour := date_time_dict["hour"] as int
 
-		if !spots_by_bird_per_hour.has(spot.animal_name):
+		if !spots_by_animal_name_per_hour.has(spot.animal_name):
 			var empty_time_slots = []
 			empty_time_slots.resize(24)
 			empty_time_slots.fill(0)
-			spots_by_bird_per_hour[spot.animal_name] = empty_time_slots
+			spots_by_animal_name_per_hour[spot.animal_name] = empty_time_slots
 
-		if spot.animal_count > spots_by_bird_per_hour[spot.animal_name][hour]:
-			spots_by_bird_per_hour[spot.animal_name][hour] = spot.animal_count
+		if spot.animal_count > spots_by_animal_name_per_hour[spot.animal_name][hour]:
+			spots_by_animal_name_per_hour[spot.animal_name][hour] = spot.animal_count
 
-	var sample_colors := colors.duplicate()
 	var plot_functions: Array[Function] = []
-	for animal in spots_by_bird_per_hour.keys():
-		var color = sample_colors.pop_front()
+	for animal_name in spots_by_animal_name_per_hour.keys():
+		var animal_settings := Settings.get_or_create_animal_setting(animal_name)
+		var color = animal_settings["color"]
 		plot_functions.append(
-			_bird_plot_function(animal, spots_by_bird_per_hour[animal], color)
+			_bird_plot_function(animal_name, spots_by_animal_name_per_hour[animal_name], color)
 		)
 	return plot_functions
 
