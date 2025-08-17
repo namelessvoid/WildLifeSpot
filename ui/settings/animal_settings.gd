@@ -22,6 +22,9 @@ func _create_animal_settings_control(p_animal_name: String, p_animal_setting: Di
 	color_picker_button.flat = true
 	color_picker_button.text = " "
 	color_picker_button.custom_minimum_size = Vector2(26, 0)
+	color_picker_button.color_changed.connect(func(p_color: Color):
+		_on_animal_color_picker_color_changed(p_animal_name, p_color)
+	)
 	hbox.add_child(color_picker_button)
 
 	var name_label := Label.new()
@@ -29,3 +32,8 @@ func _create_animal_settings_control(p_animal_name: String, p_animal_setting: Di
 	hbox.add_child(name_label)
 
 	return hbox
+
+func _on_animal_color_picker_color_changed(p_animal_name: String, p_color: Color):
+	var animal_setting := Settings.get_or_create_animal_setting(p_animal_name)
+	animal_setting["color"] = p_color
+	Settings.set_setting(Settings.ANIMALS, p_animal_name, animal_setting)
