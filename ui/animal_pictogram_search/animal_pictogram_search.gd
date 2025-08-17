@@ -29,7 +29,7 @@ func _on_search_button_pressed() -> void:
 	_result_tree.clear()
 	var root = _result_tree.create_item()
 
-	for item in result.results:
+	for item in result.items:
 		var tree_item := root.create_child()
 		tree_item.set_text(1, item.canonical_name)
 

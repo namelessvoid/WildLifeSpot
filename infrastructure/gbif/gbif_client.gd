@@ -10,7 +10,7 @@ func _ready() -> void:
 	assert(http_requester)
 
 func search_by_vernacular_name(p_vernacular_name: String) -> GBIFSearchResult:
-	var url := _search_url_template.format({"vernacular_name": p_vernacular_name})
+	var url := _search_url_template.format({"vernacular_name": p_vernacular_name.uri_encode()})
 	var http_result = await http_requester.do_get(_host_name + url)
 
 	if http_result.status_code != 200:
@@ -22,7 +22,7 @@ func search_by_vernacular_name(p_vernacular_name: String) -> GBIFSearchResult:
 	result.end_of_records = result_dict["endOfRecords"]
 	result.limit = result_dict["limit"]
 	result.offset = result_dict["offset"]
-	
+
 	for item_dict in result_dict["results"]:
 		var item = GBIFSearchResult.Item.new()
 		item.canonical_name = item_dict["canonicalName"]
@@ -33,6 +33,6 @@ func search_by_vernacular_name(p_vernacular_name: String) -> GBIFSearchResult:
 		item.family_key = item_dict["familyKey"]
 		item.genus_key = item_dict["genusKey"]
 		item.species_key = item_dict["speciesKey"]
-		result.results.append(item)
+		result.items.append(item)
 
 	return result

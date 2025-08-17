@@ -5,7 +5,7 @@ var offset: int = 0
 var limit: int = 0
 var end_of_records: bool = true
 var count: int = 0
-var results: Array[Item] = []
+var items: Array[Item] = []
 
 func is_error() -> bool:
 	return false
