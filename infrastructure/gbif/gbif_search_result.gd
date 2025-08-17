@@ -13,7 +13,7 @@ func is_error() -> bool:
 class Item:
 	var canonical_name: String
 
-	var kingdom_key : int
+	var kingdom_key: int
 	var phylum_key: int
 	var class_key: int
 	var order_key: int

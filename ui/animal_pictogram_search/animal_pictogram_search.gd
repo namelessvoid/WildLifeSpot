@@ -33,7 +33,8 @@ func _on_search_button_pressed() -> void:
 		var tree_item := root.create_child()
 		tree_item.set_text(1, item.canonical_name)
 
-		var texture := await phylopic_client.find_picture_from_gbif_item(item)
+		var image := await phylopic_client.find_picture_for_gbif_item(item)
+		var texture := ImageTexture.create_from_image(image)
 		tree_item.set_icon(0, texture)
 		tree_item.set_icon_max_width(0, 48)
 

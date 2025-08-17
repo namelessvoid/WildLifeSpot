@@ -9,7 +9,7 @@ const _host := "https://api.phylopic.org"
 func _ready() -> void:
 	assert(http_requester)
 
-func find_picture_from_gbif_item(p_gbif_item: GBIFSearchResult.Item) -> Texture2D:
+func find_picture_for_gbif_item(p_gbif_item: GBIFSearchResult.Item) -> Image:
 	var build := await _get_build()
 	var node_url := await _get_species_node_for_gbif_item(p_gbif_item, build)
 	var primary_image_node_url := await _get_primary_image_node_url(node_url)
@@ -46,10 +46,10 @@ func _get_primary_image_node_url(p_node_url: String) -> String:
 func _get_image_url(p_image_node_url: String) -> String:
 	var http_response := await http_requester.do_get(_host + p_image_node_url, _default_headers)
 	var body := http_response.json_body_to_dict()
-	return body['_links']['rasterFiles'][0]['href']
+	return body['_links']['rasterFiles'][-1]['href']
 
-func _get_image(p_image_url: String) -> Texture2D:
+func _get_image(p_image_url: String) -> Image:
 	var http_response = await http_requester.do_get(p_image_url)
 	var image = Image.new()
 	image.load_png_from_buffer(http_response.body)
-	return ImageTexture.create_from_image(image)
+	return image

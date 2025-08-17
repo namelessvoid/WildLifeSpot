@@ -3,17 +3,11 @@ extends GutTest
 var _http_requester: HTTPRequester
 var _gbif_client: GBIFClient
 
-func before_all():
-	_http_requester = HTTPRequester.new()
-	add_child(_http_requester)
-
+func before_each():
+	_http_requester = add_child_autoqfree(HTTPRequester.new())
 	_gbif_client = GBIFClient.new()
 	_gbif_client.http_requester = _http_requester
-	add_child(_gbif_client)
-
-func after_all():
-	_gbif_client.free()
-	_http_requester.free()
+	add_child_autoqfree(_gbif_client)
 
 func test_pagination():
 	# Act

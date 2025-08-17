@@ -26,7 +26,7 @@ func search_by_vernacular_name(p_vernacular_name: String) -> GBIFSearchResult:
 	for item_dict in result_dict["results"]:
 		var item = GBIFSearchResult.Item.new()
 		item.canonical_name = item_dict["canonicalName"]
-		item.kingdom_key  = item_dict["kingdomKey"]
+		item.kingdom_key = item_dict["kingdomKey"]
 		item.phylum_key = item_dict["phylumKey"]
 		item.class_key = item_dict["classKey"]
 		item.order_key = item_dict["orderKey"]

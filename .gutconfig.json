@@ -2,12 +2,12 @@
  "background_color": "262626ff",
  "compact_mode": false,
  "configured_dirs": [
-  "res://test",
-  "res://test_contracts"
+  "res://test/integration",
+  "res://test/contracts"
  ],
  "dirs": [
-  "res://test",
-  "res://test_contracts"
+  "res://test/integration",
+  "res://test/contracts"
  ],
  "disable_colors": false,
  "double_strategy": 1,

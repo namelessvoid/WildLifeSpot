@@ -1,7 +1,7 @@
 extends GutTest
 
-var image_path1 := ProjectSettings.globalize_path("res://test/integration/infrastructure/fixtures/fixture_image1.jpg")
-var image_path2 := ProjectSettings.globalize_path("res://test/integration/infrastructure/fixtures/fixture_image2.jpg")
+var image_path1 := ProjectSettings.globalize_path("res://test/fixtures/fixture_image1.jpg")
+var image_path2 := ProjectSettings.globalize_path("res://test/fixtures/fixture_image2.jpg")
 
 var test_returns_exif_info_of_single_image_data = [
 	[image_path1, "2025-10-24T13:20:50", "Manufacturer 1"],
