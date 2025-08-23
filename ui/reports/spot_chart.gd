@@ -62,11 +62,11 @@ func _get_plot_functions(spots: Array[AnimalSpot]) -> Array[Function]:
 		var animal_settings := Settings.get_or_create_animal_setting(animal_name)
 		var color = animal_settings["color"]
 		plot_functions.append(
-			_bird_plot_function(animal_name, spots_by_animal_name_per_hour[animal_name], color)
+			_get_spot_plot_function(animal_name, spots_by_animal_name_per_hour[animal_name], color)
 		)
 	return plot_functions
 
-func _bird_plot_function(animal: String, spots_per_hour: Array, color: Color) -> Function:
+func _get_spot_plot_function(animal: String, spots_per_hour: Array, color: Color) -> Function:
 	return Function.new(
 		_x_values,
 		spots_per_hour,
