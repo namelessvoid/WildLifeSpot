@@ -23,12 +23,6 @@ func set_spots(spots: Array[AnimalSpot]) -> void:
 
 func _get_chart_properties(spots: Array[AnimalSpot]) -> ChartProperties:
 	var chart_properties := ChartProperties.new()
-	chart_properties.colors.frame = Color("#161a1d")
-	chart_properties.colors.background = Color.TRANSPARENT
-	chart_properties.colors.grid = Color("#283442")
-	chart_properties.colors.ticks = Color("#283442")
-	chart_properties.colors.text = Color.WHITE_SMOKE
-	chart_properties.draw_bounding_box = false
 	chart_properties.title = "Animals spotted"
 	chart_properties.x_label = "Time"
 	chart_properties.y_label = "Count"

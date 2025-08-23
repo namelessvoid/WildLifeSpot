@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=23 format=3 uid="uid://ds7klc2qe2idq"]
+[gd_resource type="Theme" load_steps=24 format=3 uid="uid://ds7klc2qe2idq"]
 
 [ext_resource type="StyleBox" uid="uid://bbedko50o4827" path="res://ui/theming/panel_stylebox.tres" id="1_g6c0y"]
 [ext_resource type="StyleBox" uid="uid://buu088jyf2cjh" path="res://ui/theming/itemlist_selected_stylebox.tres" id="1_wgrbg"]
@@ -74,6 +74,22 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_abque"]
+content_margin_left = 8.0
+content_margin_top = 8.0
+content_margin_right = 8.0
+content_margin_bottom = 8.0
+bg_color = Color(0.909804, 0.909804, 0.909804, 0.6)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.580392, 0.580392, 0.580392, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1p6v0"]
 content_margin_left = 4.0
@@ -262,6 +278,7 @@ Button/styles/focus = SubResource("StyleBoxFlat_j3q1y")
 Button/styles/hover = SubResource("StyleBoxFlat_ybqfe")
 Button/styles/normal = SubResource("StyleBoxFlat_28p22")
 Button/styles/pressed = SubResource("StyleBoxFlat_ntxv3")
+Chart/styles/chart_area = SubResource("StyleBoxFlat_abque")
 HBoxContainer/constants/separation = 4
 ItemList/colors/font_color = Color(0.259294, 0.259294, 0.259294, 1)
 ItemList/colors/font_hovered_color = Color(0.259294, 0.259294, 0.259294, 1)
