@@ -58,6 +58,7 @@ func _draw() -> void:
 			)
 		Function.Type.SCATTER, _:
 			pass
+
 	match self.marker:
 		Function.Marker.NONE:
 			pass
