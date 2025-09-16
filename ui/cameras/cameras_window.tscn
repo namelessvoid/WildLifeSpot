@@ -4,6 +4,7 @@
 
 [node name="CamerasWindow" type="Window"]
 transparent_bg = true
+oversampling_override = 1.0
 mode = 2
 size = Vector2i(600, 500)
 exclusive = true

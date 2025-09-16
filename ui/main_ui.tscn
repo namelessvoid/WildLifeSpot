@@ -106,3 +106,4 @@ visible = false
 
 [node name="ManageSpotsWindow" parent="." instance=ExtResource("8_fa42e")]
 unique_name_in_owner = true
+oversampling_override = 1.0
