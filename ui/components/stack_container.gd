@@ -1,19 +1,56 @@
 extends Control
 class_name StackContainer
 
-func push(p_child: Control):
-	if get_child_count() > 0:
-		get_child(-1).visible = false
-	add_child(p_child)
-	p_child.set_anchors_preset(Control.PRESET_FULL_RECT)
+@onready var _children_container: Container = %ChildrenContainer
+@onready var _bread_crumbs_container: Container = %BreadCrumbsContainer
+
+func push(p_name: String, p_child: Control):
+	if _children_container.get_child_count() > 0:
+		_children_container.get_child(-1).visible = false
+	_children_container.add_child(p_child)
+	p_child.size_flags_vertical = Control.SIZE_EXPAND_FILL
+
+	_push_breadcrumb(p_name)
 
 func	 pop():
-	if get_child_count() == 0:
+	if _children_container.get_child_count() == 0:
 		return
 
-	var last_child = get_child(-1)
-	remove_child(last_child)
+	var last_child = _children_container.get_child(-1)
+	_children_container.remove_child(last_child)
 	last_child.queue_free()
 
-	if get_child_count() > 0:
-		get_child(-1).visible = true
+	if _children_container.get_child_count() > 0:
+		_children_container.get_child(-1).visible = true
+
+	_pop_breadcrumb()
+
+func _ready() -> void:
+	_pop_breadcrumb()
+	_pop_breadcrumb()
+
+func _push_breadcrumb(p_name: String) -> void:
+	if _bread_crumbs_container.get_child_count() > 0:
+		var current_last_button: LinkButton = _bread_crumbs_container.get_child(-1)
+		current_last_button.disabled = false
+
+		var separator := Label.new()
+		separator.text = "/"
+		_bread_crumbs_container.add_child(separator)
+	
+	var link_button := LinkButton.new()
+	link_button.text = p_name
+	link_button.disabled = true
+	link_button.pressed.connect(pop)
+	_bread_crumbs_container.add_child(link_button)
+
+func _pop_breadcrumb() -> void:
+	var number_of_children_to_pop: int = min(2, _bread_crumbs_container.get_child_count())
+	for i in range(number_of_children_to_pop):
+		var child := _bread_crumbs_container.get_child(-1)
+		_bread_crumbs_container.remove_child(child)
+		child.queue_free()
+
+	if _bread_crumbs_container.get_child_count() > 0:
+		var last_button: LinkButton = _bread_crumbs_container.get_child(-1)
+		last_button.disabled = true
