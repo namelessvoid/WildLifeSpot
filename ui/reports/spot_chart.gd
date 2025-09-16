@@ -59,21 +59,26 @@ func _get_plot_functions(spots: Array[AnimalSpot]) -> Array[Function]:
 
 	var plot_functions: Array[Function] = []
 	for animal_name in spots_by_animal_name_per_hour.keys():
-		var animal_settings := Settings.get_or_create_animal_setting(animal_name)
-		var color = animal_settings["color"]
+		var animal_setting := Settings.get_or_create_animal_setting(animal_name)
 		plot_functions.append(
-			_get_spot_plot_function(animal_name, spots_by_animal_name_per_hour[animal_name], color)
+			_get_spot_plot_function(animal_name, animal_setting, spots_by_animal_name_per_hour[animal_name])
 		)
 	return plot_functions
 
-func _get_spot_plot_function(animal: String, spots_per_hour: Array, color: Color) -> Function:
+func _get_spot_plot_function(animal: String, animal_setting: Dictionary, spots_per_hour: Array) -> Function:
+	var icon: Texture2D = null
+	if animal_setting["icon_path"]:
+		var image := Image.load_from_file(animal_setting["icon_path"])
+		icon = ImageTexture.create_from_image(image)
+
 	return Function.new(
 		_x_values,
 		spots_per_hour,
 		animal,
 		{
-			color = color,
+			color = animal_setting["color"],
 			type = Function.Type.BAR,
-			bar_size = 5
+			bar_size = 5,
+			icon = icon
 		}
 	)
