@@ -69,6 +69,12 @@ func _get_spot_plot_function(animal: String, animal_setting: Dictionary, spots_p
 	var icon: Texture2D = null
 	if animal_setting["icon_path"]:
 		var image := Image.load_from_file(animal_setting["icon_path"])
+		for x in image.get_width():
+			for y in image.get_height():
+				var previous_color = image.get_pixel(x, y)
+				var new_color = Color.WHITE - previous_color
+				new_color.a = previous_color.a
+				image.set_pixel(x, y, new_color)
 		icon = ImageTexture.create_from_image(image)
 
 	return Function.new(
