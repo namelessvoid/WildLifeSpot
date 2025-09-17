@@ -34,7 +34,7 @@ func test_shows_main_container_when_preprocessing_finished():
 	var mock_handler: CommandQueryHandler = CommandQueryHandlerGenerator.new()\
 		.with_query(ComputeImageHashQuery, "hash")\
 		.with_query(HasImageBeenProcessedQuery, false)\
-		.with_query(GetExifInfoQuery, { "/some/file": ExifInfoGenerator.new().build() } as Dictionary[String, ExifInfo])\
+		.with_query(GetExifInfoQuery, { TestFixtures.image_path1: ExifInfoGenerator.new().build() } as Dictionary[String, ExifInfo])\
 		.with_query(FindAllAnimalSpotsByQuery, [] as Array[AnimalSpot])\
 		.build()
 	add_child_autofree(mock_handler)
@@ -42,7 +42,7 @@ func test_shows_main_container_when_preprocessing_finished():
 
 	# Act
 	bulk_spot_window.popup_centered_ratio(0.9)
-	bulk_spot_window.selected_files = ["/some/file"]
+	bulk_spot_window.selected_files = [TestFixtures.image_path1]
 	bulk_spot_window.get_node("%StartPreprocessingButton").pressed.emit()
 
 	# Assert
@@ -62,7 +62,7 @@ func test_deletes_spots_and_saves_new_ones():
 	var handler: CommandQueryHandler = CommandQueryHandlerGenerator.new()\
 		.with_query(ComputeImageHashQuery, "hash")\
 		.with_query(HasImageBeenProcessedQuery, false)\
-		.with_query(GetExifInfoQuery, { "/some/file": ExifInfoGenerator.new().build() } as Dictionary[String, ExifInfo])\
+		.with_query(GetExifInfoQuery, { TestFixtures.image_path1: ExifInfoGenerator.new().build() } as Dictionary[String, ExifInfo])\
 		.with_query(FindAllAnimalSpotsByQuery, [] as Array[AnimalSpot])\
 		.with_command(DeleteExistingAnimalSpots)\
 		.build()
@@ -71,7 +71,7 @@ func test_deletes_spots_and_saves_new_ones():
 
 	# Act
 	bulk_spot_window.popup_centered_ratio(0.9)
-	bulk_spot_window.selected_files = ["/some/file"]
+	bulk_spot_window.selected_files = [TestFixtures.image_path1]
 	bulk_spot_window.get_node("%StartPreprocessingButton").pressed.emit()
 
 	var date_time_edit: LineEdit = bulk_spot_window.get_node("%DateTimeEdit")

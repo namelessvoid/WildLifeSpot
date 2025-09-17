@@ -1,11 +1,8 @@
 extends GutTest
 
-var image_path1 := ProjectSettings.globalize_path("res://test/fixtures/fixture_image1.jpg")
-var image_path2 := ProjectSettings.globalize_path("res://test/fixtures/fixture_image2.jpg")
-
 var test_returns_exif_info_of_single_image_data = [
-	[image_path1, "2025-10-24T13:20:50", "Manufacturer 1"],
-	[image_path2, "2024-08-01T01:02:03", "Manufacturer 2"]
+	[TestFixtures.image_path1, "2025-10-24T13:20:50", "Manufacturer 1"],
+	[TestFixtures.image_path2, "2024-08-01T01:02:03", "Manufacturer 2"]
 ]
 func test_returns_exif_info_if_single_image_provided(params=use_parameters(test_returns_exif_info_of_single_image_data)):
 	# Arrange
@@ -30,9 +27,9 @@ func test_returns_all_exif_info_if_multiple_images_provided():
 	add_child_autofree(exif_reader)
 
 	# Act
-	var exif_infos := exif_reader.GetExifInfo([image_path1, image_path2])
+	var exif_infos := exif_reader.GetExifInfo([TestFixtures.image_path1, TestFixtures.image_path2])
 
 	# Assert
 	assert_eq(exif_infos.size(), 2)
-	assert_eq(exif_infos[image_path1].CameraMake, "Manufacturer 1")
-	assert_eq(exif_infos[image_path2].CameraMake, "Manufacturer 2")
+	assert_eq(exif_infos[TestFixtures.image_path1].CameraMake, "Manufacturer 1")
+	assert_eq(exif_infos[TestFixtures.image_path2].CameraMake, "Manufacturer 2")
