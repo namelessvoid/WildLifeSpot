@@ -1,16 +1,15 @@
+@abstract
 class_name FSCameraRepository
 extends Node
 
+@warning_ignore("unused_signal")
 signal db_changed
 
-func find_all() -> Array[FSCamera]:
-	assert(false, "Not implemented")
-	return []
+@abstract
+func find_all() -> Array[FSCamera]
 
-func save(p_camera: FSCamera) -> void:
-	assert(false, "Not implemented")
-	pass
+@abstract
+func save(p_camera: FSCamera) -> void
 
-func delete(p_id: int) -> void:
-	assert(false, "Not implemented")
-	pass
+@abstract
+func delete(p_id: int) -> void

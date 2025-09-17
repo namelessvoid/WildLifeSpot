@@ -1,31 +1,27 @@
-extends Node
+@abstract
 class_name AnimalSpotRepository
+extends Node
 
+@warning_ignore("unused_signal")
 signal db_changed
 
-func save(p_spot: AnimalSpot) -> void:
-	assert(false, "Not implemented")
-	pass
+@abstract
+func save(p_spot: AnimalSpot) -> void
 
-func find_all() -> Array[AnimalSpot]:
-	assert(false, "Not implemented")
-	return []
+@abstract
+func find_all() -> Array[AnimalSpot]
 
-func find_all_by(p_source: String, p_camera_id: int, p_spotted_at: String) -> Array[AnimalSpot]:
-	assert(false, "Not implemented")
-	return []
+@abstract
+func find_all_by(p_source: String, p_camera_id: int, p_spotted_at: String) -> Array[AnimalSpot]
 
-func find_all_by_date(date: String) -> Array[AnimalSpot]:
-	assert(false, "Not implemented")
-	return []
+@abstract
+func find_all_by_date(date: String) -> Array[AnimalSpot]
 
-func find_all_dates() -> PackedStringArray:
-	assert(false, "Not implemented")
-	return []
+@abstract
+func find_all_dates() -> PackedStringArray
 
-func find_all_distinct_animal_names() -> PackedStringArray:
-	assert(false, "Not implemented")
-	return []
+@abstract
+func find_all_distinct_animal_names() -> PackedStringArray
 
-func delete_by_source_and_spotted_at(source: String, spotted_at: String) -> void:
-	assert(false, "Not implemented")
+@abstract
+func delete_by_source_and_spotted_at(source: String, spotted_at: String) -> void

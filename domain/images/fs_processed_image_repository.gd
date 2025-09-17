@@ -1,9 +1,9 @@
-extends Node
+@abstract
 class_name FSProcessedImageRepository
+extends Node
 
-func has_been_processed(file_hash: String) -> bool:
-	assert(false, "Not implemented")
-	return false
+@abstract
+func has_been_processed(file_hash: String) -> bool
 
-func mark_processed(file_hash: String) -> void:
-	assert(false, "Not implemented")
+@abstract
+func mark_processed(file_hash: String) -> void
