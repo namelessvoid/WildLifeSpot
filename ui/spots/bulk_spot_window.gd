@@ -142,7 +142,10 @@ func _pre_processing_finished(p_bucketed_file_paths: Array[Dictionary]) -> void:
 	# Reset UI
 	_date_time_edit.text = ""
 	_temperature_edit.value = 0
-	_camera_options_button.select(0)
+
+	if _camera_options_button.item_count > 0:
+		_camera_options_button.select(0)
+
 	for animal_box in _animal_box_container.get_children():
 		_animal_box_container.remove_child(animal_box)
 		animal_box.queue_free()
