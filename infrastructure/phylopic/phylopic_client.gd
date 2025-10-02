@@ -45,7 +45,7 @@ func _get_primary_image_url(p_node_url: String) -> String:
 	var url := _host + p_node_url + "&embed_primaryImage=true"
 	var http_response := await http_requester.do_get(url, _default_headers)
 	var body := http_response.json_body_to_dict()
-	return body['_embedded']['primaryImage']['_links']['rasterFiles'][-1]['href']
+	return body['_embedded']['primaryImage']['_links']['thumbnailFiles'][-1]['href']
 
 func _get_image(p_image_url: String) -> Image:
 	var http_response = await http_requester.do_get(p_image_url)
