@@ -15,7 +15,7 @@ func set_animal_count(p_count: int) -> void:
 	_count_spin_box.value = p_count
 
 func get_animal_count() -> int:
-	return _count_spin_box.value
+	return _count_spin_box.value as int
 
 func _ready() -> void:
 	assert(_name_edit)
@@ -27,7 +27,4 @@ func _ready() -> void:
 		_count_spin_box.get_line_edit().release_focus()
 	)
 
-	_delete_button.pressed.connect(_delete)
-
-func _delete():
-	queue_free()
+	_delete_button.pressed.connect(queue_free)

@@ -27,7 +27,7 @@ func test_bulk_spot_window_should_update_preprocess_progress_bar():
 	CommandQueryDispatcher._handlers = [mock_handler]
 
 	stub(image_preprocessor, "pre_process").to_call(
-		func(p_file_paths: PackedStringArray, p_skip_already_processed: bool, p_group_by_quarters: bool):
+		func(_file_paths: PackedStringArray, _skip_already_processed: bool, _group_by_quarters: bool):
 			await _pre_process_finished
 	)
 
