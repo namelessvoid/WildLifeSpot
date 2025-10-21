@@ -453,6 +453,7 @@
     <Content Include="infrastructure\gbif\gbif_search_result.gd.uid" />
     <Content Include="infrastructure\http_requester.gd" />
     <Content Include="infrastructure\http_requester.gd.uid" />
+    <Content Include="infrastructure\image_utils.gd" />
     <Content Include="infrastructure\phylopic\phylopic_client.gd" />
     <Content Include="infrastructure\phylopic\phylopic_client.gd.uid" />
     <Content Include="infrastructure\sqlite_fs_camera_repsository.gd" />
