@@ -37,7 +37,6 @@ func get_or_create_animal_setting(p_animal_name: String) -> Dictionary:
 		animal_setting = { "color": _random_color(), "icon_path": "" }
 		set_setting(ANIMALS, p_animal_name, animal_setting)
 
-	animal_setting['color'] = _random_color()
 	return animal_setting
 
 func _random_color() -> Color:
