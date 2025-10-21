@@ -20,6 +20,13 @@ func _ready() -> void:
 
 func _create_animal_settings_control(p_animal_name: String, p_animal_setting: Dictionary) -> Control:
 	var hbox := HBoxContainer.new()
+	
+	if p_animal_setting["icon_path"] != "":
+		var texture := ImageUtils.load_inverted(p_animal_setting["icon_path"])
+		var texture_rect := TextureRect.new()
+		texture_rect.texture = texture
+		texture_rect.modulate = p_animal_setting["color"]
+		hbox.add_child(texture_rect)		
 
 	var color_picker_button := ColorPickerButton.new()
 	color_picker_button.color = p_animal_setting["color"]
