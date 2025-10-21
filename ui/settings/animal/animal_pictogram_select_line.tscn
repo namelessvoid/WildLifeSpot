@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://deswauwup3dfq"]
+
+[ext_resource type="Script" uid="uid://ccoq3tj2phxr8" path="res://ui/settings/animal/animal_pictogram_select_line.gd" id="1_0xb0m"]
+
+[node name="AnimalPictogramSelectLine" type="HBoxContainer"]
+script = ExtResource("1_0xb0m")
+
+[node name="AnimalIconTextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+
+[node name="AnimalNameLabel" type="Label" parent="."]
+layout_mode = 2
+
+[node name="ChooseIconButton" type="Button" parent="."]
+layout_mode = 2
+text = "Choose >"
