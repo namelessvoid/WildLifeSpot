@@ -1,7 +1,10 @@
 extends Control
 
-const AnimalPictogramSearch := preload("res://ui/animal_pictogram_search/animal_pictogram_search.gd")
-const _animal_pictogram_search_scene := preload("res://ui/animal_pictogram_search/animal_pictogram_search.tscn")
+const AnimalPictogramSearch := preload("uid://xpo847h5qv8g")
+const _animal_pictogram_search_scene := preload("uid://dxcp2nuu3oeew")
+
+const SingleAnimalSetting := preload("uid://cwrmvbs6f75j3")
+const _single_animal_seting_scene := preload("uid://nu4u600nvbe0")
 
 @onready var _stack_container: StackContainer = $StackContainer
 @onready var _animal_settings_container: VBoxContainer
@@ -19,38 +22,18 @@ func _ready() -> void:
 		_animal_settings_container.add_child(control)
 
 func _create_animal_settings_control(p_animal_name: String, p_animal_setting: Dictionary) -> Control:
-	var hbox := HBoxContainer.new()
-	
-	if p_animal_setting["icon_path"] != "":
-		var texture := ImageUtils.load_inverted(p_animal_setting["icon_path"])
-		var texture_rect := TextureRect.new()
-		texture_rect.texture = texture
-		texture_rect.modulate = p_animal_setting["color"]
-		hbox.add_child(texture_rect)		
+	var single_animal_setting: SingleAnimalSetting = _single_animal_seting_scene.instantiate()
+	single_animal_setting.animal_settings = p_animal_setting
+	single_animal_setting.animal_name = p_animal_name
 
-	var color_picker_button := ColorPickerButton.new()
-	color_picker_button.color = p_animal_setting["color"]
-	color_picker_button.flat = true
-	color_picker_button.text = " "
-	color_picker_button.custom_minimum_size = Vector2(26, 0)
-	color_picker_button.color_changed.connect(func(p_color: Color):
+	single_animal_setting.pick_icon_button_pressed.connect(func():
+		_on_icon_button_pressed(p_animal_name)
+	)
+	single_animal_setting.color_changed.connect(func(p_color: Color):
 		_on_animal_color_picker_color_changed(p_animal_name, p_color)
 	)
-	hbox.add_child(color_picker_button)
 
-	var name_label := Label.new()
-	name_label.text = p_animal_name
-	hbox.add_child(name_label)
-
-	var icon_button := Button.new()
-	icon_button.icon = load("res://icons/question_mark.png")
-	icon_button.flat = true
-	icon_button.pressed.connect(func():
-		_on_icon_button_pressed(p_animal_name,)
-	)
-	hbox.add_child(icon_button)
-
-	return hbox
+	return single_animal_setting
 
 func _on_animal_color_picker_color_changed(p_animal_name: String, p_color: Color):
 	var animal_setting := Settings.get_or_create_animal_setting(p_animal_name)

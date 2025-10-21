@@ -9,7 +9,7 @@ const ANIMAL_SETTINGS := &"animal_settings"
 @onready var _close_button: Button = %CloseButton
 
 @onready var _image_settings_scene: PackedScene = load("res://ui/settings/image_settings.tscn")
-@onready var _animal_settings: PackedScene = load("res://ui/settings/animal_settings.tscn")
+@onready var _animal_settings: PackedScene = load("uid://b80f2ewpbp12u")
 
 func _ready():
 	_init_settings_list()

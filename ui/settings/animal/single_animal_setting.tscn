@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://nu4u600nvbe0"]
+
+[ext_resource type="Script" uid="uid://cwrmvbs6f75j3" path="res://ui/settings/animal/single_animal_setting.gd" id="1_2nvg0"]
+
+[node name="AnimalSettingsLine" type="HBoxContainer"]
+offset_right = 700.0
+offset_bottom = 103.0
+script = ExtResource("1_2nvg0")
+
+[node name="PickIconButton" type="Button" parent="."]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+flat = true
+icon_alignment = 1
+
+[node name="PickColorButton" type="ColorPickerButton" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = " "
+flat = true
+edit_alpha = false
+
+[node name="AnimalNameLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Animal Name"

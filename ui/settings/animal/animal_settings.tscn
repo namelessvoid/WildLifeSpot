@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b80f2ewpbp12u"]
 
-[ext_resource type="Script" uid="uid://b5xyp3yj8v3we" path="res://ui/settings/animal_settings.gd" id="1_g7pbd"]
+[ext_resource type="Script" uid="uid://b5xyp3yj8v3we" path="res://ui/settings/animal/animal_settings.gd" id="1_g7pbd"]
 [ext_resource type="PackedScene" uid="uid://cuq40mv0fyfvf" path="res://ui/components/stack_container.tscn" id="2_wkvma"]
 
 [node name="AnimalSettings" type="Control"]

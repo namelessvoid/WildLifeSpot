@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dxcp2nuu3oeew"]
 
-[ext_resource type="Script" uid="uid://xpo847h5qv8g" path="res://ui/animal_pictogram_search/animal_pictogram_search.gd" id="1_8amew"]
+[ext_resource type="Script" uid="uid://xpo847h5qv8g" path="res://ui/settings/animal/animal_pictogram_search.gd" id="1_8amew"]
 [ext_resource type="Script" uid="uid://gt8cvk0njj8w" path="res://infrastructure/gbif/gbif_client.gd" id="3_8ylnr"]
 [ext_resource type="Script" uid="uid://b4fwqi11tlkqn" path="res://infrastructure/http_requester.gd" id="4_kb17w"]
 [ext_resource type="Script" uid="uid://co6rwlkl8ocfn" path="res://infrastructure/phylopic/phylopic_client.gd" id="4_twcj5"]
