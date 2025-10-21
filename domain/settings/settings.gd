@@ -1,10 +1,10 @@
 extends Node
 
-const IMAGE_STORE = &"image_store"
-const IMAGE_STORE_PATH = &"path"
-const ANIMALS = &"animals"
+const IMAGE_STORE: StringName = &"image_store"
+const IMAGE_STORE_PATH: StringName = &"path"
+const ANIMALS: StringName = &"animals"
 
-const DEFAULTS = {
+const DEFAULTS: Dictionary[StringName, Dictionary] = {
 	IMAGE_STORE: {
 		IMAGE_STORE_PATH: &"user://images"
 	}
@@ -37,11 +37,27 @@ func get_or_create_animal_setting(p_animal_name: String) -> Dictionary:
 		animal_setting = { "color": _random_color(), "icon_path": "" }
 		set_setting(ANIMALS, p_animal_name, animal_setting)
 
+	animal_setting['color'] = _random_color()
 	return animal_setting
 
 func _random_color() -> Color:
-	return Color.from_hsv(
-		randf(),
-		randf_range(0.2, 0.6),
-		randf_range(0.9, 1.0),
-	)
+	return [
+		Color.html('#e7000b'),
+		Color.html("#ff6900"),
+		Color.html('#fe9a00'),
+		Color.html('#f0b100'),
+		Color.html('#7ccf00'),
+		Color.html('#00c950'),
+		Color.html('#00bc7d'),
+		Color.html('#00bba7'),
+		Color.html('#00b8db'),
+		Color.html('#00a6f4'),
+		Color.html('#2b7fff'),
+		Color.html('#615fff'),
+		Color.html('#8e51ff'),
+		Color.html('#ad46ff'),
+		Color.html('#ed6aff'),
+		Color.html('#f6339a'),
+		Color.html('#ff2056'),
+	].pick_random()
+
