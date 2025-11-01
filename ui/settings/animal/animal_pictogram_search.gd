@@ -26,10 +26,11 @@ func _ready() -> void:
 	assert(gbif_client)
 	assert(phylopic_client)
 
-	_search_button.pressed.connect(_on_search_button_pressed)
+	_search_button.pressed.connect(_search)
+	_search_edit.text_submitted.connect(func(_new_text): _search())
 	_result_container.visible = false
 
-func _on_search_button_pressed() -> void:
+func _search() -> void:
 	_search_button.text = "Searching..."
 	_search_button.disabled = true
 	_search_edit.editable = false
