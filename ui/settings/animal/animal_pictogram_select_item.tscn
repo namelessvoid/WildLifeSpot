@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://deswauwup3dfq"]
+
+[ext_resource type="Script" uid="uid://ccoq3tj2phxr8" path="res://ui/settings/animal/animal_pictogram_select_item.gd" id="1_t1dnn"]
+[ext_resource type="Texture2D" uid="uid://bah2g2geyw2ks" path="res://icon.svg" id="2_3ju11"]
+
+[node name="AnimalPictogramSelectLine" type="VBoxContainer"]
+offset_right = 377.0
+offset_bottom = 198.0
+script = ExtResource("1_t1dnn")
+
+[node name="AnimalIconTextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_3ju11")
+stretch_mode = 4
+
+[node name="AnimalNameLabel" type="Label" parent="."]
+layout_mode = 2
+text = "Name"
+horizontal_alignment = 1
+
+[node name="ChooseIconButton" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Pick >"

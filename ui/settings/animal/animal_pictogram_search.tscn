@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dxcp2nuu3oeew"]
+[gd_scene load_steps=6 format=3 uid="uid://dxcp2nuu3oeew"]
 
 [ext_resource type="Script" uid="uid://xpo847h5qv8g" path="res://ui/settings/animal/animal_pictogram_search.gd" id="1_8amew"]
+[ext_resource type="PackedScene" uid="uid://deswauwup3dfq" path="res://ui/settings/animal/animal_pictogram_select_item.tscn" id="2_fud4d"]
 [ext_resource type="Script" uid="uid://gt8cvk0njj8w" path="res://infrastructure/gbif/gbif_client.gd" id="3_8ylnr"]
 [ext_resource type="Script" uid="uid://b4fwqi11tlkqn" path="res://infrastructure/http_requester.gd" id="4_kb17w"]
 [ext_resource type="Script" uid="uid://co6rwlkl8ocfn" path="res://infrastructure/phylopic/phylopic_client.gd" id="4_twcj5"]
@@ -23,9 +24,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 48
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 48
 
 [node name="SearchEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -39,11 +42,25 @@ custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 text = "Search"
 
-[node name="ResultContainer" type="VBoxContainer" parent="VBoxContainer"]
+[node name="ResultContainer" type="GridContainer" parent="VBoxContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/h_separation = 48
+theme_override_constants/v_separation = 48
+columns = 4
+
+[node name="AnimalPictogramSelectLine" parent="VBoxContainer/ResultContainer" instance=ExtResource("2_fud4d")]
+layout_mode = 2
+
+[node name="AnimalPictogramSelectLine3" parent="VBoxContainer/ResultContainer" instance=ExtResource("2_fud4d")]
+layout_mode = 2
+
+[node name="AnimalPictogramSelectLine4" parent="VBoxContainer/ResultContainer" instance=ExtResource("2_fud4d")]
+layout_mode = 2
+
+[node name="AnimalPictogramSelectLine2" parent="VBoxContainer/ResultContainer" instance=ExtResource("2_fud4d")]
+layout_mode = 2
 
 [node name="GBIFClient" type="Node" parent="." node_paths=PackedStringArray("http_requester")]
 script = ExtResource("3_8ylnr")

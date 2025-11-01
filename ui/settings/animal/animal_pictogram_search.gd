@@ -13,8 +13,8 @@ var animal_name: String:
 @onready var _search_button: Button = %SearchButton
 @onready var _result_container: Container = %ResultContainer
 
-const AnimalPictogramSelectLine := preload("uid://ccoq3tj2phxr8")
-const _animal_pictogram_selection_line_scene := preload("uid://deswauwup3dfq")
+const AnimalPictogramSelectItem := preload("uid://ccoq3tj2phxr8")
+const _animal_pictogram_selection_item_scene := preload("uid://deswauwup3dfq")
 
 var _images: Array[Image] = []
 
@@ -27,7 +27,7 @@ func _ready() -> void:
 	assert(phylopic_client)
 
 	_search_button.pressed.connect(_on_search_button_pressed)
-	#_result_tree.button_clicked.connect(_on_result_tree_button_clicked)
+	_result_container.visible = false
 
 func _on_search_button_pressed() -> void:
 	_search_button.text = "Searching..."
@@ -46,11 +46,11 @@ func _on_search_button_pressed() -> void:
 		var image := await phylopic_client.find_picture_for_gbif_item(item)
 		_images.append(image)
 
-		var select_line: AnimalPictogramSelectLine = _animal_pictogram_selection_line_scene.instantiate()
-		_result_container.add_child(select_line)
-		select_line.pictogram_texture = ImageTexture.create_from_image(image)
-		select_line.animal_name = item.canonical_name
-		select_line.pictogram_selected.connect(func():
+		var select_item: AnimalPictogramSelectItem = _animal_pictogram_selection_item_scene.instantiate()
+		_result_container.add_child(select_item)
+		select_item.pictogram_texture = ImageTexture.create_from_image(image)
+		select_item.animal_name = item.canonical_name
+		select_item.pictogram_selected.connect(func():
 			_on_pictogram_selected(image)
 		)
 
