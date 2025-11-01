@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://nu4u600nvbe0"]
+
+[ext_resource type="Script" uid="uid://cwrmvbs6f75j3" path="res://ui/settings/animal/animal_settings_item.gd" id="1_d4rh0"]
+[ext_resource type="Texture2D" uid="uid://bah2g2geyw2ks" path="res://icon.svg" id="2_bl2qy"]
+
+[node name="AnimalSettingsLine" type="VBoxContainer"]
+offset_right = 239.0
+offset_bottom = 70.0
+script = ExtResource("1_d4rh0")
+
+[node name="PictogramRect" type="TextureRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("2_bl2qy")
+stretch_mode = 4
+
+[node name="AnimalNameLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Animal Name"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PickIconButton" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Change Icon"
+icon_alignment = 1
+
+[node name="PickColorButton" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = " Change Color"
+
+[node name="ColorPicker" type="ColorPicker" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+edit_alpha = false
+can_add_swatches = false
+presets_visible = false

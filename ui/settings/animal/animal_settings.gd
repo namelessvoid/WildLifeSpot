@@ -3,14 +3,15 @@ extends Control
 const AnimalPictogramSearch := preload("uid://xpo847h5qv8g")
 const _animal_pictogram_search_scene := preload("uid://dxcp2nuu3oeew")
 
-const SingleAnimalSetting := preload("uid://cwrmvbs6f75j3")
-const _single_animal_seting_scene := preload("uid://nu4u600nvbe0")
+const AnimalSettingsItem := preload("uid://cwrmvbs6f75j3")
+const _animal_settings_item_scene := preload("uid://nu4u600nvbe0")
 
 @onready var _stack_container: StackContainer = $StackContainer
-@onready var _animal_settings_container: VBoxContainer
+@onready var _animal_settings_container: GridContainer
 
 func _ready() -> void:
-	_animal_settings_container = VBoxContainer.new()
+	_animal_settings_container = GridContainer.new()
+	_animal_settings_container.columns = 4
 	_stack_container.push("Animal settings", _animal_settings_container)
 
 	var query := FindAllAnimalSpotAnimalNamesQuery.new()
@@ -22,7 +23,7 @@ func _ready() -> void:
 		_animal_settings_container.add_child(control)
 
 func _create_animal_settings_control(p_animal_name: String, p_animal_setting: Dictionary) -> Control:
-	var single_animal_setting: SingleAnimalSetting = _single_animal_seting_scene.instantiate()
+	var single_animal_setting: AnimalSettingsItem = _animal_settings_item_scene.instantiate()
 	single_animal_setting.animal_settings = p_animal_setting
 	single_animal_setting.animal_name = p_animal_name
 
@@ -30,15 +31,16 @@ func _create_animal_settings_control(p_animal_name: String, p_animal_setting: Di
 		_on_icon_button_pressed(p_animal_name)
 	)
 	single_animal_setting.color_changed.connect(func(p_color: Color):
-		_on_animal_color_picker_color_changed(p_animal_name, p_color)
+		_on_animal_color_picker_color_changed(p_animal_name, p_color, single_animal_setting)
 	)
 
 	return single_animal_setting
 
-func _on_animal_color_picker_color_changed(p_animal_name: String, p_color: Color):
+func _on_animal_color_picker_color_changed(p_animal_name: String, p_color: Color, p_animal_settings_item: AnimalSettingsItem):
 	var animal_setting := Settings.get_or_create_animal_setting(p_animal_name)
 	animal_setting["color"] = p_color
 	Settings.set_setting(Settings.ANIMALS, p_animal_name, animal_setting)
+	p_animal_settings_item.update()
 
 func _on_icon_button_pressed(p_animal_name: String) -> void:
 	var scene: AnimalPictogramSearch = _animal_pictogram_search_scene.instantiate()
