@@ -1,9 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://d27rlnscs60pg"]
+[gd_scene load_steps=3 format=3 uid="uid://d27rlnscs60pg"]
 
 [ext_resource type="Script" uid="uid://cgcstvmekpt0m" path="res://ui/settings/settings_window.gd" id="1_agurt"]
+[ext_resource type="PackedScene" uid="uid://cuq40mv0fyfvf" path="res://ui/components/stack_container.tscn" id="2_s1a6r"]
 
 [node name="SettingsWindow" type="Window"]
 transparent_bg = true
+oversampling_override = 1.0
 title = "Settings"
 position = Vector2i(0, 36)
 size = Vector2i(600, 450)
@@ -27,7 +29,7 @@ split_offset = 120
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="SettingsContainer" type="Control" parent="VBoxContainer/HSplitContainer"]
+[node name="SettingsContainer" parent="VBoxContainer/HSplitContainer" instance=ExtResource("2_s1a6r")]
 unique_name_in_owner = true
 layout_mode = 2
 

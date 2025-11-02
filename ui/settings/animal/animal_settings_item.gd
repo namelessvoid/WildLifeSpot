@@ -15,7 +15,7 @@ var animal_name: String
 
 func _ready():
 	_pick_icon_button.pressed.connect(func(): pick_icon_button_pressed.emit())
-	_pick_color_button.pressed.connect(func(): _color_picker.show())
+	_pick_color_button.pressed.connect(func(): _color_picker.visible = !_color_picker.visible)
 	_color_picker.color_changed.connect(func(color: Color):
 		color_changed.emit(color)
 	)

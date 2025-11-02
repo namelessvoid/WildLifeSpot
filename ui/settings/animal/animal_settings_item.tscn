@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cwrmvbs6f75j3" path="res://ui/settings/animal/animal_settings_item.gd" id="1_d4rh0"]
 [ext_resource type="Texture2D" uid="uid://bah2g2geyw2ks" path="res://icon.svg" id="2_bl2qy"]
 
-[node name="AnimalSettingsLine" type="VBoxContainer"]
+[node name="AnimalSettingsItem" type="VBoxContainer"]
 offset_right = 239.0
 offset_bottom = 70.0
 script = ExtResource("1_d4rh0")

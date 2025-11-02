@@ -1,8 +1,8 @@
 extends Control
 class_name StackContainer
 
-@onready var _children_container: Container = %ChildrenContainer
-@onready var _bread_crumbs_container: Container = %BreadCrumbsContainer
+@onready var _children_container: Control = %ChildrenContainer
+@onready var _bread_crumbs_container: Control = %BreadCrumbsContainer
 
 func push(p_name: String, p_child: Control):
 	if _children_container.get_child_count() > 0:
@@ -12,7 +12,7 @@ func push(p_name: String, p_child: Control):
 
 	_push_breadcrumb(p_name)
 
-func	 pop():
+func pop():
 	if _children_container.get_child_count() == 0:
 		return
 
@@ -25,9 +25,20 @@ func	 pop():
 
 	_pop_breadcrumb()
 
+func clear():
+	for child in _children_container.get_children():
+		child.queue_free()
+		remove_child(child)
+
+	for child in _bread_crumbs_container.get_children():
+		child.queue_free()
+		_bread_crumbs_container.remove_child(child)
+
 func _ready() -> void:
-	_pop_breadcrumb()
-	_pop_breadcrumb()
+	assert(_bread_crumbs_container)
+	assert(_children_container)
+
+	clear()
 
 func _push_breadcrumb(p_name: String) -> void:
 	if _bread_crumbs_container.get_child_count() > 0:
