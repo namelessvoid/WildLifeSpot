@@ -30,3 +30,4 @@ func update():
 		_pictogram_rect.texture = _question_mark
 
 	_animal_name_label.text = animal_name
+	_color_picker.color = animal_settings["color"]
