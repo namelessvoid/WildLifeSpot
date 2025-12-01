@@ -92,5 +92,5 @@ func test_deletes_spots_and_saves_new_ones():
 	assert_eq(animal_spot.animal_name, "Kabuto")
 	assert_eq(animal_spot.animal_count, 3)
 	assert_eq(animal_spot.spotted_at, "2025-11-02T14:15:00Z")
-	assert_eq(animal_spot.source, "image")
+	assert_eq(animal_spot.source, AnimalSpot.SOURCE_CAMERA_IMAGE)
 	assert_eq(animal_spot.camera_id, 12)

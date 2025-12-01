@@ -133,7 +133,7 @@ func _save_and_show_next_image() -> void:
 	var spot_date_time = _spot_control.date_time
 
 	var command := DeleteExistingAnimalSpots.new(
-		"image",
+		AnimalSpot.SOURCE_CAMERA_IMAGE,
 		spot_date_time
 	)
 	CommandQueryDispatcher.dispatch(command)
@@ -176,7 +176,7 @@ func _update_ui():
 	# Update animal inputs if image has been spotted before
 	var camera_id := _spot_control.camera_id
 	var spotted_at := time_bucket
-	var query := FindAllAnimalSpotsByQuery.new("image", camera_id, spotted_at)
+	var query := FindAllAnimalSpotsByQuery.new(AnimalSpot.SOURCE_CAMERA_IMAGE, camera_id, spotted_at)
 	var existing_spots: Array[AnimalSpot] = CommandQueryDispatcher.dispatch(query)
 	if existing_spots.size() > 0:
 		_spot_control.reset_to_spots(existing_spots)

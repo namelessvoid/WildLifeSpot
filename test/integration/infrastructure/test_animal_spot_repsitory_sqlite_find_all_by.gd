@@ -14,7 +14,7 @@ func test_find_all_by_returns_matching_single_spot():
 	# Arrange
 	var repository := _create_repository()
 	var animal_spot: AnimalSpot = AnimalSpotGenerator.new()\
-		.with_source("image")\
+		.with_source(AnimalSpot.SOURCE_CAMERA_IMAGE)\
 		.with_camera_id(12)\
 		.with_spotted_at("2024-12-01T12:00:14")\
 		.build()
@@ -23,7 +23,7 @@ func test_find_all_by_returns_matching_single_spot():
 	var all = repository.find_all()
 
 	# Act
-	var found_spots := repository.find_all_by("image", 12, "2024-12-01T12:00:14")
+	var found_spots := repository.find_all_by(AnimalSpot.SOURCE_CAMERA_IMAGE, 12, "2024-12-01T12:00:14")
 
 	# Assert
 	assert_eq(found_spots.size(), 1)
@@ -33,7 +33,7 @@ func test_find_all_by_returns_all_matching_spots():
 	var repository := _create_repository()
 
 	var animal_spot_1: AnimalSpot = AnimalSpotGenerator.new()\
-		.with_source("image")\
+		.with_source(AnimalSpot.SOURCE_CAMERA_IMAGE)\
 		.with_camera_id(12)\
 		.with_spotted_at("2024-12-01T12:00:14")\
 		.with_animal_name("Lion")\
@@ -41,7 +41,7 @@ func test_find_all_by_returns_all_matching_spots():
 	repository.save(animal_spot_1)
 
 	var animal_spot_2: AnimalSpot = AnimalSpotGenerator.new()\
-		.with_source("image")\
+		.with_source(AnimalSpot.SOURCE_CAMERA_IMAGE)\
 		.with_camera_id(12)\
 		.with_spotted_at("2024-12-01T12:00:14")\
 		.with_animal_name("Tiger")\
@@ -49,7 +49,7 @@ func test_find_all_by_returns_all_matching_spots():
 	repository.save(animal_spot_2)
 
 	# Act
-	var found_spots := repository.find_all_by("image", 12, "2024-12-01T12:00:14")
+	var found_spots := repository.find_all_by(AnimalSpot.SOURCE_CAMERA_IMAGE, 12, "2024-12-01T12:00:14")
 
 	# Assert
 	assert_eq(found_spots.size(), 2)
@@ -58,10 +58,10 @@ func test_find_all_by_returns_all_matching_spots():
 
 
 var non_matching_parameters = [
-	["image", 12, "2024-12-01T12:00:14", 1], # Sanity check
-	["image", 13, "2024-12-01T12:00:14", 0],
+	[AnimalSpot.SOURCE_CAMERA_IMAGE, 12, "2024-12-01T12:00:14", 1], # Sanity check
+	[AnimalSpot.SOURCE_CAMERA_IMAGE, 13, "2024-12-01T12:00:14", 0],
 	["human", 12, "2024-12-01T12:00:14", 0],
-	["image", 12, "2024-12-01T12:00:15", 0]
+	[AnimalSpot.SOURCE_CAMERA_IMAGE, 12, "2024-12-01T12:00:15", 0]
 ]
 func test_find_all_by_returns_empty_array_if_nothing_matches(
 	params=use_parameters(non_matching_parameters)
@@ -76,7 +76,7 @@ func test_find_all_by_returns_empty_array_if_nothing_matches(
 	repository.save(animal_spot)
 
 	# Act
-	var found_spots = repository.find_all_by("image", 12, "2024-12-01T12:00:14")
+	var found_spots = repository.find_all_by(AnimalSpot.SOURCE_CAMERA_IMAGE, 12, "2024-12-01T12:00:14")
 
 	# Assert
 	assert_eq(found_spots.size(), params[3])

@@ -1,7 +1,7 @@
 extends RefCounted
 
 var _id = -1
-var _source: String = "image"
+var _source: String = AnimalSpot.SOURCE_CAMERA_IMAGE
 var _file_path: String = ""
 var _camera_id: int = 2
 var _spotted_at: String = "2024-10-03T14:01:15"

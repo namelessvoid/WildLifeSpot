@@ -26,7 +26,7 @@ func test_saves_and_restores_spot_properly():
 	# Arrange
 	var repository := _create_repository()
 	var spot = AnimalSpot.new()
-	spot.source = "image"
+	spot.source = AnimalSpot.SOURCE_CAMERA_IMAGE
 	spot.camera_id = 2
 	spot.file_path = "/some/path/image.png"
 	spot.spotted_at = "2025-04-04T14:00:12"
@@ -39,7 +39,7 @@ func test_saves_and_restores_spot_properly():
 
 	# Assert
 	assert_eq(spot_from_db._id, 1)
-	assert_eq(spot_from_db.source, "image")
+	assert_eq(spot_from_db.source, AnimalSpot.SOURCE_CAMERA_IMAGE)
 	assert_eq(spot_from_db.camera_id, 2)
 	assert_eq(spot_from_db.file_path, "/some/path/image.png")
 	assert_eq(spot_from_db.spotted_at, "2025-04-04T14:00:12")
@@ -111,18 +111,18 @@ func test_delete_by_source_and_spotted_at_does_only_delete_matching_spots():
 	repository.save(spot_non_matching_source)
 
 	var spot_non_matching_spotted_at = AnimalSpot.new()
-	spot_non_matching_spotted_at.source = "image"
+	spot_non_matching_spotted_at.source = AnimalSpot.SOURCE_CAMERA_IMAGE
 	spot_non_matching_spotted_at.spotted_at = "2025-01-01T12:01:04"
 	spot_non_matching_spotted_at.animal_name = "non-matching-date-time"
 	repository.save(spot_non_matching_spotted_at)
 
 	var matching_spot1 := AnimalSpot.new()
-	matching_spot1.source = "image"
+	matching_spot1.source = AnimalSpot.SOURCE_CAMERA_IMAGE
 	matching_spot1.spotted_at = "2025-01-01T12:01:03"
 	repository.save(matching_spot1)
 
 	var matching_spot2 := AnimalSpot.new()
-	matching_spot2.source = "image"
+	matching_spot2.source = AnimalSpot.SOURCE_CAMERA_IMAGE
 	matching_spot2.spotted_at = "2025-01-01T12:01:03"
 	repository.save(matching_spot2)
 
@@ -130,7 +130,7 @@ func test_delete_by_source_and_spotted_at_does_only_delete_matching_spots():
 	assert_eq(repository.find_all().size(), 4)
 
 	# Act
-	repository.delete_by_source_and_spotted_at("image", "2025-01-01T12:01:03")
+	repository.delete_by_source_and_spotted_at(AnimalSpot.SOURCE_CAMERA_IMAGE, "2025-01-01T12:01:03")
 
 	# Assert
 	var spots := repository.find_all()

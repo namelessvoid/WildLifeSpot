@@ -11,15 +11,20 @@ var camera_id: int:
 	set(_value): assert(false, "Cannot set camera_id of SpotControl")
 
 @onready var _date_time_edit: LineEdit = %DateTimeEdit
+@onready var _source_options_button: OptionButton = %SourceOptionsButton
 @onready var _camera_options_button: OptionButton = %CameraOptionsButton
 @onready var _animal_box_container: VBoxContainer = %AnimalBoxContainer
 @onready var _add_new_animal_button: Button = %AddNewAnimalButton
 
 func _ready() -> void:
 	assert(_date_time_edit)
+	assert(_source_options_button)
 	assert(_camera_options_button)
 	assert(_animal_box_container)
 	assert(_add_new_animal_button)
+
+	for source in AnimalSpot.Source:
+		_source_options_button.add_item(source)
 
 	_add_new_animal_button.pressed.connect(_add_animal_box)
 
@@ -80,7 +85,7 @@ func create_spots() -> Array[AnimalSpot]:
 			continue
 
 		var spot = AnimalSpot.new()
-		spot.source = "image"
+		spot.source = AnimalSpot.SOURCE_CAMERA_IMAGE
 		spot.spotted_at = date_time
 		spot.animal_name = animal_box.get_animal_name()
 		spot.animal_count = animal_box.get_animal_count()

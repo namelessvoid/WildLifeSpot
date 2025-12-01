@@ -12,32 +12,45 @@ layout_mode = 2
 text = "General"
 horizontal_alignment = 1
 
-[node name="GeneralInfoContainer" type="GridContainer" parent="."]
+[node name="GeneralInfoContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
-columns = 2
 
-[node name="Label" type="Label" parent="GeneralInfoContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="GeneralInfoContainer"]
+layout_mode = 2
+
+[node name="DateTimeLabel" type="Label" parent="GeneralInfoContainer/HBoxContainer2"]
 layout_mode = 2
 text = "Date:"
 
-[node name="DateTimeEdit" type="LineEdit" parent="GeneralInfoContainer"]
+[node name="DateTimeEdit" type="LineEdit" parent="GeneralInfoContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-placeholder_text = "01-24-2025 14:00:50"
+placeholder_text = "2025-09-29T14:00:50"
 
-[node name="Label3" type="Label" parent="GeneralInfoContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="GeneralInfoContainer"]
+layout_mode = 2
+
+[node name="SourceLabel" type="Label" parent="GeneralInfoContainer/HBoxContainer"]
+layout_mode = 2
+text = "Source:"
+
+[node name="SourceOptionsButton" type="OptionButton" parent="GeneralInfoContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CameraLabel" type="Label" parent="GeneralInfoContainer/HBoxContainer"]
 layout_mode = 2
 text = "Camera:"
 
-[node name="CameraOptionsButton" type="OptionButton" parent="GeneralInfoContainer"]
+[node name="CameraOptionsButton" type="OptionButton" parent="GeneralInfoContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Label2" type="Label" parent="."]
 layout_mode = 2
 text = "Animals:"
-horizontal_alignment = 1
 
 [node name="AnimalControlContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
