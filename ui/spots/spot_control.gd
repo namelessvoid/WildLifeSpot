@@ -23,7 +23,7 @@ func _ready() -> void:
 	assert(_animal_box_container)
 	assert(_add_new_animal_button)
 
-	for source in AnimalSpot.Source:
+	for source in AnimalSpot.SOURCES:
 		_source_options_button.add_item(source)
 
 	_add_new_animal_button.pressed.connect(_add_animal_box)
