@@ -2,7 +2,8 @@ extends GutTest
 
 var test_returns_exif_info_of_single_image_data = [
 	[TestFixtures.image_path1, "2025-10-24T13:20:50", "Manufacturer 1"],
-	[TestFixtures.image_path2, "2024-08-01T01:02:03", "Manufacturer 2"]
+	[TestFixtures.image_path2, "2024-08-01T01:02:03", "Manufacturer 2"],
+	[TestFixtures.image_path3, "", ""]
 ]
 func test_returns_exif_info_if_single_image_provided(params=use_parameters(test_returns_exif_info_of_single_image_data)):
 	# Arrange

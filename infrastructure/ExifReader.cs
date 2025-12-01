@@ -44,7 +44,7 @@ public partial class ExifReader : Node
 			if(directory is ExifIfd0Directory)
 			{
 				var rawValue = directory.GetDescription(ExifDirectoryBase.TagDateTime);
-				if(rawValue == string.Empty)
+				if(string.IsNullOrEmpty(rawValue))
 				{
 					return string.Empty;
 				}

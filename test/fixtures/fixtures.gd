@@ -6,3 +6,6 @@ static var image_path1: String:
 
 static var image_path2: String:
 	get: return ProjectSettings.globalize_path("res://test/fixtures/fixture_image2.jpg")
+
+static var image_path3: String:
+	get: return ProjectSettings.globalize_path("res://test/fixtures/fixture_image3.jpg")
