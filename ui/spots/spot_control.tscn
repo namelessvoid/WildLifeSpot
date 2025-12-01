@@ -1,0 +1,56 @@
+[gd_scene load_steps=3 format=3 uid="uid://x443c3b32aeo"]
+
+[ext_resource type="Script" uid="uid://cmcpbtxk0apc6" path="res://ui/spots/spot_control.gd" id="1_5o31q"]
+[ext_resource type="PackedScene" uid="uid://1igx7b8aya" path="res://ui/spots/animal_box.tscn" id="2_6qhre"]
+
+[node name="SpotControl" type="VBoxContainer"]
+size_flags_vertical = 3
+script = ExtResource("1_5o31q")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "General"
+horizontal_alignment = 1
+
+[node name="GeneralInfoContainer" type="GridContainer" parent="."]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="GeneralInfoContainer"]
+layout_mode = 2
+text = "Date:"
+
+[node name="DateTimeEdit" type="LineEdit" parent="GeneralInfoContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "01-24-2025 14:00:50"
+
+[node name="Label3" type="Label" parent="GeneralInfoContainer"]
+layout_mode = 2
+text = "Camera:"
+
+[node name="CameraOptionsButton" type="OptionButton" parent="GeneralInfoContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 2
+text = "Animals:"
+horizontal_alignment = 1
+
+[node name="AnimalControlContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="AnimalBoxContainer" type="VBoxContainer" parent="AnimalControlContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="AnimalBox" parent="AnimalControlContainer/AnimalBoxContainer" instance=ExtResource("2_6qhre")]
+layout_mode = 2
+
+[node name="AddNewAnimalButton" type="Button" parent="AnimalControlContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add new animal"

@@ -1,8 +1,8 @@
 [gd_scene load_steps=12 format=3 uid="uid://dwlxt0iprcf8c"]
 
 [ext_resource type="Script" uid="uid://cbapolihihptn" path="res://ui/spots/bulk_spot_window.gd" id="1_qcqfl"]
-[ext_resource type="PackedScene" uid="uid://1igx7b8aya" path="res://ui/spots/animal_box.tscn" id="3_1mdiq"]
 [ext_resource type="PackedScene" uid="uid://dpk875tpgrltq" path="res://ui/image_viewer.tscn" id="3_8yvah"]
+[ext_resource type="PackedScene" uid="uid://x443c3b32aeo" path="res://ui/spots/spot_control.tscn" id="3_4672c"]
 [ext_resource type="Script" uid="uid://bm1245ydieoed" path="res://ui/spots/image_preprocessor.gd" id="4_55kfi"]
 [ext_resource type="PackedScene" uid="uid://bxwecvbr1fvkd" path="res://ui/toast_bar.tscn" id="5_4672c"]
 
@@ -57,53 +57,9 @@ size_flags_vertical = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/VSplitContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainContainer/VSplitContainer/VBoxContainer"]
-layout_mode = 2
-text = "General"
-horizontal_alignment = 1
-
-[node name="GeneralInfoContainer" type="GridContainer" parent="MainContainer/VSplitContainer/VBoxContainer"]
-layout_mode = 2
-columns = 2
-
-[node name="Label" type="Label" parent="MainContainer/VSplitContainer/VBoxContainer/GeneralInfoContainer"]
-layout_mode = 2
-text = "Date:"
-
-[node name="DateTimeEdit" type="LineEdit" parent="MainContainer/VSplitContainer/VBoxContainer/GeneralInfoContainer"]
+[node name="SpotControl" parent="MainContainer/VSplitContainer/VBoxContainer" instance=ExtResource("3_4672c")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
-placeholder_text = "01-24-2025 14:00:50"
-
-[node name="Label3" type="Label" parent="MainContainer/VSplitContainer/VBoxContainer/GeneralInfoContainer"]
-layout_mode = 2
-text = "Camera:"
-
-[node name="CameraOptionsButton" type="OptionButton" parent="MainContainer/VSplitContainer/VBoxContainer/GeneralInfoContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="Label2" type="Label" parent="MainContainer/VSplitContainer/VBoxContainer"]
-layout_mode = 2
-text = "Animals:"
-horizontal_alignment = 1
-
-[node name="AnimalControlContainer" type="VBoxContainer" parent="MainContainer/VSplitContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="AnimalBoxContainer" type="VBoxContainer" parent="MainContainer/VSplitContainer/VBoxContainer/AnimalControlContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="AnimalBox" parent="MainContainer/VSplitContainer/VBoxContainer/AnimalControlContainer/AnimalBoxContainer" instance=ExtResource("3_1mdiq")]
-layout_mode = 2
-
-[node name="AddNewAnimalButton" type="Button" parent="MainContainer/VSplitContainer/VBoxContainer/AnimalControlContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Add new animal"
 
 [node name="ProgressBar" type="ProgressBar" parent="MainContainer/VSplitContainer/VBoxContainer"]
 unique_name_in_owner = true
