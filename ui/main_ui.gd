@@ -17,6 +17,7 @@ const ReportControl = preload("res://ui/reports/report_control.gd")
 @onready var _select_database_dialog := %SelectDatabaseDialog as FileDialog
 @onready var _bulk_spot_file_dialog := %BulkSpotFileDialog as FileDialog
 @onready var _bulk_spot_window := %BulkSpotWindow as Window
+@onready var _manual_spot_window: Window = %ManualSpotWindow
 @onready var _manage_spots_window := %ManageSpotsWindow as Window
 
 func _ready():
@@ -59,6 +60,7 @@ func _on_file_menu_id_pressed(p_id: int):
 func _on_spots_menu_id_pressed(p_id: int):
 	match p_id:
 		1: _bulk_spot_file_dialog.popup_centered_ratio(0.9)
+		2: _manual_spot_window.popup_centered_ratio(0.9)
 		3: _manage_spots_window.popup_centered_ratio(0.9)
 
 func _on_cameras_menu_id_pressed(p_id: int):
