@@ -32,7 +32,6 @@ var selected_files: PackedStringArray:
 @onready var _progress_label: Label = %ProgressLabel
 
 @onready var _date_time_edit: LineEdit = %DateTimeEdit
-@onready var _temperature_edit: SpinBox = %TemperatureEdit
 @onready var _camera_options_button: OptionButton = %CameraOptionsButton
 @onready var _animal_box_container: VBoxContainer = %AnimalBoxContainer
 @onready var _add_new_animal_button: Button = %AddNewAnimalButton
@@ -61,7 +60,6 @@ func _ready() -> void:
 	assert(_image_viewer)
 	assert(_progress_bar)
 	assert(_date_time_edit)
-	assert(_temperature_edit)
 	assert(_camera_options_button)
 	assert(_animal_box_container)
 	assert(_add_new_animal_button)
@@ -141,7 +139,6 @@ func _pre_processing_finished(p_bucketed_file_paths: Array[Dictionary]) -> void:
 
 	# Reset UI
 	_date_time_edit.text = ""
-	_temperature_edit.value = 0
 
 	if _camera_options_button.item_count > 0:
 		_camera_options_button.select(0)
