@@ -20,4 +20,7 @@ func _on_about_to_popup() -> void:
 
 func _on_save_button_pressed() -> void:
 	var spots := _spot_control.create_spots()
-	pass
+	for spot in spots:
+		var command := CreateAnimalSpotCommand.new(spot)
+		CommandQueryDispatcher.dispatch(command)
+	GlobalSignals.animal_spots_dirtied.emit()
