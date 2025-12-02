@@ -40,7 +40,6 @@ func _ready():
 	_cameras_menu.id_pressed.connect(_on_cameras_menu_id_pressed)
 
 	_bulk_spot_file_dialog.files_selected.connect(_on_bulk_spot_files_selected)
-	_bulk_spot_window.finished.connect(_report_control.refresh_date_list)
 
 	_report_control.spot_repository = spot_repository
 

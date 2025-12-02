@@ -156,7 +156,7 @@ func _show_previous_image():
 func _show_next_image():
 	_next_image += 1
 	if _next_image >= _bucketed_file_paths.size():
-		finished.emit()
+		GlobalSignals.animal_spots_dirtied.emit()
 		hide()
 		return
 
