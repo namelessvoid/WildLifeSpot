@@ -2,9 +2,6 @@
 class_name AnimalSpotRepository
 extends Node
 
-@warning_ignore("unused_signal")
-signal db_changed
-
 @abstract
 func save(p_spot: AnimalSpot) -> void
 

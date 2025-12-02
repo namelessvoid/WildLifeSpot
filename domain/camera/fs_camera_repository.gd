@@ -2,9 +2,6 @@
 class_name FSCameraRepository
 extends Node
 
-@warning_ignore("unused_signal")
-signal db_changed
-
 @abstract
 func find_all() -> Array[FSCamera]
 

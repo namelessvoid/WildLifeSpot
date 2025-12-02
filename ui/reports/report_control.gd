@@ -13,6 +13,7 @@ func _ready():
 	assert(_spot_details_container)
 	
 	GlobalSignals.animal_spots_dirtied.connect(_on_animal_spots_dirtied)
+	GlobalSignals.database_changed.connect(_on_db_changed)
 
 	_date_list.item_selected.connect(_on_date_selected)
 
@@ -24,7 +25,6 @@ func _ready():
 func _initialize():
 	assert(spot_repository)
 	_refresh_date_list()
-	spot_repository.db_changed.connect(_on_db_changed)
 
 func _on_date_selected(index: int) -> void:
 	_selected_date = _date_list.get_item_text(index)

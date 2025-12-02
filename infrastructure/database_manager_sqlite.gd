@@ -13,6 +13,8 @@ func set_db_path(p_db_path: String):
 	camera_repository.set_db_path(_db_path)
 	processed_image_repository.set_db_path(_db_path)
 
+	GlobalSignals.database_changed.emit()
+
 func _ready():
 	assert(animal_spot_repository)
 	assert(camera_repository)
