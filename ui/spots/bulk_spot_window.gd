@@ -6,7 +6,6 @@ const ToastBar := preload("res://ui/toast_bar.gd")
 
 signal finished
 
-var spot_repository: AnimalSpotRepository
 var processed_images_repository: FSProcessedImageRepository
 var file_hasher: FileHasher
 
@@ -83,7 +82,6 @@ func _ready() -> void:
 	close_requested.connect(hide)
 
 func _on_selected_files_changed() -> void:
-	assert(spot_repository)
 	assert(processed_images_repository)
 	assert(file_hasher)
 
@@ -132,15 +130,16 @@ func _save_and_show_next_image() -> void:
 	var file_path: Dictionary = _bucketed_file_paths[_next_image]
 	var spot_date_time = _spot_control.date_time
 
-	var command := DeleteExistingAnimalSpots.new(
+	var delete_command := DeleteExistingAnimalSpots.new(
 		AnimalSpot.SOURCE_CAMERA_IMAGE,
 		spot_date_time
 	)
-	CommandQueryDispatcher.dispatch(command)
+	CommandQueryDispatcher.dispatch(delete_command)
 
 	for spot in _spot_control.create_spots():
 		spot.file_path = file_path["file_path"]
-		spot_repository.save(spot)
+		var create_spot_command := CreateAnimalSpotCommand.new(spot)
+		CommandQueryDispatcher.dispatch(create_spot_command)
 
 	var file_hash = file_hasher.get_file_hash(file_path["file_path"])
 	processed_images_repository.mark_processed(file_hash)

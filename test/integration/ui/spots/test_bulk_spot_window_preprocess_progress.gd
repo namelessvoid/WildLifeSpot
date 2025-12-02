@@ -10,7 +10,6 @@ func test_bulk_spot_window_should_update_preprocess_progress_bar():
 	# Arrange
 	var bulk_spot_window := _bulk_spot_window_scene.instantiate()
 	bulk_spot_window.file_hasher = double(FileHasher).new()
-	bulk_spot_window.spot_repository = double(AnimalSpotRepository).new()
 	bulk_spot_window.processed_images_repository = double(FSProcessedImageRepository).new()
 
 	var image_preprocessor: ImagePreprocessor = double(ImagePreprocessor).new()

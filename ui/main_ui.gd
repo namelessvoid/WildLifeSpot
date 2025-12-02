@@ -46,7 +46,6 @@ func _ready():
 
 	_select_database_dialog.database_manager = database_manager
 
-	_bulk_spot_window.spot_repository = spot_repository
 	_bulk_spot_window.processed_images_repository = processed_image_repository
 	_bulk_spot_window.file_hasher = file_hasher
 

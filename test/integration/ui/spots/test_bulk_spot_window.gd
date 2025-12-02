@@ -10,7 +10,6 @@ const ExifInfoGenerator := preload("res://test/generators/exif_info_generator.gd
 func _generate_bulk_spot_window() -> BulkSpotWindow:
 	var bulk_spot_window := _bulk_spot_window_scene.instantiate()
 	bulk_spot_window.file_hasher = double(FileHasher).new()
-	bulk_spot_window.spot_repository = double(AnimalSpotRepository).new()
 	bulk_spot_window.processed_images_repository = double(FSProcessedImageRepository).new()
 	return bulk_spot_window
 
@@ -64,6 +63,7 @@ func test_deletes_spots_and_saves_new_ones():
 		.with_query(FindAllCamerasQuery, [camera] as Array[FSCamera])\
 		.with_query(FindAllAnimalSpotsByQuery, [] as Array[AnimalSpot])\
 		.with_command(DeleteExistingAnimalSpots)\
+		.with_command(CreateAnimalSpotCommand)\
 		.build()
 	add_child_autofree(handler)
 	CommandQueryDispatcher._handlers = [handler]
@@ -87,8 +87,8 @@ func test_deletes_spots_and_saves_new_ones():
 	bulk_spot_window.get_node("%SaveAndNextButton").pressed.emit()
 
 	# Assert
-	assert_called(bulk_spot_window.spot_repository, "save")
-	var animal_spot: AnimalSpot = get_call_parameters(bulk_spot_window.spot_repository, "save")[0]
+	var command: CreateAnimalSpotCommand = handler.calls[6]
+	var animal_spot := command._spot
 	assert_eq(animal_spot.animal_name, "Kabuto")
 	assert_eq(animal_spot.animal_count, 3)
 	assert_eq(animal_spot.spotted_at, "2025-11-02T14:15:00Z")
