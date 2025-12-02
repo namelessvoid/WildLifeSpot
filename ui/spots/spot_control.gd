@@ -3,21 +3,26 @@ extends VBoxContainer
 const _animal_box_scene := preload("uid://1igx7b8aya")
 
 var date_time: String:
-	get: return _date_time_edit.text
-	set(value): _date_time_edit.text = value
+	get: return _date_edit.text + "T" + _time_edit.text
+	set(value):
+		var split := value.split("T")
+		_date_edit.text = split[0]
+		_time_edit.text = split[1]
 
 var camera_id: int:
 	get: return _camera_options_button.get_item_id(_camera_options_button.selected)
 	set(_value): assert(false, "Cannot set camera_id of SpotControl")
 
-@onready var _date_time_edit: LineEdit = %DateTimeEdit
+@onready var _date_edit: LineEdit = %DateEdit
+@onready var _time_edit: LineEdit = %TimeEdit
 @onready var _source_options_button: OptionButton = %SourceOptionsButton
 @onready var _camera_options_button: OptionButton = %CameraOptionsButton
 @onready var _animal_box_container: VBoxContainer = %AnimalBoxContainer
 @onready var _add_new_animal_button: Button = %AddNewAnimalButton
 
 func _ready() -> void:
-	assert(_date_time_edit)
+	assert(_date_edit)
+	assert(_time_edit)
 	assert(_source_options_button)
 	assert(_camera_options_button)
 	assert(_animal_box_container)
@@ -27,6 +32,8 @@ func _ready() -> void:
 		_source_options_button.add_item(source)
 
 	_add_new_animal_button.pressed.connect(_add_animal_box)
+	_date_edit.editing_toggled.connect(_on_date_edit_editing_toggled)
+	_time_edit.editing_toggled.connect(_on_time_edit_editing_toggled)
 
 func reset() -> void:
 	var all_cameras: Array[FSCamera] = CommandQueryDispatcher.dispatch(FindAllCamerasQuery.new())
@@ -34,7 +41,8 @@ func reset() -> void:
 	for camera in all_cameras:
 		_camera_options_button.add_item(camera.name, camera._id)
 
-	_date_time_edit.text = ""
+	_date_edit.text = ""
+	_time_edit.text = ""
 
 	if _camera_options_button.item_count > 0:
 		_camera_options_button.select(0)
@@ -74,9 +82,6 @@ func set_all_animal_counts_to_zero() -> void:
 		var animal_box: AnimalBox = box_node
 		animal_box.set_animal_count(0)
 
-func _add_animal_box() -> void:
-	_animal_box_container.add_child(_animal_box_scene.instantiate())
-
 func create_spots() -> Array[AnimalSpot]:
 	var spots: Array[AnimalSpot] = []
 	for node in _animal_box_container.get_children():
@@ -94,3 +99,22 @@ func create_spots() -> Array[AnimalSpot]:
 		spots.append(spot)
 
 	return spots
+
+func _add_animal_box() -> void:
+	_animal_box_container.add_child(_animal_box_scene.instantiate())
+
+func _on_date_edit_editing_toggled(editing: bool) -> void:
+	if editing:
+		return
+
+	var date_string = _date_edit.text
+	if DateTimeUtils.IsValidDate(date_string):
+		_date_edit.text = DateTimeUtils.ParseDate(date_string)
+
+func _on_time_edit_editing_toggled(editing: bool) -> void:
+	if editing:
+		return
+
+	var time_string = _time_edit.text
+	if DateTimeUtils.IsValidTime(time_string):
+		_time_edit.text = DateTimeUtils.ParseTime(time_string)
