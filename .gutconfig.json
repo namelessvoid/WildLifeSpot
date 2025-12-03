@@ -3,15 +3,21 @@
  "compact_mode": false,
  "configured_dirs": [
   "res://test/integration",
-  "res://test/contracts"
+  "res://test/contracts",
+  "res://test/unit"
  ],
  "dirs": [
   "res://test/integration",
-  "res://test/contracts"
+  "res://test/contracts",
+  "res://test/unit"
  ],
  "disable_colors": false,
  "double_strategy": 1,
- "errors_do_not_cause_failure": false,
+ "failure_error_types": [
+  "engine",
+  "push_error",
+  "gut"
+ ],
  "font_color": "ccccccff",
  "font_name": "CourierPrime",
  "font_size": 16.0,
@@ -22,6 +28,7 @@
  "junit_xml_file": "",
  "junit_xml_timestamp": false,
  "log_level": 1.0,
+ "no_error_tracking": false,
  "opacity": 100.0,
  "paint_after": 0.1,
  "post_run_script": "",
@@ -30,5 +37,6 @@
  "should_exit": false,
  "should_exit_on_success": false,
  "should_maximize": false,
- "suffix": ".gd"
+ "suffix": ".gd",
+ "wait_log_delay": 0.5
 }
