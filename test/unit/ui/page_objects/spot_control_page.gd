@@ -20,13 +20,27 @@ func get_time() -> String:
 	var line_edit: LineEdit = _spot_control.get_node("%TimeEdit")
 	return line_edit.text
 
-func get_source_option() -> String:
-	var option_button: OptionButton = _spot_control.get_node("%SourceOptionsButton")
+func get_selected_source_label() -> String:
+	var option_button: OptionButton = _get_source_options_button()
 	return option_button.get_item_text(option_button.selected)
 
-func get_camera_id() -> int:
-	var option_button: OptionButton = _spot_control.get_node("%CameraOptionsButton")
+func get_all_source_labels() -> Array[String]:
+	var option_button := _get_source_options_button()
+	var labels: Array[String] = []
+	for i in option_button.item_count:
+		labels.push_back(option_button.get_item_text(i))
+	return labels
+
+func get_selected_camera_id() -> int:
+	var option_button: OptionButton = _get_camera_options_button()
 	return option_button.get_item_id(option_button.selected)
+
+func get_all_camera_labels() -> Array[String]:
+	var option_button := _get_camera_options_button()
+	var labels: Array[String] = []
+	for i in option_button.item_count:
+		labels.push_back(option_button.get_item_text(i))
+	return labels
 
 func animal_box_count() -> int:
 	return _get_animal_box_container().get_child_count()
@@ -44,3 +58,9 @@ func _get_animal_box_at(p_index: int) -> AnimalBoxPage:
 
 func _get_animal_box_container() -> Container:
 	return _spot_control._animal_box_container
+
+func _get_source_options_button() -> OptionButton:
+	return _spot_control._source_options_button
+
+func _get_camera_options_button() -> OptionButton:
+	return _spot_control._camera_options_button
