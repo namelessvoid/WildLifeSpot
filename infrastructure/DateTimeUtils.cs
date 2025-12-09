@@ -24,6 +24,6 @@ public partial class DateTimeUtils : RefCounted
 
     public static string ParseTime(string timeString)
     {
-        return TimeOnly.Parse(timeString).ToString("HH:mm", CultureInfo.InvariantCulture);
+        return TimeOnly.Parse(timeString).ToString("HH:mm:ss", CultureInfo.InvariantCulture);
     }
 }
