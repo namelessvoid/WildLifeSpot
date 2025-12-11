@@ -322,5 +322,7 @@ TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_p4gqm")
 TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_wgrbg")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_fi43u")
 VBoxContainer/constants/separation = 4
+ValidationMessageLabel/base_type = &"Label"
+ValidationMessageLabel/colors/font_color = Color(1, 0.110000014, 0.110000014, 1)
 Window/colors/title_color = Color(0.259294, 0.259294, 0.259294, 1)
 Window/styles/embedded_border = SubResource("StyleBoxFlat_6hvpg")

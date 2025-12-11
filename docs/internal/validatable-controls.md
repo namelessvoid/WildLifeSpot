@@ -8,3 +8,4 @@ Contract for implementors of `ValidatableControls`:
 
 - The controls should expose the same interface as the wrapped control. E.g. a `ValidatableLineEdit` should have a `text` and `placeholder_text` property.
 - When the value of the internal edit changed, call `validate()` before emitting any `*_changed` signals.
+- Validation labels have to use the `ValidationMessageLabel` theme variation.
