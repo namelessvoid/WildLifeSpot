@@ -19,16 +19,16 @@ func get_date() -> String:
 func enter_date(p_date: String) -> void:
 	var line_edit := _get_date_edit()
 	line_edit.text = p_date
-	line_edit.editing_toggled.emit(false)
+	line_edit.text_changed.emit(p_date)
 
 func get_time() -> String:
-	var line_edit: LineEdit = _get_time_edit()
+	var line_edit: ValidatableLineEdit = _get_time_edit()
 	return line_edit.text
 
 func enter_time(p_time: String) -> void:
 	var line_edit := _get_time_edit()
 	line_edit.text = p_time
-	line_edit.editing_toggled.emit(false)
+	line_edit.text_changed.emit(p_time)
 
 func get_selected_source_label() -> String:
 	var option_button: OptionButton = _get_source_options_button()
@@ -68,10 +68,10 @@ func enter_animal_name(p_index: int, p_name: String) -> void:
 func enter_animal_count(p_index: int, p_count: int) -> void:
 	_get_animal_box_at(p_index).enter_animal_count(p_count)
 
-func _get_date_edit() -> LineEdit:
+func _get_date_edit() -> ValidatableLineEdit:
 	return _spot_control._date_edit
 
-func _get_time_edit() -> LineEdit:
+func _get_time_edit() -> ValidatableLineEdit:
 	return _spot_control._time_edit
 
 func _get_animal_box_at(p_index: int) -> AnimalBoxPage:

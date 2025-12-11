@@ -13,8 +13,8 @@ var camera_id: int:
 	get: return _camera_options_button.get_item_id(_camera_options_button.selected)
 	set(_value): assert(false, "Cannot set camera_id of SpotControl")
 
-@onready var _date_edit: LineEdit = %DateEdit
-@onready var _time_edit: LineEdit = %TimeEdit
+@onready var _date_edit: ValidatableLineEdit = %DateEdit
+@onready var _time_edit: ValidatableLineEdit = %TimeEdit
 @onready var _source_options_button: OptionButton = %SourceOptionsButton
 @onready var _camera_options_button: OptionButton = %CameraOptionsButton
 @onready var _animal_box_container: VBoxContainer = %AnimalBoxContainer
@@ -28,12 +28,17 @@ func _ready() -> void:
 	assert(_animal_box_container)
 	assert(_add_new_animal_button)
 
+	_date_edit.validator = func(p_value: Variant) -> bool:
+		return DateTimeUtils.IsValidDate(p_value as String)
+	_time_edit.validator = func(p_value: Variant) -> bool:
+		return DateTimeUtils.IsValidTime(p_value as String)
+
 	for source in AnimalSpot.SOURCES:
 		_source_options_button.add_item(source)
 
 	_add_new_animal_button.pressed.connect(_add_animal_box)
-	_date_edit.editing_toggled.connect(_on_date_edit_editing_toggled)
-	_time_edit.editing_toggled.connect(_on_time_edit_editing_toggled)
+	_date_edit.text_changed.connect(_on_date_edit_text_changed)
+	_time_edit.text_changed.connect(_on_time_edit_text_toggled)
 
 func reset() -> void:
 	var all_cameras: Array[FSCamera] = CommandQueryDispatcher.dispatch(FindAllCamerasQuery.new())
@@ -103,18 +108,10 @@ func create_spots() -> Array[AnimalSpot]:
 func _add_animal_box() -> void:
 	_animal_box_container.add_child(_animal_box_scene.instantiate())
 
-func _on_date_edit_editing_toggled(editing: bool) -> void:
-	if editing:
-		return
+func _on_date_edit_text_changed(p_text: String) -> void:
+	if _date_edit.is_valid():
+		_date_edit.text = DateTimeUtils.ParseDate(p_text)
 
-	var date_string = _date_edit.text
-	if DateTimeUtils.IsValidDate(date_string):
-		_date_edit.text = DateTimeUtils.ParseDate(date_string)
-
-func _on_time_edit_editing_toggled(editing: bool) -> void:
-	if editing:
-		return
-
-	var time_string = _time_edit.text
-	if DateTimeUtils.IsValidTime(time_string):
-		_time_edit.text = DateTimeUtils.ParseTime(time_string)
+func _on_time_edit_text_toggled(p_text: String) -> void:
+	if _time_edit.is_valid():
+		_time_edit.text = DateTimeUtils.ParseTime(p_text)

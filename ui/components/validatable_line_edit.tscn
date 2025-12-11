@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0ek5dq78s652"]
+
+[ext_resource type="Script" uid="uid://bw8sd7je5wjg" path="res://ui/components/validatable_line_edit.gd" id="1_5saia"]
+
+[node name="ValidatableLineEdit" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_5saia")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="ValidationMessageLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
