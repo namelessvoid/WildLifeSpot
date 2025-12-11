@@ -1,7 +1,12 @@
 [tools]
 "pipx" = "1.7.1"
 "pipx:pre-commit" = "4.2.0"
+"pipx:mkdocs" = "1.6.1"
 
 [tasks.gut]
 description = "Run GUT tests"
 run = "godot -s --path . addons/gut/gut_cmdln.gd -gexit"
+
+[tasks.serve-docs]
+description = "Serve MKDocs"
+run = "mkdocs serve --livereload"
