@@ -30,7 +30,7 @@ func _on_validity_changed(p_is_valid: bool) -> void:
 	if p_is_valid:
 		_validation_message_label.text = ""
 	else:
-		_validation_message_label.text = "Invalid text"
+		_validation_message_label.text = "Invalid input"
 
 func _on_line_edit_editing_toggled(p_is_editing) -> void:
 	if p_is_editing:
