@@ -17,9 +17,11 @@ var text: String:
 @onready var _validation_message_label: Label = $VBoxContainer/ValidationMessageLabel
 
 func _ready() -> void:
+	_validation_message_label.text = ""
+	custom_minimum_size.y = $VBoxContainer.size.y
+
 	_line_edit.editing_toggled.connect(_on_line_edit_editing_toggled)
 	validity_changed.connect(_on_validity_changed)
-	custom_minimum_size.y = $VBoxContainer.size.y
 
 func _get_value() -> Variant:
 	return _line_edit.text

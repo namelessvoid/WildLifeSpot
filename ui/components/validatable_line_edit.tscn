@@ -3,8 +3,11 @@
 [ext_resource type="Script" uid="uid://bw8sd7je5wjg" path="res://ui/components/validatable_line_edit.gd" id="1_5saia"]
 
 [node name="ValidatableLineEdit" type="Control"]
+custom_minimum_size = Vector2(0, 58)
 layout_mode = 3
 anchors_preset = 0
+offset_right = 128.0
+offset_bottom = 58.0
 script = ExtResource("1_5saia")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -21,3 +24,4 @@ layout_mode = 2
 [node name="ValidationMessageLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"ValidationMessageLabel"
+text = "Invalid input"
