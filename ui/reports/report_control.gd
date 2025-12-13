@@ -1,7 +1,5 @@
 extends Control
 
-var spot_repository: AnimalSpotRepository
-
 @onready var _date_list: ItemList = %DateList
 @onready var _spot_details_container: VBoxContainer = %SpotDetailsContainer
 @onready var _chart: SpotChart = %SpotChart
@@ -23,7 +21,6 @@ func _ready():
 	_initialize.call_deferred()
 
 func _initialize():
-	assert(spot_repository)
 	_refresh_date_list()
 
 func _on_date_selected(index: int) -> void:
@@ -39,7 +36,8 @@ func _on_db_changed():
 	_chart.visible = false
 
 func _refresh_date_list() -> void:
-	var dates = spot_repository.FindAllDates()
+	var query = FindAllAnimalSpotDatesQuery.new()
+	var dates = CommandQueryDispatcher.dispatch(query) as Array[String]
 	_date_list.clear()
 	for date in dates:
 		_date_list.add_item(date)
@@ -48,6 +46,7 @@ func _update_chart() -> void:
 	if _selected_date.is_empty():
 		return
 
-	var spots := spot_repository.FindAllByDate(_selected_date)
+	var query := FindAllAnimalSpotsByDateQuery.new(_selected_date)
+	var spots := CommandQueryDispatcher.dispatch(query) as Array[AnimalSpot]
 	_chart.set_spots(spots)
 	_chart.visible = true

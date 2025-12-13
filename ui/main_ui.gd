@@ -3,7 +3,6 @@ extends Control
 const ReportControl = preload("res://ui/reports/report_control.gd")
 
 @export var database_manager: DatabaseManagerSQLite
-@export var spot_repository: AnimalSpotRepository
 @export var processed_image_repository: FSProcessedImageRepository
 @export var file_hasher: FileHasher
 
@@ -11,7 +10,6 @@ const ReportControl = preload("res://ui/reports/report_control.gd")
 @onready var _spots_menu := %Spots as PopupMenu
 @onready var _cameras_menu := %Cameras as PopupMenu
 
-@onready var _report_control := %ReportControl as ReportControl
 @onready var _settings_window := %SettingsWindow as Window
 @onready var _cameras_window := %CamerasWindow as Window
 @onready var _select_database_dialog := %SelectDatabaseDialog as FileDialog
@@ -22,7 +20,6 @@ const ReportControl = preload("res://ui/reports/report_control.gd")
 
 func _ready():
 	assert(database_manager)
-	assert(spot_repository)
 	assert(processed_image_repository)
 	assert(file_hasher)
 
@@ -40,8 +37,6 @@ func _ready():
 	_cameras_menu.id_pressed.connect(_on_cameras_menu_id_pressed)
 
 	_bulk_spot_file_dialog.files_selected.connect(_on_bulk_spot_files_selected)
-
-	_report_control.spot_repository = spot_repository
 
 	_select_database_dialog.database_manager = database_manager
 

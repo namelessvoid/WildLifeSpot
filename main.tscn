@@ -15,9 +15,8 @@
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="MainUi" parent="CanvasLayer" node_paths=PackedStringArray("database_manager", "spot_repository", "processed_image_repository", "file_hasher") instance=ExtResource("1_272bh")]
+[node name="MainUi" parent="CanvasLayer" node_paths=PackedStringArray("database_manager", "processed_image_repository", "file_hasher") instance=ExtResource("1_272bh")]
 database_manager = NodePath("../../Infrastructure/DatabaseManager")
-spot_repository = NodePath("../../Infrastructure/AnimalSpotRepository")
 processed_image_repository = NodePath("../../Infrastructure/ProcessedImagesRepository")
 file_hasher = NodePath("../../Infrastructure/FileHasher")
 

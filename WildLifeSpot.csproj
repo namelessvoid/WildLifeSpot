@@ -388,12 +388,8 @@
     <Content Include="addons\gut\version_numbers.gd.uid" />
     <Content Include="addons\gut\warnings_manager.gd" />
     <Content Include="addons\gut\warnings_manager.gd.uid" />
-    <Content Include="domain\animal_spot\animal_spot.gd" />
-    <Content Include="domain\animal_spot\animal_spot.gd.uid" />
     <Content Include="domain\animal_spot\animal_spot_handler.gd" />
     <Content Include="domain\animal_spot\animal_spot_handler.gd.uid" />
-    <Content Include="domain\animal_spot\animal_spot_repository.gd" />
-    <Content Include="domain\animal_spot\animal_spot_repository.gd.uid" />
     <Content Include="domain\animal_spot\delete_existing_animal_spots_command.gd" />
     <Content Include="domain\animal_spot\delete_existing_animal_spots_command.gd.uid" />
     <Content Include="domain\animal_spot\find_all_animal_spots_by_date_query.gd" />
@@ -438,8 +434,6 @@
     <Content Include="icon.svg.import" />
     <Content Include="icons\question_mark.png" />
     <Content Include="icons\question_mark.png.import" />
-    <Content Include="infrastructure\animal_spot_repsitory_sqlite.gd" />
-    <Content Include="infrastructure\animal_spot_repsitory_sqlite.gd.uid" />
     <Content Include="infrastructure\database_manager_sqlite.gd" />
     <Content Include="infrastructure\database_manager_sqlite.gd.uid" />
     <Content Include="infrastructure\ExifInfo.cs.uid" />
