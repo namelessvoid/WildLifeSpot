@@ -4,9 +4,9 @@ const Repository = preload("res://infrastructure/animal_spot_repsitory_sqlite.gd
 
 const AnimalSpotGenerator = preload("res://test/generators/animal_spot_generator.gd")
 
-func _create_repository() -> AnimalSpotRepository:
-	var repository := Repository.new()
-	repository.set_db_path(":memory:")
+func _create_repository() -> AnimalRepository:
+	var repository := AnimalRepository.new()
+	repository.SetDbPath("/tmp/" + str(ResourceUID.create_id()) + ".db")
 	add_child_autofree(repository)
 	return repository
 
@@ -18,12 +18,10 @@ func test_find_all_by_returns_matching_single_spot():
 		.with_camera_id(12)\
 		.with_spotted_at("2024-12-01T12:00:14")\
 		.build()
-	repository.save(animal_spot)
+	repository.Save(animal_spot)
 	
-	var all = repository.find_all()
-
 	# Act
-	var found_spots := repository.find_all_by(AnimalSpot.SourceCameraImage(), 12, "2024-12-01T12:00:14")
+	var found_spots := repository.FindAllBy(AnimalSpot.SourceCameraImage(), 12, "2024-12-01T12:00:14")
 
 	# Assert
 	assert_eq(found_spots.size(), 1)
@@ -38,7 +36,7 @@ func test_find_all_by_returns_all_matching_spots():
 		.with_spotted_at("2024-12-01T12:00:14")\
 		.with_animal_name("Lion")\
 		.build()
-	repository.save(animal_spot_1)
+	repository.Save(animal_spot_1)
 
 	var animal_spot_2: AnimalSpot = AnimalSpotGenerator.new()\
 		.with_source(AnimalSpot.SourceCameraImage())\
@@ -46,11 +44,11 @@ func test_find_all_by_returns_all_matching_spots():
 		.with_spotted_at("2024-12-01T12:00:14")\
 		.with_animal_name("Tiger")\
 		.build()
-	repository.save(animal_spot_2)
+	repository.Save(animal_spot_2)
 
 	# Act
-	var found_spots := repository.find_all_by(AnimalSpot.SourceCameraImage(), 12, "2024-12-01T12:00:14")
-	var all := repository.find_all()
+	var found_spots := repository.FindAllBy(AnimalSpot.SourceCameraImage(), 12, "2024-12-01T12:00:14")
+
 	# Assert
 	assert_eq(found_spots.size(), 2)
 	assert_eq(found_spots[0].AnimalName, "Lion")
@@ -73,10 +71,10 @@ func test_find_all_by_returns_empty_array_if_nothing_matches(
 		.with_camera_id(params[1])\
 		.with_spotted_at(params[2])\
 		.build()
-	repository.save(animal_spot)
+	repository.Save(animal_spot)
 
 	# Act
-	var found_spots = repository.find_all_by(AnimalSpot.SourceCameraImage(), 12, "2024-12-01T12:00:14")
+	var found_spots = repository.FindAllBy(AnimalSpot.SourceCameraImage(), 12, "2024-12-01T12:00:14")
 
 	# Assert
 	assert_eq(found_spots.size(), params[3])

@@ -43,24 +43,29 @@ public partial class AnimalRepository : Node
 
     public Array<AnimalSpot> FindAllBy(string source, long cameraId, string spottedAt)
     {
+        var spottedAtDatetime = DateTime.Parse(spottedAt);
         return new Array<AnimalSpot>(
             context.AnimalSpots.Where(spot =>
-                spot.Source == source && spot.CameraId == cameraId && spot.SpottedAt == spottedAt
+                spot.Source == source && spot.CameraId == cameraId && spot.SpottedAtDateTime == spottedAtDatetime
             ).ToList()
         );
     }
 
     public Array<AnimalSpot> FindAllByDate(string spottedAt)
     {
+        var spottedAtDate = DateTime.Parse(spottedAt);
         return new Array<AnimalSpot>(
-            context.AnimalSpots.Where(spot => spot.SpottedAt == spottedAt).ToList()    
+            context.AnimalSpots.Where(spot => spot.SpottedAtDateTime.Date == spottedAtDate).ToList()
         );
     }
 
     public Array<string> FindAllDates()
     {
         return new Array<string>(
-            context.AnimalSpots.Select(spot => spot.SpottedAtDateTime.Date.ToString("o")).Distinct().ToList()
+            context.AnimalSpots
+                .Select(spot => DateOnly.FromDateTime(spot.SpottedAtDateTime).ToString("o"))
+                .Distinct()
+                .ToList()
         );
     }
 
@@ -73,7 +78,7 @@ public partial class AnimalRepository : Node
 
     public void DeleteBySourceAndSpottedAt(string source, string spottedAtString)
     {
-        var spottedAt = DateTime.Parse(spottedAtString);
-        context.AnimalSpots.Where(spot => spot.Source == source && spot.SpottedAtDateTime == spottedAt).ExecuteDelete();
+        var spottedAtDateTime = DateTime.Parse(spottedAtString);
+        context.AnimalSpots.Where(spot => spot.Source == source && spot.SpottedAtDateTime == spottedAtDateTime).ExecuteDelete();
     }
 }
