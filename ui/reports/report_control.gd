@@ -39,7 +39,7 @@ func _on_db_changed():
 	_chart.visible = false
 
 func _refresh_date_list() -> void:
-	var dates = spot_repository.find_all_dates()
+	var dates = spot_repository.FindAllDates()
 	_date_list.clear()
 	for date in dates:
 		_date_list.add_item(date)
@@ -48,6 +48,6 @@ func _update_chart() -> void:
 	if _selected_date.is_empty():
 		return
 
-	var spots := spot_repository.find_all_by_date(_selected_date)
+	var spots := spot_repository.FindAllByDate(_selected_date)
 	_chart.set_spots(spots)
 	_chart.visible = true

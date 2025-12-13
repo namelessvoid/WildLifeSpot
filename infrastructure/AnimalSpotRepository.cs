@@ -8,7 +8,7 @@ using WildLifeSpot.AnimalSpots.Domain;
 namespace WildLifeSpot.Infrastructure;
 
 [GlobalClass]
-public partial class AnimalRepository : Node
+public partial class AnimalSpotRepository : Node
 {
     private WildlifeSpotDbContext context;
 

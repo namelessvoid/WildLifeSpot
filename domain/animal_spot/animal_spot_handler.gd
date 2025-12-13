@@ -2,6 +2,9 @@ extends CommandQueryHandler
 
 @export var repository: AnimalSpotRepository
 
+func _ready():
+	assert(repository)
+
 func can_handle(dispatchable: Variant) -> bool:
 	return dispatchable is CreateAnimalSpotCommand \
 		|| dispatchable is DeleteExistingAnimalSpots \
@@ -12,16 +15,16 @@ func can_handle(dispatchable: Variant) -> bool:
 
 func handle(dispatchable: Variant) -> Variant:
 	if dispatchable is CreateAnimalSpotCommand:
-		repository.save(dispatchable._spot)
+		repository.Save(dispatchable._spot)
 	elif dispatchable is DeleteExistingAnimalSpots:
-		repository.delete_by_source_and_spotted_at(dispatchable._source, dispatchable._spotted_at)
+		repository.DeleteBySourceAndSpottedAt(dispatchable._source, dispatchable._spotted_at)
 	elif dispatchable is FindAllAnimalSpotDatesQuery:
-		return repository.find_all_dates()
+		return repository.FindAllDates()
 	elif dispatchable is FindAllAnimalSpotsByQuery:
-		return repository.find_all_by(dispatchable._source, dispatchable._camera_id, dispatchable._spotted_at)
+		return repository.FindAllBy(dispatchable._source, dispatchable._camera_id, dispatchable._spotted_at)
 	elif dispatchable is FindAllAnimalSpotsByDateQuery:
-		return repository.find_all_by_date(dispatchable._date)
+		return repository.FindAllByDate(dispatchable._date)
 	elif dispatchable is FindAllAnimalSpotAnimalNamesQuery:
-		return repository.find_all_distinct_animal_names()
+		return repository.FindAllDistinctAnimalNames()
 
 	return null

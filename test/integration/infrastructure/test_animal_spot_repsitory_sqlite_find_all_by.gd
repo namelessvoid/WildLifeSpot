@@ -4,8 +4,8 @@ const Repository = preload("res://infrastructure/animal_spot_repsitory_sqlite.gd
 
 const AnimalSpotGenerator = preload("res://test/generators/animal_spot_generator.gd")
 
-func _create_repository() -> AnimalRepository:
-	var repository := AnimalRepository.new()
+func _create_repository() -> AnimalSpotRepository:
+	var repository := AnimalSpotRepository.new()
 	repository.SetDbPath("/tmp/" + str(ResourceUID.create_id()) + ".db")
 	add_child_autofree(repository)
 	return repository
