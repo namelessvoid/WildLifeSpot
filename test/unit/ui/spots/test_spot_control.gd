@@ -17,7 +17,7 @@ func test_init_should_initialize_empty():
 	var spot_control_page = SpotControlPage.new(spot_control)
 	assert_eq(spot_control_page.get_date(), "")
 	assert_eq(spot_control_page.get_time(), "")
-	assert_eq(spot_control_page.get_selected_source_label(), AnimalSpot.SOURCE_CAMERA_IMAGE)
+	assert_eq(spot_control_page.get_selected_source_label(), AnimalSpot.SourceCameraImage())
 	assert_eq(spot_control_page.get_selected_camera_id(), -1)
 	assert_eq(spot_control_page.animal_box_count(), 1)
 
@@ -30,7 +30,7 @@ func test_init_should_initialize_source_options():
 	var spot_control_page = SpotControlPage.new(spot_control)
 	assert_eq_deep(
 		spot_control_page.get_all_source_labels(),
-		[AnimalSpot.SOURCE_CAMERA_IMAGE, AnimalSpot.SOURCE_HUMAN_SEEN, AnimalSpot.SOURCE_HUMAN_HEARED]
+		[AnimalSpot.SourceCameraImage(), AnimalSpot.SourceHumanSeen(), AnimalSpot.SourceHumanHeard()]
 	)
 
 func test_reset_should_initialize_camera_options():
@@ -109,17 +109,17 @@ func test_create_spots_should_return_spots_if_inputs_are_valid():
 	assert_eq(spots.size(), 2)
 
 	var spot1 := spots[0]
-	assert_eq(spot1.animal_name, "Foobird")
-	assert_eq(spot1.animal_count, 4)
-	assert_eq(spot1.spotted_at, "2025-01-01T14:00:00")
-	assert_eq(spot1.source, AnimalSpot.SOURCE_CAMERA_IMAGE)
-	assert_eq(spot1.camera_id, 12)
-	assert_eq(spot1.file_path, "")
+	assert_eq(spot1.AnimalName, "Foobird")
+	assert_eq(spot1.AnimalCount, 4)
+	assert_eq(spot1.SpottedAt, "2025-01-01T14:00:00")
+	assert_eq(spot1.Source, AnimalSpot.SourceCameraImage())
+	assert_eq(spot1.CameraId, 12)
+	assert_eq(spot1.FilePath, "")
 
 	var spot2 := spots[1]
-	assert_eq(spot2.animal_name, "Barbear")
-	assert_eq(spot2.animal_count, 2)
-	assert_eq(spot2.spotted_at, "2025-01-01T14:00:00")
-	assert_eq(spot2.source, AnimalSpot.SOURCE_CAMERA_IMAGE)
-	assert_eq(spot2.camera_id, 12)
-	assert_eq(spot2.file_path, "")
+	assert_eq(spot2.AnimalName, "Barbear")
+	assert_eq(spot2.AnimalCount, 2)
+	assert_eq(spot2.SpottedAt, "2025-01-01T14:00:00")
+	assert_eq(spot2.Source, AnimalSpot.SourceCameraImage())
+	assert_eq(spot2.CameraId, 12)
+	assert_eq(spot2.FilePath, "")

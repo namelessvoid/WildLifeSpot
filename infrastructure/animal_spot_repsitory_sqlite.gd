@@ -6,14 +6,14 @@ const _table_name = &"animal_spot"
 var _db: SQLite
 
 func save(p_spot: AnimalSpot) -> void:
-	if p_spot._id == -1:
+	if p_spot.Id == 0:
 		_db.insert_row(_table_name, {
-			"source": p_spot.source,
-			"file_path": p_spot.file_path,
-			"camera_id": p_spot.camera_id,
-			"spotted_at": p_spot.spotted_at,
-			"animal_name": p_spot.animal_name,
-			"animal_count": p_spot.animal_count
+			"source": p_spot.Source,
+			"file_path": p_spot.FilePath,
+			"camera_id": p_spot.CameraId,
+			"spotted_at": p_spot.SpottedAt,
+			"animal_name": p_spot.AnimalName,
+			"animal_count": p_spot.AnimalCount
 		})
 	else:
 		assert(false, "Updating spot is not implemented")
@@ -99,13 +99,13 @@ static func _deserialize(query_result: Array[Dictionary]) -> Array[AnimalSpot]:
 	for i in range(query_result.size()):
 		var serialized = query_result[i]
 		var spot = AnimalSpot.new()
-		spot._id = serialized.id
-		spot.source = serialized.source
-		spot.file_path = serialized.file_path
-		spot.camera_id = serialized.camera_id
-		spot.spotted_at = serialized.spotted_at
-		spot.animal_name = serialized.animal_name
-		spot.animal_count = serialized.animal_count
+		spot.Id = serialized.id
+		spot.Source = serialized.source
+		spot.FilePath = serialized.file_path
+		spot.CameraId = serialized.camera_id
+		spot.SpottedAt = serialized.spotted_at
+		spot.AnimalName = serialized.animal_name
+		spot.AnimalCount = serialized.animal_count
 		spots[i] = spot
 
 	return spots

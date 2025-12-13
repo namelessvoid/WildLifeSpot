@@ -24,4 +24,3 @@ layout_mode = 2
 [node name="ValidationMessageLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"ValidationMessageLabel"
-text = "Invalid input"

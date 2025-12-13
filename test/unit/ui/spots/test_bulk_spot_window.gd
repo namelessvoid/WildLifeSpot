@@ -74,7 +74,7 @@ func test_deletes_spots_and_saves_new_ones():
 	bulk_spot_window.get_node("%StartPreprocessingButton").pressed.emit()
 
 	var spot_control: SpotControl = bulk_spot_window.get_node("%SpotControl")
-	spot_control.date_time = "2025-11-02T14:15:00Z"
+	spot_control.date_time = "2025-11-02T14:15:00"
 
 	var camera_options_button: OptionButton = spot_control.get_node("%CameraOptionsButton")
 	camera_options_button.select(0)
@@ -89,8 +89,8 @@ func test_deletes_spots_and_saves_new_ones():
 	# Assert
 	var command: CreateAnimalSpotCommand = handler.calls[6]
 	var animal_spot := command._spot
-	assert_eq(animal_spot.animal_name, "Kabuto")
-	assert_eq(animal_spot.animal_count, 3)
-	assert_eq(animal_spot.spotted_at, "2025-11-02T14:15:00Z")
-	assert_eq(animal_spot.source, AnimalSpot.SOURCE_CAMERA_IMAGE)
-	assert_eq(animal_spot.camera_id, 12)
+	assert_eq(animal_spot.AnimalName, "Kabuto")
+	assert_eq(animal_spot.AnimalCount, 3)
+	assert_eq(animal_spot.SpottedAt, "2025-11-02T14:15:00")
+	assert_eq(animal_spot.Source, AnimalSpot.SourceCameraImage())
+	assert_eq(animal_spot.CameraId, 12)

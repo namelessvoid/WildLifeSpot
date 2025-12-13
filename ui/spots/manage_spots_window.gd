@@ -47,11 +47,11 @@ func _expand_date_row(p_date_row: TreeItem):
 
 	for spot in spots:
 		var child := p_date_row.create_child()
-		var date_time := Time.get_datetime_dict_from_datetime_string(spot.spotted_at, false)
+		var date_time := Time.get_datetime_dict_from_datetime_string(spot.SpottedAt, false)
 		child.set_text(0, "%02d:%02d:%02d" %  [date_time['hour'], date_time['minute'], date_time['second']])
-		child.set_text(1, spot.source)
-		child.set_text(2, spot.animal_name)
-		child.set_text(3, str(spot.animal_count))
+		child.set_text(1, spot.Source)
+		child.set_text(2, spot.AnimalName)
+		child.set_text(3, str(spot.AnimalCount))
 		
 
 func _collapse_date_row(p_date_row: TreeItem):

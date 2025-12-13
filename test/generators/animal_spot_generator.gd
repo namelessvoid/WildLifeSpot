@@ -1,7 +1,7 @@
 extends RefCounted
 
 var _id = -1
-var _source: String = AnimalSpot.SOURCE_CAMERA_IMAGE
+var _source: String = AnimalSpot.SourceCameraImage()
 var _file_path: String = ""
 var _camera_id: int = 2
 var _spotted_at: String = "2024-10-03T14:01:15"
@@ -38,11 +38,11 @@ func with_animal_count(p_animal_count: int):
 
 func build() -> AnimalSpot:
 	var spot = AnimalSpot.new()
-	spot._id = _id
-	spot.source = _source
-	spot.file_path = _file_path
-	spot.camera_id = _camera_id
-	spot.spotted_at = _spotted_at
-	spot.animal_name = _animal_name
-	spot.animal_count = _animal_count
+	#spot.Id = _id
+	spot.Source = _source
+	spot.FilePath = _file_path
+	spot.CameraId = _camera_id
+	spot.SpottedAt = _spotted_at
+	spot.AnimalName = _animal_name
+	spot.AnimalCount = _animal_count
 	return spot

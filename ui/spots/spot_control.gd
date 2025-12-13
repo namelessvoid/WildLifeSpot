@@ -33,7 +33,8 @@ func _ready() -> void:
 	_time_edit.validator = func(p_value: Variant) -> bool:
 		return DateTimeUtils.IsValidTime(p_value as String)
 
-	for source in AnimalSpot.SOURCES:
+	for source in AnimalSpot.Sources():
+		print(source)
 		_source_options_button.add_item(source)
 
 	_add_new_animal_button.pressed.connect(_add_animal_box)
@@ -60,7 +61,7 @@ func reset() -> void:
 func reset_to_spots(spots: Array[AnimalSpot]) -> void:
 	var animal_count_map := {}
 	for spot in spots:
-		animal_count_map[spot.animal_name] = spot.animal_count
+		animal_count_map[spot.AnimalName] = spot.AnimalCount
 
 	for animal_box_node in _animal_box_container.get_children():
 		var animal_box := animal_box_node as AnimalBox
@@ -95,11 +96,11 @@ func create_spots() -> Array[AnimalSpot]:
 			continue
 
 		var spot = AnimalSpot.new()
-		spot.source = AnimalSpot.SOURCE_CAMERA_IMAGE
-		spot.spotted_at = date_time
-		spot.animal_name = animal_box.get_animal_name()
-		spot.animal_count = animal_box.get_animal_count()
-		spot.camera_id = camera_id
+		spot.Source = AnimalSpot.SourceCameraImage()
+		spot.SpottedAt = date_time
+		spot.AnimalName = animal_box.get_animal_name()
+		spot.AnimalCount = animal_box.get_animal_count()
+		spot.CameraId = camera_id
 		
 		spots.append(spot)
 
