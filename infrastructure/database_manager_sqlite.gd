@@ -1,26 +1,20 @@
 extends Node
 class_name DatabaseManagerSQLite
 
-@export var animal_spot_repository: AnimalSpotRepository
-@export var camera_repository: CameraRepositorySQLite
-@export var processed_image_repository: ProcessedImageRepositorySQLite
-
 var _db_path = &"user://wildlifespot.db"
 
 func set_db_path(p_db_path: String):
 	_db_path = p_db_path
 
-	camera_repository.set_db_path(_db_path)
-	processed_image_repository.set_db_path(_db_path)
-
 	var global_db_path = ProjectSettings.globalize_path(p_db_path)
-	animal_spot_repository.SetDbPath(global_db_path)
+	var injectable_nodes: Array[Node] = get_tree().get_nodes_in_group("inject_db_path")
+	for node in injectable_nodes:
+		if node.has_method("set_db_path"):
+			node.set_db_path(_db_path)
+		else:
+			node.SetDbPath(global_db_path)
 
 	GlobalSignals.database_changed.emit()
 
 func _ready():
-	assert(animal_spot_repository)
-	assert(camera_repository)
-	assert(processed_image_repository)
-
 	set_db_path(_db_path)

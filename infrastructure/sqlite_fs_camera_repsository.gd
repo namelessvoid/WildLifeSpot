@@ -5,6 +5,9 @@ const _table_name = &"camera"
 
 var _db: SQLite
 
+func _enter_tree() -> void:
+	add_to_group("inject_db_path")
+
 func find_all() -> Array[FSCamera]:
 	var rows = _db.select_rows(_table_name, "", ["*"])
 	var cameras: Array[FSCamera] = []

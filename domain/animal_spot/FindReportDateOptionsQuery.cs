@@ -1,6 +1,9 @@
+using Godot;
+
 namespace WildLifeSpot.AnimalSpots.Domain;
 
-public class FindReportDateOptionsQuery
+[GlobalClass]
+public partial class FindReportDateOptionsQuery : RefCounted
 {
-    
+    public ReportOptions ReportOptions { get; private set; } = new();
 }

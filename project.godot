@@ -39,6 +39,7 @@ enabled=PackedStringArray("res://addons/easy_charts/plugin.cfg", "res://addons/g
 [global_group]
 
 command_query_handler="Mark handlers for commands and queries to be picked up by the CommandQueryHandler"
+inject_db_path="Mark nodes that should get the db_path / global_db_path injected"
 
 [gui]
 

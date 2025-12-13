@@ -6,6 +6,8 @@
 [node name="ReportControl" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+offset_right = 1147.0
+offset_bottom = 649.0
 script = ExtResource("1_knnyb")
 metadata/_tab_index = 0
 
@@ -17,28 +19,38 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 split_offset = 152
 
-[node name="SpotDaysContainer" type="VBoxContainer" parent="MarginContainer/HSplitContainer"]
+[node name="SpotDaysContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer"]
 layout_mode = 2
 
-[node name="DateList" type="ItemList" parent="MarginContainer/HSplitContainer/SpotDaysContainer"]
+[node name="DateList" type="ItemList" parent="MarginContainer/VBoxContainer/HSplitContainer/SpotDaysContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 item_count = 1
 item_0/text = "adsfadsf"
 
-[node name="SpotDetailsContainer" type="VBoxContainer" parent="MarginContainer/HSplitContainer"]
+[node name="SpotDetailsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 
-[node name="SpotChart" type="Control" parent="MarginContainer/HSplitContainer/SpotDetailsContainer"]
+[node name="SpotChart" type="Control" parent="MarginContainer/VBoxContainer/HSplitContainer/SpotDetailsContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("3_bmkda")
-colors = Array[Color]([Color(0, 0.633561, 0.244255, 1), Color(1.05888e-06, 0.599498, 0.85004, 1), Color(0.977861, 0, 0.183616, 1), Color(0.749871, 0.552737, 9.62615e-07, 1), Color(0, 0.422094, 0.0212651, 1), Color(0.000339562, 0.198961, 0.673453, 1), Color(0.392521, 0.00107168, 0.570689, 1), Color(0.608437, 0.0168363, 0.0344286, 1), Color(0.439085, 0.246157, 1.92523e-07, 1), Color(0.928813, 0.860782, 0, 1), Color(1, 0.811431, 0.7628, 1)])

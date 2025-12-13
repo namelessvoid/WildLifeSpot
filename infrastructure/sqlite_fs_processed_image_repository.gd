@@ -5,6 +5,9 @@ const _table_name = &"processed_image"
 
 var _db: SQLite
 
+func _enter_tree() -> void:
+	add_to_group("inject_db_path")
+
 func has_been_processed(file_hash: String) -> bool:
 	var success = _db.query_with_bindings(
 		"SELECT EXISTS(SELECT 1 FROM " + _table_name + " WHERE file_hash=?) AS hash_exists",

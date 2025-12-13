@@ -9,7 +9,7 @@ var _selected_date: String = ""
 func _ready():
 	assert(_date_list)
 	assert(_spot_details_container)
-	
+
 	GlobalSignals.animal_spots_dirtied.connect(_on_animal_spots_dirtied)
 	GlobalSignals.database_changed.connect(_on_db_changed)
 
@@ -36,11 +36,14 @@ func _on_db_changed():
 	_chart.visible = false
 
 func _refresh_date_list() -> void:
-	var query = FindAllAnimalSpotDatesQuery.new()
-	var dates = CommandQueryDispatcher.dispatch(query) as Array[String]
+	# New logic
+	var query = FindReportDateOptionsQuery.new()
+	query.ReportOptions.Granularity = ReportOptions.GranularityHourly()
+	var result = CommandQueryDispatcher.dispatch(query) as Array[String]
+
 	_date_list.clear()
-	for date in dates:
-		_date_list.add_item(date)
+	for item in result:
+		_date_list.add_item(item)
 
 func _update_chart() -> void:
 	if _selected_date.is_empty():

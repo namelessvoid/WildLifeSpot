@@ -12,6 +12,12 @@ public partial class AnimalSpotRepository : Node
 {
     private WildlifeSpotDbContext context;
 
+    public override void _EnterTree()
+    {
+        base._EnterTree();
+        AddToGroup("inject_db_path");
+    }
+
     public override void _ExitTree()
     {
         base._ExitTree();

@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bfrjddjae20jo"]
+[gd_scene load_steps=12 format=3 uid="uid://bfrjddjae20jo"]
 
 [ext_resource type="PackedScene" uid="uid://ds4u6yauu4ssm" path="res://ui/main_ui.tscn" id="1_272bh"]
 [ext_resource type="Script" uid="uid://dqgirapuo0fl6" path="res://domain/camera/camera_handler.gd" id="2_kek77"]
 [ext_resource type="Script" uid="uid://bsxwtqybnaljw" path="res://domain/animal_spot/animal_spot_handler.gd" id="3_4c57u"]
 [ext_resource type="Script" uid="uid://cqrunl6k85syq" path="res://infrastructure/file_hasher.gd" id="3_kek77"]
 [ext_resource type="Script" uid="uid://bgqujskyligxn" path="res://infrastructure/sqlite_fs_camera_repsository.gd" id="4_4c57u"]
+[ext_resource type="Script" uid="uid://b1f6yf1i3j3l2" path="res://domain/animal_spot/ReportHandler.cs" id="4_dg77c"]
 [ext_resource type="Script" uid="uid://7ohq8ys46rhe" path="res://infrastructure/ExifReader.cs" id="4_efxa6"]
 [ext_resource type="Script" uid="uid://drow4khperyq4" path="res://infrastructure/sqlite_fs_processed_image_repository.gd" id="5_efxa6"]
 [ext_resource type="Script" uid="uid://bwei37br22hc0" path="res://infrastructure/database_manager_sqlite.gd" id="7_ycdy4"]
@@ -30,6 +31,15 @@ repository = NodePath("../../Infrastructure/CameraRepository")
 script = ExtResource("3_4c57u")
 repository = NodePath("../../Infrastructure/AnimalSpotRepository")
 
+[node name="ReportHandler" type="Node" parent="Handlers"]
+script = ExtResource("4_dg77c")
+
+[node name="ProcessedImageHandler" type="Node" parent="Handlers" node_paths=PackedStringArray("processed_image_repository", "file_hasher", "exif_reader")]
+script = ExtResource("10_4c57u")
+processed_image_repository = NodePath("../../Infrastructure/ProcessedImagesRepository")
+file_hasher = NodePath("../../Infrastructure/FileHasher")
+exif_reader = NodePath("../../Infrastructure/ExifReader")
+
 [node name="Infrastructure" type="Node" parent="."]
 
 [node name="ExifReader" type="Node" parent="Infrastructure"]
@@ -44,17 +54,8 @@ script = ExtResource("4_4c57u")
 [node name="ProcessedImagesRepository" type="Node" parent="Infrastructure"]
 script = ExtResource("5_efxa6")
 
-[node name="DatabaseManager" type="Node" parent="Infrastructure" node_paths=PackedStringArray("animal_spot_repository", "camera_repository", "processed_image_repository")]
+[node name="DatabaseManager" type="Node" parent="Infrastructure"]
 script = ExtResource("7_ycdy4")
-animal_spot_repository = NodePath("../AnimalSpotRepository")
-camera_repository = NodePath("../CameraRepository")
-processed_image_repository = NodePath("../ProcessedImagesRepository")
-
-[node name="ProcessedImageHandler" type="Node" parent="Infrastructure" node_paths=PackedStringArray("processed_image_repository", "file_hasher", "exif_reader")]
-script = ExtResource("10_4c57u")
-processed_image_repository = NodePath("../ProcessedImagesRepository")
-file_hasher = NodePath("../FileHasher")
-exif_reader = NodePath("../ExifReader")
 
 [node name="AnimalSpotRepository" type="Node" parent="Infrastructure"]
 script = ExtResource("10_efxa6")

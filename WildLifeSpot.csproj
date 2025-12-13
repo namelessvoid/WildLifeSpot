@@ -390,6 +390,7 @@
     <Content Include="addons\gut\warnings_manager.gd.uid" />
     <Content Include="docs\index.md" />
     <Content Include="docs\internal\command-query-handler.md" />
+    <Content Include="docs\internal\db-management.md" />
     <Content Include="docs\internal\index.md" />
     <Content Include="docs\internal\validatable-controls.md" />
     <Content Include="domain\animal_spot\animal_spot_handler.gd" />
