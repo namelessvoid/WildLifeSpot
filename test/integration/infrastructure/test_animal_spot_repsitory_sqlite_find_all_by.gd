@@ -1,7 +1,5 @@
 extends GutTest
 
-const Repository = preload("res://infrastructure/animal_spot_repsitory_sqlite.gd")
-
 const AnimalSpotGenerator = preload("res://test/generators/animal_spot_generator.gd")
 
 func _create_repository() -> AnimalSpotRepository:
