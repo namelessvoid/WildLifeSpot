@@ -47,8 +47,7 @@ func _on_db_changed():
 	_chart.visible = false
 
 func _refresh_date_list() -> void:
-	# New logic
-	var query = FindReportDateOptionsQuery.new()
+	var query = AnimalSpotReportDatesQuery.new()
 	query.ReportOptions.Granularity = _get_selected_granularity()
 	var result = CommandQueryDispatcher.dispatch(query) as Array[String]
 
@@ -60,7 +59,7 @@ func _update_chart() -> void:
 	if _selected_date.is_empty():
 		return
 
-	var report_query := GetAnimalSpotReportQuery.new()
+	var report_query := AnimalSpotReportQuery.new()
 	report_query.ReportOptions.Granularity = _get_selected_granularity()
 	report_query.ReportOptions.DateFilter = _selected_date
 	var report := CommandQueryDispatcher.dispatch(report_query) as AnimalSpotReport
