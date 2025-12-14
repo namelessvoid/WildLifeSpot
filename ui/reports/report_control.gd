@@ -16,7 +16,7 @@ func _ready():
 
 	_date_list.item_selected.connect(_on_date_selected)
 
-	for granularity in ReportOptions.Granularities():
+	for granularity in ReportOptions.GetGranularities():
 		_granularity_option_button.add_item(granularity)
 	_granularity_option_button.item_selected.connect(_on_granularity_option_button_item_selected)
 
@@ -36,7 +36,7 @@ func _on_granularity_option_button_item_selected(_index: int) -> void:
 	_refresh_date_list()
 
 func _get_selected_granularity() -> String:
-	return ReportOptions.Granularities()[_granularity_option_button.selected]
+	return ReportOptions.GetGranularities()[_granularity_option_button.selected]
 
 func _on_animal_spots_dirtied() -> void:
 	_refresh_date_list()

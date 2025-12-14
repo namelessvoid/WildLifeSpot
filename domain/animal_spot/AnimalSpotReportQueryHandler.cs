@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using Godot;
 using Godot.Collections;
 using WildLifeSpot.Infrastructure;
@@ -40,25 +41,64 @@ public partial class AnimalSpotReportQueryHandler: Node
 
     private Variant GetAnimalSpotReport(AnimalSpotReportQuery query)
     {
-        var animalHourCountRows = _context.AnimalSpots.Where(spot =>
-            spot.SpottedAtDateTime.Date == DateTime.Parse(query.ReportOptions.DateFilter)
-        ).GroupBy(
-            spot => new { spot.SpottedAtDateTime.Hour, spot.AnimalName },
+        var granularity = query.ReportOptions.Granularity;
+
+        if (!ReportOptions.GetGranularities().Contains(granularity))
+        {
+            GD.PushError($"Invalid granularity: '{granularity}'");
+            return new Variant();
+        }
+
+        var dateFilter = query.ReportOptions.DateFilter;
+        DateOnly.TryParse(dateFilter, out var filterDate);
+        Expression<Func<AnimalSpot, bool>> dateFilterPredicate = granularity switch
+        {
+            ReportOptions.GranularityHourly => spot => spot.SpottedAtDateTime.Date == DateTime.Parse(dateFilter),
+            ReportOptions.GranularityDaily => spot => spot.SpottedAtDateTime.Year == filterDate.Year && spot.SpottedAtDateTime.Month == filterDate.Month,
+            ReportOptions.GranularityMonthly => spot => spot.SpottedAtDateTime.Year == int.Parse(dateFilter)
+        };
+
+        Expression<Func<AnimalSpot, AnimalTimeGroupKey>> groupBy = granularity switch
+        {
+            ReportOptions.GranularityHourly => spot => new AnimalTimeGroupKey(
+                spot.SpottedAtDateTime.Hour,
+                spot.AnimalName
+            ),
+            ReportOptions.GranularityDaily => spot => new AnimalTimeGroupKey(
+                spot.SpottedAtDateTime.Day,
+                spot.AnimalName
+            ),
+            ReportOptions.GranularityMonthly => spot => new AnimalTimeGroupKey(
+                spot.SpottedAtDateTime.Month,
+                spot.AnimalName
+            ),
+        };
+
+        var animalHourCountRows = _context.AnimalSpots
+            .Where(dateFilterPredicate)
+            .GroupBy(
+            groupBy,
             spot => spot.AnimalCount,
             (group, count) => new
             {
-                group.Hour,
+                group.TimeSlot,
                 group.AnimalName,
                 Count = count.Max()
             }
         ).ToList();
 
-        const int timeSlots = 24;
+        int timeSlots = granularity switch
+        {
+            ReportOptions.GranularityHourly => 24,
+            ReportOptions.GranularityDaily => 31,
+            ReportOptions.GranularityMonthly => 12
+        };
+
         var countsPerAnimal = new Dictionary<string, Array<int>>();
         foreach (var animalHourlyCounts in animalHourCountRows)
         {
             var animalName = animalHourlyCounts.AnimalName;
-            var hour = animalHourlyCounts.Hour;
+            var hour = animalHourlyCounts.TimeSlot;
             var count = animalHourlyCounts.Count;
 
             if (!countsPerAnimal.ContainsKey(animalName))
@@ -86,4 +126,6 @@ public partial class AnimalSpotReportQueryHandler: Node
 
         return Variant.From(report);
     }
+
+    private record struct AnimalTimeGroupKey(int TimeSlot, string AnimalName);
 }

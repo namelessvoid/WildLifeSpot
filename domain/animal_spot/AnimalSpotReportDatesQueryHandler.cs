@@ -44,29 +44,27 @@ public partial class AnimalSpotReportDatesQueryHandler : Node
     // hours will return a list of year-month-days.
     private Variant FindReportDateOptions(AnimalSpotReportDatesQuery query)
     {
-        var reportOptions = query.ReportOptions;
+        var granularity = query.ReportOptions.Granularity;
 
         var spots = _context.AnimalSpots;
-        IQueryable<string> dateOptions;
 
-        if (reportOptions.Granularity == ReportOptions.GranularityHourly())
+        var dateOptions = granularity switch
         {
-            dateOptions = spots.Select(spot =>
-                DateOnly.FromDateTime(spot.SpottedAtDateTime).ToString("o")
-            );
-        }
-        else if(reportOptions.Granularity == ReportOptions.GranularityDaily())
+            ReportOptions.GranularityHourly =>
+                spots
+                    .Select(spot => DateOnly.FromDateTime(spot.SpottedAtDateTime).ToString("o")),
+            ReportOptions.GranularityDaily =>
+                spots
+                    .Select(spot => new { spot.SpottedAtDateTime.Year, spot.SpottedAtDateTime.Month })
+                    .Select(t => new DateOnly(t.Year, t.Month, 1).ToString("yyyy-MM")),
+            ReportOptions.GranularityMonthly => spots.Select(spot => spot.SpottedAtDateTime.Year.ToString()),
+            _ => null
+        };
+
+        if (dateOptions is null)
         {
-            dateOptions = spots.Select(spot =>
-                    new { spot.SpottedAtDateTime.Year, spot.SpottedAtDateTime.Month }
-                )
-                .Select(t =>
-                    new DateOnly(t.Year, t.Month, 1).ToString("yyyy-MM")
-                );
-        }
-        else
-        {
-            dateOptions = spots.Select(spot => spot.SpottedAtDateTime.Year.ToString());
+            GD.PushError($"Invalid granularity: '{granularity}'");
+            return new Variant();
         }
 
         dateOptions = dateOptions.Distinct();
