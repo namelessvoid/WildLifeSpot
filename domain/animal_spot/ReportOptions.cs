@@ -6,13 +6,13 @@ namespace WildLifeSpot.AnimalSpots.Domain;
 [GlobalClass]
 public partial class ReportOptions : RefCounted
 {
-    public static string GranularityHourly() => "Hourly";
+    public static string GranularityHourly() => "GRANULARITY_HOURLY";
 
-    public static string GranularityDaily() => "Daily";
+    public static string GranularityDaily() => "GRANULARITY_DAILY";
 
-    public static string GranularityMonthly() => "Monthly";
+    public static string GranularityMonthly() => "GRANULARITY_MONTHLY";
 
-    public static Array<string> Granularities =
+    public static Array<string> Granularities() =>
     [
         GranularityHourly(),
         GranularityDaily(),
@@ -26,7 +26,7 @@ public partial class ReportOptions : RefCounted
         get => _granularity;
         set
         {
-            if (!Granularities.Contains(value))
+            if (!Granularities().Contains(value))
             {
                 GD.PushError($"Provided granularity '{value}' is not supported.");
                 return;
@@ -35,4 +35,6 @@ public partial class ReportOptions : RefCounted
             _granularity = value;
         }
     }
+
+    public string DateFilter { get; set; }
 }

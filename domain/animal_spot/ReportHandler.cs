@@ -26,17 +26,19 @@ public partial class ReportHandler: Node
 
     public bool CanHandle(Variant dispatchable)
     {
-        return dispatchable.Obj is FindReportDateOptionsQuery;
+        return dispatchable.Obj
+            is FindReportDateOptionsQuery
+            or GetAnimalSpotReportQuery;
     }
 
     public Variant Handle(Variant dispatchable)
     {
-        if (dispatchable.Obj is FindReportDateOptionsQuery query)
+        return dispatchable.Obj switch
         {
-            return FindReportDateOptions(query);
-        }
-
-        return new Variant();
+            FindReportDateOptionsQuery query => FindReportDateOptions(query),
+            GetAnimalSpotReportQuery query => GetAnimalSpotReport(query),
+            _ => new Variant()
+        };
     }
 
     // Method determines the available date options for a given query.
@@ -59,9 +61,11 @@ public partial class ReportHandler: Node
         else if(reportOptions.Granularity == ReportOptions.GranularityDaily())
         {
             dateOptions = spots.Select(spot =>
-                new { spot.SpottedAtDateTime.Year, spot.SpottedAtDateTime.Month }
-            )
-            .Select(t => $"{t.Year}-{t.Month}");
+                    new { spot.SpottedAtDateTime.Year, spot.SpottedAtDateTime.Month }
+                )
+                .Select(t =>
+                    new DateOnly(t.Year, t.Month, 1).ToString("yyyy-MM")
+                );
         }
         else
         {
@@ -74,5 +78,54 @@ public partial class ReportHandler: Node
             dateOptions.ToList()
         );
         return Variant.CreateFrom(result);
+    }
+
+    public Variant GetAnimalSpotReport(GetAnimalSpotReportQuery query)
+    {
+        var animalHourCountRows = _context.AnimalSpots.Where(spot =>
+            spot.SpottedAtDateTime.Date == DateTime.Parse(query.ReportOptions.DateFilter)
+        ).GroupBy(
+            spot => new { spot.SpottedAtDateTime.Hour, spot.AnimalName },
+            spot => spot.AnimalCount,
+            (group, count) => new
+            {
+                group.Hour,
+                group.AnimalName,
+                Count = count.Max()
+            }
+        ).ToList();
+
+        const int timeSlots = 24;
+        var countsPerAnimal = new Dictionary<string, Array<int>>();
+        foreach (var animalHourlyCounts in animalHourCountRows)
+        {
+            var animalName = animalHourlyCounts.AnimalName;
+            var hour = animalHourlyCounts.Hour;
+            var count = animalHourlyCounts.Count;
+
+            if (!countsPerAnimal.ContainsKey(animalName))
+            {
+                var emptyTimeSlots = new Array<int>();
+                emptyTimeSlots.Resize(timeSlots);
+                emptyTimeSlots.Fill(0);
+                countsPerAnimal.Add(animalName, emptyTimeSlots);
+            }
+
+            countsPerAnimal[animalName][hour] = count;
+        }
+
+        var maxCount = animalHourCountRows.Max(c => c.Count);
+        var xLabels = new Array<string>(Enumerable
+            .Range(0, timeSlots)
+            .Select(i => $"{i} - {i+1}h")
+            .ToList()
+        );
+        var report = new AnimalSpotReport(
+            maxCount: maxCount,
+            xLabels: xLabels,
+            countsPerAnimal: countsPerAnimal
+        );
+
+        return Variant.From(report);
     }
 }
