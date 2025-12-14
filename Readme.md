@@ -6,7 +6,7 @@ Features:
 
 - Inventorize your camera traps
 - Bulk process photos
-- Record animals and temperatures
+- Record animals
 - Visualize animal behavior in graphs
 
 ## Screenshots
