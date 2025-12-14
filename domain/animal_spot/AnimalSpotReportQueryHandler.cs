@@ -113,11 +113,19 @@ public partial class AnimalSpotReportQueryHandler: Node
         }
 
         var maxCount = animalHourCountRows.Max(c => c.Count);
-        var xLabels = new Array<string>(Enumerable
+        Func<int, string> labelFunction = granularity switch
+        {
+            ReportOptions.GranularityHourly => i => $"{i} - {i+1}h",
+            ReportOptions.GranularityDaily => i => $"{(i+1).ToString().PadLeft(2, '0')}",
+            ReportOptions.GranularityMonthly => i => $"{dateFilter}-{(i+1).ToString().PadLeft(2, '0')}"
+        };
+
+        Array<string> xLabels = new Array<string>(Enumerable
             .Range(0, timeSlots)
-            .Select(i => $"{i} - {i+1}h")
+            .Select(labelFunction)
             .ToList()
         );
+
         var report = new AnimalSpotReport(
             maxCount: maxCount,
             xLabels: xLabels,
