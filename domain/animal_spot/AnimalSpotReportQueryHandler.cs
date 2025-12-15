@@ -65,11 +65,11 @@ public partial class AnimalSpotReportQueryHandler: Node
                 spot.AnimalName
             ),
             ReportOptions.GranularityDaily => spot => new AnimalTimeGroupKey(
-                spot.SpottedAtDateTime.Day,
+                spot.SpottedAtDateTime.Day - 1,
                 spot.AnimalName
             ),
             ReportOptions.GranularityMonthly => spot => new AnimalTimeGroupKey(
-                spot.SpottedAtDateTime.Month,
+                spot.SpottedAtDateTime.Month - 1,
                 spot.AnimalName
             ),
         };
