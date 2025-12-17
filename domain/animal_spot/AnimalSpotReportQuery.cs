@@ -6,4 +6,6 @@ namespace WildLifeSpot.AnimalSpots.Domain;
 public partial class AnimalSpotReportQuery : RefCounted
 {
     public ReportOptions ReportOptions { get; private set; } = new();
+
+    public bool IsValid() => ReportOptions.IsValid();
 }

@@ -1,3 +1,6 @@
+using System;
+using System.Globalization;
+using System.Text.RegularExpressions;
 using Godot;
 using Godot.Collections;
 
@@ -15,6 +18,9 @@ public partial class ReportOptions : RefCounted
     public static string GetGranularityDaily() => GranularityDaily;
 
     public static string GetGranularityMonthly() => GranularityMonthly;
+
+    [GeneratedRegex(@"\d{4}(-\d{2}){0,2}", RegexOptions.IgnoreCase)]
+    private static partial Regex DateValidationRegex();
 
     public static Array<string> GetGranularities() =>
     [
@@ -41,4 +47,10 @@ public partial class ReportOptions : RefCounted
     }
 
     public string DateFilter { get; set; }
+
+    public bool IsValid()
+    {
+        return !string.IsNullOrEmpty(DateFilter) &&
+               DateValidationRegex().IsMatch(DateFilter);
+    }
 }

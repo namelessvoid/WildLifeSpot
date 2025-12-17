@@ -10,6 +10,12 @@ public partial class AnimalSpotReport(
     Dictionary<string, Array<int>> countsPerAnimal
 ) : RefCounted
 {
+    public static AnimalSpotReport Empty() => new(
+        maxCount: 0,
+        xLabels: [],
+        countsPerAnimal: new Dictionary<string, Array<int>> ()
+    );
+
     public int MaxCount { get; private set; } = maxCount;
 
     public Dictionary<string, Array<int>> CountsPerAnimal { get; private set; } = countsPerAnimal;

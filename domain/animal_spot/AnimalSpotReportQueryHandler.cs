@@ -41,13 +41,13 @@ public partial class AnimalSpotReportQueryHandler: Node
 
     private Variant GetAnimalSpotReport(AnimalSpotReportQuery query)
     {
-        var granularity = query.ReportOptions.Granularity;
-
-        if (!ReportOptions.GetGranularities().Contains(granularity))
+        if (!query.IsValid())
         {
-            GD.PushError($"Invalid granularity: '{granularity}'");
-            return new Variant();
+            GD.PushError("Received invalid query. Returning empty report.");
+            return Variant.From(AnimalSpotReport.Empty());
         }
+
+        var granularity = query.ReportOptions.Granularity;
 
         var dateFilter = query.ReportOptions.DateFilter;
         DateOnly.TryParse(dateFilter, out var filterDate);
@@ -87,7 +87,7 @@ public partial class AnimalSpotReportQueryHandler: Node
             }
         ).ToList();
 
-        int timeSlots = granularity switch
+        var timeSlots = granularity switch
         {
             ReportOptions.GranularityHourly => 24,
             ReportOptions.GranularityDaily => 31,
