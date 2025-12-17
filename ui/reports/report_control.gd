@@ -1,6 +1,7 @@
 extends Control
 
 @onready var _granularity_option_button: OptionButton = %GranularityOptionButton
+@onready var _chart_type_option_button: OptionButton = %ChartTypeOptionButton
 @onready var _date_list: ItemList = %DateList
 @onready var _spot_details_container: VBoxContainer = %SpotDetailsContainer
 @onready var _chart: SpotChart = %SpotChart
@@ -20,6 +21,8 @@ func _ready():
 		_granularity_option_button.add_item(granularity)
 	_granularity_option_button.item_selected.connect(_on_granularity_option_button_item_selected)
 
+	_chart_type_option_button.item_selected.connect(_on_chart_type_option_butotn_item_selected)
+
 	_spot_details_container.visible = true
 	_chart.visible = false
 
@@ -37,6 +40,10 @@ func _on_granularity_option_button_item_selected(_index: int) -> void:
 
 func _get_selected_granularity() -> String:
 	return ReportOptions.GetGranularities()[_granularity_option_button.selected]
+
+func _on_chart_type_option_butotn_item_selected(p_index: int) -> void:
+	var function_type := _chart_type_option_button.get_item_id(p_index) as Function.Type
+	_chart.function_type = function_type
 
 func _on_animal_spots_dirtied() -> void:
 	_refresh_date_list()
@@ -64,5 +71,5 @@ func _update_chart() -> void:
 	report_query.ReportOptions.DateFilter = _selected_date
 	var report := CommandQueryDispatcher.dispatch(report_query) as AnimalSpotReport
 
-	_chart.set_report(report)
+	_chart.report = report
 	_chart.visible = true

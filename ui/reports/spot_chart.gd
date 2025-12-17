@@ -1,10 +1,22 @@
 extends Control
 class_name SpotChart
 
+var function_type: Function.Type = Function.Type.BAR:
+	get: return function_type
+	set(value):
+		function_type = value
+		_reload()
+
+var report: AnimalSpotReport:
+	get: return report
+	set(value):
+		report = value
+		_reload()
+
 var _easy_chart_scene: PackedScene = preload("res://addons/easy_charts/control_charts/chart.tscn")
 var _easy_chart: Chart
 
-func set_report(report: AnimalSpotReport):
+func _reload():
 	if _easy_chart:
 		remove_child(_easy_chart)
 		_easy_chart.queue_free()
@@ -56,7 +68,7 @@ func _get_animal_plot_function(animal_name: String, x_labels: Array[String], spo
 		animal_name,
 		{
 			color = animal_setting["color"],
-			type = Function.Type.BAR,
+			type = function_type,
 			bar_size = 5,
 			icon = icon
 		}
