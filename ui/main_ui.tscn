@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ds4u6yauu4ssm"]
+[gd_scene format=3 uid="uid://ds4u6yauu4ssm"]
 
 [ext_resource type="Script" uid="uid://cm6fh1dlhfk7j" path="res://ui/main_ui.gd" id="1_m6rnm"]
 [ext_resource type="PackedScene" uid="uid://tr7amj4h6rn6" path="res://ui/reports/report_control.tscn" id="2_qry5k"]
@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dx7ktkeex2mww" path="res://ui/select_database_dialog.tscn" id="7_ti1yg"]
 [ext_resource type="PackedScene" uid="uid://dnmwxqqecj670" path="res://ui/spots/manage_spots_window.tscn" id="8_fa42e"]
 
-[node name="MainUi" type="Control"]
+[node name="MainUi" type="Control" unique_id=509608378]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,7 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_m6rnm")
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="." unique_id=1676307544]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,17 +27,17 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=356099925]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=1759197275]
 layout_mode = 2
 
-[node name="MenuBar" type="MenuBar" parent="Panel/MarginContainer/VBoxContainer"]
+[node name="MenuBar" type="MenuBar" parent="Panel/MarginContainer/VBoxContainer" unique_id=833025721]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="File" type="PopupMenu" parent="Panel/MarginContainer/VBoxContainer/MenuBar"]
+[node name="File" type="PopupMenu" parent="Panel/MarginContainer/VBoxContainer/MenuBar" unique_id=1309850711]
 unique_name_in_owner = true
 size = Vector2i(152, 128)
 min_size = Vector2i(152, 0)
@@ -55,7 +55,7 @@ item_4/separator = true
 item_5/text = "Quit"
 item_5/id = 2
 
-[node name="Spots" type="PopupMenu" parent="Panel/MarginContainer/VBoxContainer/MenuBar"]
+[node name="Spots" type="PopupMenu" parent="Panel/MarginContainer/VBoxContainer/MenuBar" unique_id=707803943]
 unique_name_in_owner = true
 item_count = 4
 item_0/text = "Add from cameras"
@@ -67,18 +67,18 @@ item_2/separator = true
 item_3/text = "Manage"
 item_3/id = 3
 
-[node name="Cameras" type="PopupMenu" parent="Panel/MarginContainer/VBoxContainer/MenuBar"]
+[node name="Cameras" type="PopupMenu" parent="Panel/MarginContainer/VBoxContainer/MenuBar" unique_id=1945860825]
 unique_name_in_owner = true
 item_count = 1
 item_0/text = "Manage"
 item_0/id = 1
 
-[node name="ReportControl" parent="Panel/MarginContainer/VBoxContainer" instance=ExtResource("2_qry5k")]
+[node name="ReportControl" parent="Panel/MarginContainer/VBoxContainer" unique_id=1386494694 instance=ExtResource("2_qry5k")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="BulkSpotFileDialog" type="FileDialog" parent="."]
+[node name="BulkSpotFileDialog" type="FileDialog" parent="." unique_id=994867104]
 unique_name_in_owner = true
 title = "Open File(s)"
 initial_position = 1
@@ -89,28 +89,28 @@ access = 2
 filters = PackedStringArray("*.png,*.jpg;Image Files;image/png,image/jpg")
 use_native_dialog = true
 
-[node name="BulkSpotWindow" parent="." instance=ExtResource("3_2unuh")]
+[node name="BulkSpotWindow" parent="." unique_id=269236942 instance=ExtResource("3_2unuh")]
 unique_name_in_owner = true
 visible = false
 
-[node name="ManualSpotWindow" parent="." instance=ExtResource("4_ck7gc")]
+[node name="ManualSpotWindow" parent="." unique_id=1066543666 instance=ExtResource("4_ck7gc")]
 unique_name_in_owner = true
 transparent_bg = true
 visible = false
 transparent = true
 
-[node name="SelectDatabaseDialog" parent="." instance=ExtResource("7_ti1yg")]
+[node name="SelectDatabaseDialog" parent="." unique_id=1105610405 instance=ExtResource("7_ti1yg")]
 unique_name_in_owner = true
 
-[node name="CamerasWindow" parent="." instance=ExtResource("3_186kx")]
+[node name="CamerasWindow" parent="." unique_id=759974863 instance=ExtResource("3_186kx")]
 unique_name_in_owner = true
 visible = false
 theme = ExtResource("6_186kx")
 
-[node name="SettingsWindow" parent="." instance=ExtResource("7_fa42e")]
+[node name="SettingsWindow" parent="." unique_id=931488776 instance=ExtResource("7_fa42e")]
 unique_name_in_owner = true
 visible = false
 
-[node name="ManageSpotsWindow" parent="." instance=ExtResource("8_fa42e")]
+[node name="ManageSpotsWindow" parent="." unique_id=67001627 instance=ExtResource("8_fa42e")]
 unique_name_in_owner = true
 oversampling_override = 1.0

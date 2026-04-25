@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://tr7amj4h6rn6"]
+[gd_scene format=3 uid="uid://tr7amj4h6rn6"]
 
 [ext_resource type="Script" uid="uid://cowrd2c6oifb1" path="res://ui/reports/report_control.gd" id="1_knnyb"]
 [ext_resource type="Script" uid="uid://biewagogkebie" path="res://ui/reports/spot_chart.gd" id="3_bmkda"]
 
-[node name="ReportControl" type="Control"]
+[node name="ReportControl" type="Control" unique_id=130319839]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1147.0
@@ -11,7 +11,7 @@ offset_bottom = 649.0
 script = ExtResource("1_knnyb")
 metadata/_tab_index = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1926139742]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,18 +19,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1072202477]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1300544654]
 layout_mode = 2
 
-[node name="GranularityOptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="GranularityOptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1572828809]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="ChartTypeOptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ChartTypeOptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=22638570]
 unique_name_in_owner = true
 layout_mode = 2
 selected = 0
@@ -40,27 +40,28 @@ popup/item_0/id = 4
 popup/item_1/text = "LINE"
 popup/item_1/id = 1
 
-[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VBoxContainer" unique_id=1447036102]
 layout_mode = 2
 size_flags_vertical = 3
+split_offsets = PackedInt32Array(152)
 split_offset = 152
 
-[node name="SpotDaysContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer"]
+[node name="SpotDaysContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer" unique_id=336499346]
 layout_mode = 2
 
-[node name="DateList" type="ItemList" parent="MarginContainer/VBoxContainer/HSplitContainer/SpotDaysContainer"]
+[node name="DateList" type="ItemList" parent="MarginContainer/VBoxContainer/HSplitContainer/SpotDaysContainer" unique_id=1848081944]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 item_count = 1
 item_0/text = "adsfadsf"
 
-[node name="SpotDetailsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer"]
+[node name="SpotDetailsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer" unique_id=1446034754]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 
-[node name="SpotChart" type="Control" parent="MarginContainer/VBoxContainer/HSplitContainer/SpotDetailsContainer"]
+[node name="SpotChart" type="Control" parent="MarginContainer/VBoxContainer/HSplitContainer/SpotDetailsContainer" unique_id=1792041682]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3

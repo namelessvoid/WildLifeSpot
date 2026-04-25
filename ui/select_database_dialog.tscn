@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dx7ktkeex2mww"]
+[gd_scene format=3 uid="uid://dx7ktkeex2mww"]
 
 [ext_resource type="Script" uid="uid://dasu1ngf2w6os" path="res://ui/select_database_dialog.gd" id="1_ne6pt"]
 
-[node name="SelectDatabaseDialog" type="FileDialog"]
+[node name="SelectDatabaseDialog" type="FileDialog" unique_id=1445359619]
 auto_translate_mode = 1
 title = "Open a File"
 ok_button_text = "Open"
