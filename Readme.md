@@ -26,4 +26,4 @@ Inventorize your camera traps.
 
 ## Development
 
-Get [Godot Engine 4.4](https://godotengine.org/). Checkout the repository and open the project in Godot.
+Get [Godot Engine 4.6 .Net](https://godotengine.org/). Checkout the repository and open the project in Godot.
