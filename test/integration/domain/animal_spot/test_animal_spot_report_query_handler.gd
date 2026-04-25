@@ -20,4 +20,4 @@ func test_returns_empty_report_if_granularity_is_wrong():
 
 	# Assert
 	assert_eq(report.MaxCount, 0)
-	assert_engine_error(1, "Received invalid query. Returning empty report.")
+	assert_engine_error("Received invalid query. Returning empty report.")
