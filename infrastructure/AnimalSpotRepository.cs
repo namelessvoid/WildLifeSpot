@@ -23,7 +23,6 @@ public partial class AnimalSpotRepository : Node
         base._ExitTree();
         if (context != null)
         {
-            GD.Print("DISPOSING CONTEX");
             context.Dispose();
             context = null;
         }
@@ -33,7 +32,6 @@ public partial class AnimalSpotRepository : Node
     {
         context?.Dispose();
         context = new WildlifeSpotDbContext(dbPath);
-        context.Database.EnsureCreated();
     }
 
     public void Save(AnimalSpot animalSpot)

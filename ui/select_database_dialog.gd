@@ -20,4 +20,4 @@ func show_load():
 func _on_file_selected(p_path):
 	assert(database_manager)
 
-	database_manager.set_db_path(p_path)
+	database_manager.SetDbPath(p_path)

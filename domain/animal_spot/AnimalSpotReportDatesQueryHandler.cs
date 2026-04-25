@@ -9,7 +9,7 @@ namespace WildLifeSpot.AnimalSpots.Domain;
 [GlobalClass]
 public partial class AnimalSpotReportDatesQueryHandler : Node
 {
-        private WildlifeSpotDbContext _context;
+    private WildlifeSpotDbContext _context;
 
     public override void _EnterTree()
     {
